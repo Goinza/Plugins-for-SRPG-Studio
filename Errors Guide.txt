@@ -1,4 +1,9 @@
-Errors Guide
+ERRORS GUIDE
+Here is a list of all the possible errors.
+If you project crashes with one of this plugins, it will generally show a message showing the error number.
+You can check the error's description here and try to fix the problem.
+If the crash message doesn't say the error number, or if you can't solve the problem yourself, you can contact me for help on Discord at Goinza#5058.
+You can also reach me at the /r/SRPGStudio Discord server here https://discord.gg/yRbuKUd.
 
 WEAPON RANKS SYSTEM
 Error 1:
@@ -28,3 +33,53 @@ Error 6:
     For example, {rankUp: ["Sword", "Lance"]} or {rankUp: ["Axe"]}.
 
 Error 7:
+    An object has a problem with the custom parameter 'rank'. This object is usually an unit, but it can be other things.
+    The parameter should be an array of arrays. Each array contains two elements: the name of the weapon rank and
+    the current rank that is given to the object. For example: {rank: [ ["Sword", 31], ["Axe", 55] ]} or {rank: [ ["Sword", 120] ]}.
+
+Error 8-9:
+    A class has a problem with either the custom parameter 'maxRank' (Error 8) or 'minRank' (Error 9).
+    The parameter should be an array of arrays. Each array contains two elements: the name of the weapon rank and
+    the current rank that is given to the object. For example: {rank: [ ["Sword", 31], ["Axe", 55] ]} or {rank: [ ["Sword", 120] ]}.
+
+Error 10:
+    An unit has a problem with the custom parameter 'rankSkills'.
+    The parameter should be an array of arrays. Each array contains three elements: the name of the weapon type,
+    the second the name of the rank and the third the ID of the skill to obtain.
+    For example: {rankSkills: [ ["Sword", "D", 32], ["Sword", "C", 35], ["Axe", "D", 52] ]} or {rankSkills: [ ["Sword", "B", 14] ]}.
+
+Error 11:
+    A weapon type has a problem with the custom parameter 'rankSkills'.
+    The parameter should be an array of arrays. Each array contains two elements: the second the name of the rank and the third the ID of the skill to obtain.
+    For example: {rankSkills: [ ["D", 32], ["C", 35] ]} or {rankSkills: [ ["B", 14] ]}.
+
+
+SKILLS PACK
+Error 12:
+    A problem with the custom parameter 'critFactor' on a "CritFactor" skill. It is either missing or it was
+    written incorrectly. The parameter should be an integer number, like {critFactor: 4}.
+
+Error 13:
+    A problem with the custom parameter 'wand' on a "ExtraHeal" skill.
+    The parameter should be a boolean, like {wand: true} or {wand: false}.
+    Note that, because the parameter is optional, if you don't use it by default the value will be treated as false.
+
+Error 14:
+    A problem with the custom parameter 'plus' on a "ExtraHeal" skill. It is either missing or it was
+    written incorrectly. The parameter should be an integer number, like {plus: 15}.
+
+Error 15:
+    A problem with the custom parameter 'name' on a Unit Command skill.
+    The parameter should be a string, like {name: "Push"}.
+
+Error 16:
+    A problem with the custom parameter 'healing' on a "Sacrifice" skill. It is either missing or it was
+    written incorrectly. The parameter should be an integer number, like {healing: 15}. 
+
+Error 17:
+    A problem with the custom parameter 'type' on a "BuffWand" skill. It is either missing or it was
+    written incorrectly. The parameter should be an array of numbers, like {type: [1, 4, 6]} or {type: [3]}.
+
+Error 18:
+    A problem with the custom parameter 'stateID' on a "BuffWand" skill. It is either missing or it was
+    written incorrectly. The parameter should be an integer number, like {stateID: 22}.

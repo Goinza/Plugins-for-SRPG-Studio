@@ -12,7 +12,7 @@
         if (skill!=null && itemTargetInfo.item.isWand() && itemTargetInfo.unit.getUnitType()==itemTargetInfo.targetUnit.getUnitType()) {
             var i = 0;
             var found = false;
-            if (typeof skill.custom.type.length != 'number') {
+            if (skill.custom.type==null || typeof skill.custom.type.length != 'number') {
                 throwError017(skill);
             }
             while (i<skill.custom.type.length && !found) {
