@@ -34,8 +34,8 @@ function throwError006(object) {
     root.endGame();
 }
 
-function throwError007(unit) {
-    var message = "Error 7." + '\n' + "There is a problem with the unit " + unit.getName() + "." + '\n' + "Check the custom parameter 'rank'.";
+function throwError007(object) {
+    var message = "Error 7." + '\n' + "There is a problem with the object " + object.getName() + "." + '\n' + "Check the custom parameter 'rank'.";
     root.msg(message);
     root.endGame();
 }

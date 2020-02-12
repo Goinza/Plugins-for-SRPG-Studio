@@ -23,7 +23,7 @@ var RankUnitParameter = defineObject(BaseUnitParameter, {
         var rankArray = unit.custom.rank!=null ? unit.custom.rank : null;
         var rank = RANK_SYSTEM[0][1];
         if (rankArray!=null) {
-            if (typeof rankArray.length != 'number') {
+            if (typeof rankArray.length != 'number' || typeof rankArray[0].length != 'number') {
                 throwError007(unit);
             }
             var i = 0;
@@ -64,7 +64,7 @@ var RankUnitParameter = defineObject(BaseUnitParameter, {
 
         var rankArray = unit.custom.rank!=null ? unit.custom.rank : null;  
         if (rankArray!=null) {
-            if (typeof rankArray.length != 'number') {
+            if (typeof rankArray.length != 'number' || typeof rankArray[0].length != 'number') {
                 throwError007(unit);
             }
             var i = 0;
@@ -97,7 +97,7 @@ var RankUnitParameter = defineObject(BaseUnitParameter, {
         var rankArray = obj.custom.rank!=null ? obj.custom.rank : null;
         var rank = RANK_SYSTEM[0][1];
         if (rankArray!=null) {
-            if (typeof rankArray.length != 'number') {
+            if (typeof rankArray.length != 'number' || typeof rankArray[0].length != 'number') {
                 throwError007(unit);
             }
             var i = 0;
@@ -128,7 +128,7 @@ var RankUnitParameter = defineObject(BaseUnitParameter, {
         var rankArray = unit.getClass().custom.maxRank!=null ? unit.getClass().custom.maxRank : null;
         var rank = RANK_SYSTEM[RANK_SYSTEM.length-1][1];
         if (rankArray!=null) {
-            if (typeof rankArray.length != 'number') {
+            if (typeof rankArray.length != 'number' || typeof rankArray[0].length != 'number') {
                 throwError008(unit.getClass());
             }
             var i = 0;
@@ -149,7 +149,7 @@ var RankUnitParameter = defineObject(BaseUnitParameter, {
         var rankArray = unit.getClass().custom.minRank!=null ? unit.getClass().custom.minRank : null;
         var rank = RANK_SYSTEM[0][1];
         if (rankArray!=null) {
-            if (typeof rankArray.length != 'number') {
+            if (typeof rankArray.length != 'number' || typeof rankArray[0].length != 'number') {
                 throwError009(unit);
             }
             var i = 0;

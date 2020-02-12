@@ -15,7 +15,7 @@ WeaponRankControl = {
 
         var rankArray = unit.custom.rank!=null ? unit.custom.rank : null;  
         if (rankArray!=null) {
-            if (typeof rankArray.length != 'number') {
+            if (typeof rankArray.length != 'number' || typeof rankArray[0].length != 'number') {
                 throwError007(unit);
             }
             var i = 0;
@@ -206,7 +206,7 @@ WeaponRankControl = {
 
         //Rank skills of the unit
         if (rankSkills!=null) {
-            if (typeof rankSkills.length != 'number') {
+            if (typeof rankSkills.length != 'number' || typeof rankSkills[0].length != 'number') {
                 throwError010(unit);
             }
             //rankSkills[i][0] is the name of the weapon type, rankSkills[i][1] is the rank value ("C", "B", etc) and rankSkills[i][2] is the ID of the skill.
@@ -238,7 +238,7 @@ WeaponRankControl = {
         if (found) {
             rankSkills = wpnType.custom.rankSkills;
             if (rankSkills!=null) {
-                if (typeof rankSkills.length != 'number') {
+                if (typeof rankSkills.length != 'number' || typeof rankSkills[0].length != 'number') {
                     throwError011(wpnType);
                 }
                 //rankSkills[i][0] is the rank value ("C", "B", etc) and rankSkills[i][1] is the ID of the skill.
