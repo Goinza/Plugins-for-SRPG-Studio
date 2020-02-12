@@ -5,41 +5,6 @@
  * Also, they are "renderable", so they can be shown with the details like the weapon type icon and the rank as a character.
  */
 
-//Adds the weapon ranks as parameters
-var cup = ParamGroup._configureUnitParameters;
-ParamGroup._configureUnitParameters = function(groupArray) {
-    cup.call(this, groupArray);
-
-    var namesArray = [];
-    var h;
-    for (h=0; h<4; h++) {
-        var weaponTypeList = root.getBaseData().getWeaponTypeList(h);
-        var i, weaponRank;
-        j = groupArray.length;
-        for (i=0; i<weaponTypeList.getCount(); i++) {            
-            if (!this.isSameName(namesArray, weaponTypeList.getData(i).getName())) {
-                weaponRank = createObject(RankUnitParameter);
-                weaponRank.setRank(weaponTypeList.getData(i).getName(), j);
-                groupArray.appendObject(weaponRank);
-                j++;
-                namesArray[namesArray.length] = weaponTypeList.getData(i).getName();
-            }            
-        }
-        ParamType.COUNT = j;
-    }    
-};
-
-ParamGroup.isSameName = function(array, name) {
-    var i = 0;
-    var found = false;
-    while (i<array.length && !found) {
-        found = (array[i]==name);
-        i++;
-    }
-
-    return found;
-};
-
 //The variable used to make all the weapon ranks
 var RankUnitParameter = defineObject(BaseUnitParameter, {
 

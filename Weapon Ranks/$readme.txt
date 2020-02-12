@@ -78,3 +78,8 @@ To change it, you must use 2 global parameters. This can be done going to Databe
 The parameters are "weaponRankGauge" and "isRuntimeGauge". The first one has as value the id of the desired gauge.
 The second parameter has as value true if the gauge is a default asset, or false if the gauge is a custom asset.
 For example, {weaponRankGauge:0, isRuntimeGauge:true} uses the default gauge used for the HP bar on the unit screen.
+
+INCOMPATIBILITY ISSUES
+This plugin is not compatible with other plugins that use the following functions:
+    - ItemListScrollbar.setStockItemFormationFromWeaponType from window-itemlist.js line 202
+    - UnitMenuBottomWindow._drawWeaponTypeArea from screen.unitmenu.js line 600
