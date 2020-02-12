@@ -1,0 +1,30 @@
+Errors Guide
+
+WEAPON RANKS SYSTEM
+Error 1:
+    A weapon or item has a problem with the custom parameter 'req'. The parameter should be a string, like {req: "D"}.
+
+Error 2:
+    A weapon has a problem with the custom parameter 'wexp'. The parameter should be an integer number, like {wexp: 15}.
+
+Error 3:
+    There is a "Discipline" skill with a problem in the custom parameter 'multiplier'. It is either missing 
+    or it was incorrectly written. The parameter should be a number, like {multiplier: 2} or {multilpier: 1.5}.
+
+Error 4:
+    An item used to increase the rank of an unit has a problem the custom parameter 'rankNew'.
+    The parameter should be an array of strings, where each string is the name of a weapon type.
+    For example, {rankNew: ["Sword", "Lance"]} or {rankNew: ["Axe"]}.
+
+Error 5:
+    An item used to increase the rank of an unit has a problem the custom parameter 'rankPlus'.
+    The parameter should be an array of arrays, where each array has two elements, the string of the weapon type's name, 
+    and the value to increase in that weapon rank.
+    For example, {rankPlus: [ ["Sword", 15], ["Lance", 42] ]} or {rankPlus: [ ["Axe", 24] ]}.
+
+Error 6:
+    An item used to increase the rank of an unit has a problem the custom parameter 'rankUp'.
+    The parameter should be an array of strings, where each string is the name of a weapon type.
+    For example, {rankUp: ["Sword", "Lance"]} or {rankUp: ["Axe"]}.
+
+Error 7:
