@@ -5,6 +5,7 @@ You can check the error's description here and try to fix the problem.
 If the crash message doesn't say the error number, or if you can't solve the problem yourself, you can contact me for help on Discord at Goinza#5058.
 You can also reach me at the /r/SRPGStudio Discord server here https://discord.gg/yRbuKUd.
 
+
 WEAPON RANKS SYSTEM
 Error 1:
     A weapon or item has a problem with the custom parameter 'req'. The parameter should be a string, like {req: "D"}.
@@ -83,3 +84,23 @@ Error 17:
 Error 18:
     A problem with the custom parameter 'stateID' on a "BuffWand" skill. It is either missing or it was
     written incorrectly. The parameter should be an integer number, like {stateID: 22}.
+
+
+RANGE MODIFIERS
+Error 19:
+    A problem with the custom parameter 'type' on a "WeaponRange" skill. It is either missing or it was
+    written incorrectly. The parameter should be an string, like {type: "Sword"}.
+
+Error 20:
+    A problem with the custom parameter 'startRange' on a custom skill. 
+    The parameter should be an integer number, like {startRange: 1} or {startRange: -1}.
+
+Error 21:
+    A problem with the custom parameter 'endRange' on a custom skill. 
+    The parameter should be an integer number, like {endRange: 1} or {endRange: -1}.
+
+Error 22:
+    A problem with the custom parameter 'magicRange'.
+    The parameter should be a integer number, like {magicRange: 3}.
+    The value can't be zero.
+    
