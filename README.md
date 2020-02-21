@@ -1,4 +1,4 @@
-# Plugins-for-SRPG-Studio
+# Plugins for SRPG Studio
 ## A collection of plugins made by Goinza for use in SRPG Studio
 
 
