@@ -104,3 +104,8 @@ Error 22:
     The parameter should be a integer number, like {magicRange: 3}.
     The value can't be zero.
     
+CHANGES TO DAMAGE FORMULA FOR WEAPONS
+Error 23:
+    A problem with one of the custom parameters of this plugin.
+    All the parameters used for this plugin, except for 'alternative', must be integer numbers.
+    For example: {alternative: true, ski: 50}.
