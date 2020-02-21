@@ -32,3 +32,7 @@ EXAMPLES
 {alternative: true, str: 50, ski: 50} 50% Strength and 50% Skill.
 {alternative: true, res: 150} 150% Resistance.
 {alternative: true} Only uses the weapon's might.
+
+INCOMPATIBILITY ISSUES
+This plugin is not compatible with other plugins that use the following function:
+    - AbilityCalculator.getPower from singleton-calculator.js line 3
