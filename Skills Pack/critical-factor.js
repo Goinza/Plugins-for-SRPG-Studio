@@ -1,7 +1,5 @@
-/**
- * Critical Factor
- * By Goinza
- */
+//Plugin by Goinza
+
 (function() {
     var alias1 = DamageCalculator.calculateDamage;
     DamageCalculator.calculateDamage = function(active, passive, weapon, isCritical, activeTotalStatus, passiveTotalStatus, trueHitValue) {

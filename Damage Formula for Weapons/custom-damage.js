@@ -1,8 +1,4 @@
-/**
- * Plugin made by Goinza
- * 
- * Custom damage formula
- */
+//Plugin by Goinza
 
 (function () {
 

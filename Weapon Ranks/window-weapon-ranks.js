@@ -1,3 +1,5 @@
+//Plugin by Goinza
+
 UnitStatusType.WRANKS = 3;
 
 //The weapon ranks window

@@ -1,8 +1,5 @@
-/**
- * Extra Healing
- * Extra healing does not show up in the UI if the item's scope is Self/Single.
- * The item will still work as intended.
- */
+//Plugin by Goinza
+
 (function() {
     var alias1 = Calculator.calculateRecoveryItemPlus;
     Calculator.calculateRecoveryItemPlus = function(unit, targetUnit, item) {

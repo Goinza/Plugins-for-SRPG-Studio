@@ -1,3 +1,5 @@
+//Plugin by Goinza
+
 function throwError001(item) {
     var message = "Error 1." + '\n' + "There is a problem with the item " + item.getName() + "." + '\n' + "Check the custom parameter 'req'.";
     root.msg(message);

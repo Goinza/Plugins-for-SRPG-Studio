@@ -1,7 +1,5 @@
-/**
- * Live to Serve
- * By Goinza
- */
+//Plugin by Goinza
+
 (function() {    
     var alias1 = RecoveryItemUse.enterMainUseCycle;
     RecoveryItemUse.enterMainUseCycle = function(itemUseParent) {

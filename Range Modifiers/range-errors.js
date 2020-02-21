@@ -1,3 +1,5 @@
+//Plugin by Goinza
+
 function throwError019(skill) {
     var message = "Error 19." + '\n' + "There is a problem with the skill " + skill.getName() + "." + '\n' + "Check the custom parameter 'type'.";
     root.msg(message);

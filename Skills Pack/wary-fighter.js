@@ -1,7 +1,5 @@
-/**
- * Wary Fighter
- * By Goinza
- */
+//Plugin by Goinza
+
 (function() {
     var alias1 = Calculator.calculateRoundCount;
     Calculator.calculateRoundCount = function(active, passive, weapon) {

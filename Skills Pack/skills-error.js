@@ -1,3 +1,5 @@
+//Plugin by Goinza
+
 function throwError012(skill) {
     var message = "Error 12." + '\n' + "There is a problem with the skill " + skill.getName() + "." + '\n' + "Check the custom parameter 'critFactor'.";
     root.msg(message);

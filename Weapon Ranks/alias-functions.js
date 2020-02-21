@@ -1,3 +1,5 @@
+//Plugin by Goinza
+
 (function() {
     //Checks if the unit has the proper rank to equip the weapon
     var alias01 = ItemControl.isWeaponAvailable;

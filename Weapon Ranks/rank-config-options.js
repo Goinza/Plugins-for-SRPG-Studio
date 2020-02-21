@@ -1,9 +1,4 @@
-/**
- * Script by Goinza
- * 
- * Here are all the variables that can be easily edited by users with no coding knowledge. *
- */
-
+//Plugin by Goinza
 
 /**
  * This is the rank system.

@@ -1,7 +1,5 @@
-/**
- * Buff on Staff Use
- * By Goinza
- */
+//Plugin by Goinza
+
 (function() {
     
     BaseItemUse._stateOnUse = function(itemTargetInfo, itemType) {

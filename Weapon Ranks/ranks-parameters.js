@@ -1,9 +1,4 @@
-/**
- * Script by Goinza
- * This handles the weapon ranks, treating them as normal stats like str and spd.
- * This is done by making them displayable only on their window.
- * Also, they are "renderable", so they can be shown with the details like the weapon type icon and the rank as a character.
- */
+//Plugin by Goinza
 
 //The variable used to make all the weapon ranks
 var RankUnitParameter = defineObject(BaseUnitParameter, {

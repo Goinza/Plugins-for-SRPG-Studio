@@ -1,3 +1,5 @@
+//Plugin by Goinza
+
 WeaponRankControl = {
 
     //Changes a rank value of an unit.

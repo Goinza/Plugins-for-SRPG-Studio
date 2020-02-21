@@ -1,8 +1,4 @@
-/**
- * Extended Range Skills
- * Dynamic Magic Range
- * Script by Goinza. 
- */
+//Plugin by Goinza
 
 IndexArray.createExtendedIndexArray = function(x, y, item, unit) {
     var i, rangeValue, rangeType, arr, skill, skillArr;

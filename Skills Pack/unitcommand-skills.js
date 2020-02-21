@@ -1,24 +1,5 @@
-    /**
-     * Assist Skills: Movement Skills - Sacrifice
-     * By Goinza
-     * 
-     * Movement Skills
-     * Shove - Swap - Smite - Draw Back - Pivot - Reposition
-     * 
-     * The custom keyword is the name of each skill (including the space in the case of "Draw Back").
-     * 
-     * Custom parameter of the skills
-     * "name": The name of the command of the skill. If no parameter is used, the default name of the skill will be its keyword.
-     * For example {name:"Push"}
-     * 
-     * Sacrifice
-     *  The skill's user can sacrifice its own HP to heal an adjacent unit. The amount of healing depends on the custom parameter.
-     *  If the unit doesn't have enought HP to sacrifice, it heals as much as possible, staying at 1 HP.
-     *   -Custom keyword: "Sacrifice".
-     *   -Custom parameters: 
-     *     "name": The name of the skill command. If this parameter is not used, the command will be called "Sacrifice".
-     *     "healing": The amount of healing done.
-     */
+//Plugin by Goinza
+
 (function() {
 
     var alias1 = UnitCommand.configureCommands;
