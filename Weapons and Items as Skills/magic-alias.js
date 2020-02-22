@@ -9,12 +9,11 @@
         var attackable = alias1.call(this, unit);
 
         if (!attackable) {
-            var i, skill, item, indexArray;
-            var magicSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillAttack");
+            var i, item, indexArray;
+            var attackSpells = MagicAttackControl.getAttackSpells(unit);
             
-            for (i = 0; i < magicSkills.length; i++) {
-                skill = magicSkills[i].skill;
-                item = MagicAttackControl.getWeaponFromUnit(unit, root.getBaseData().getWeaponList().getDataFromId(skill.custom.weapon));
+            for (i = 0; i < attackSpells.length; i++) {
+                item = attackSpells[i];
                 if (item !== null && ItemControl.isWeaponAvailable(unit, item)) {
                     indexArray = this.getAttackIndexArray(unit, item, true);
                     if (indexArray.length !== 0) {
@@ -42,11 +41,9 @@
 			}
         }
         
-        var magicSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillAttack");
-        var skill;
-        for (i=0; i<magicSkills.length; i++) {
-            skill = magicSkills[i].skill;
-            item = MagicAttackControl.getWeaponFromUnit(unit, root.getBaseData().getWeaponList().getDataFromId(skill.custom.weapon));        
+        var attackSpells = MagicAttackControl.getAttackSpells(unit);
+        for (i=0; i<attackSpells.length; i++) {
+            item = attackSpells[i];    
             if (this._isWeaponAllowed(unit, item)) {       
 				scrollbar.objectSet(item);
 			}
@@ -60,11 +57,9 @@
     WeaponSelectMenu.getWeaponCount = function() {
         var count = alias2.call(this);
 
-        var magicSkills = SkillControl.getDirectSkillArray(this._unit, SkillType.CUSTOM, "SkillAttack");
-        var skill;
-        for (var i=0; i<magicSkills.length; i++) {
-            skill = magicSkills[i].skill;
-            item = MagicAttackControl.getWeaponFromUnit(this._unit, root.getBaseData().getWeaponList().getDataFromId(skill.custom.weapon));
+        var attackSpells = MagicAttackControl.getAttackSpells(this._unit);
+        for (var i=0; i<attackSpells.length; i++) {
+            item = attackSpells[i];
             if (this._isWeaponAllowed(this._unit, item)) {
 				count++;
 			}
@@ -98,12 +93,11 @@
         var usable = alias5.call(this, unit);
 
         if (!usable) {
-            var i, skill, item;
-            var magicSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillSupport");
+            var i, item;
+            var supportSpells = MagicAttackControl.getSupportSpells(unit);
             
-            for (i = 0; i < magicSkills.length; i++) {
-                skill = magicSkills[i].skill;
-                item = MagicAttackControl.getWandFromUnit(unit, root.getBaseData().getItemList().getDataFromId(skill.custom.item));
+            for (i = 0; i < supportSpells.length; i++) {
+                item = supportSpells[i];
                 if (item !== null) {
                     if (this.isWandUsableInternal(unit, item)) {
                         return true;
@@ -130,11 +124,9 @@
 			}
         }
         
-        var magicSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillSupport");
-        var skill;
-        for (i=0; i<magicSkills.length; i++) {
-            skill = magicSkills[i].skill;
-            item = MagicAttackControl.getWandFromUnit(unit, root.getBaseData().getItemList().getDataFromId(skill.custom.item));        
+        var supportSpells = MagicAttackControl.getSupportSpells(unit);
+        for (i=0; i<supportSpells.length; i++) {
+            item = supportSpells[i]; 
             if (this._isWandAllowed(unit, item)) {       
 				scrollbar.objectSet(item);
 			}
@@ -148,11 +140,9 @@
     WandSelectMenu.getWandCount = function() {
         var count = alias6.call(this);
 
-        var magicSkills = SkillControl.getDirectSkillArray(this._unit, SkillType.CUSTOM, "SkillSupport");
-        var skill;
-        for (var i=0; i<magicSkills.length; i++) {
-            skill = magicSkills[i].skill;
-            item = MagicAttackControl.getWandFromUnit(this._unit, root.getBaseData().getItemList().getDataFromId(skill.custom.item));
+        var supportSpells = MagicAttackControl.getSupportSpells(this._uunit);
+        for (var i=0; i<supportSpells.length; i++) {
+            item = supportSpells[i];
             if (this._isWandAllowed(this._unit, item)) {
 				count++;
 			}
@@ -183,8 +173,8 @@
 		var count = UnitItemControl.getPossessionItemCount(this._unit);
         var visibleCount = 8;
         
-        var attackSpells = SkillControl.getDirectSkillArray(this._unit, SkillType.CUSTOM, "SkillAttack");
-        var supportSpells = SkillControl.getDirectSkillArray(this._unit, SkillType.CUSTOM, "SkillSupport");
+        var attackSpells = MagicAttackControl.getAttackSpells(this._unit);
+        var supportSpells = MagicAttackControl.getSupportSpells(this._unit);
         count += attackSpells.length + supportSpells.length;
 		
 		if (count > visibleCount) {
@@ -202,8 +192,8 @@
 
         if (!displayable) {
             var unit = this.getCommandTarget();
-            var attackSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillAttack");
-            var supportSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillSupport");
+            var attackSpells = MagicAttackControl.getAttackSpells(unit);
+            var supportSpells = MagicAttackControl.getSupportSpells(unit);
             displayable = attackSkills.length>0 || supportSkills.length>0; 
         }
 
@@ -215,7 +205,7 @@
     CombinationCollector.Weapon.collectCombination = function(misc) {
         alias8.call(this, misc);
         var unit = misc.unit;
-        var spells = unit.custom.spellsAttack;
+        var spells = MagicAttackControl.getAttackSpells(unit);
 		var weapon;
 		for (var i=0; i<spells.length; i++) {
 			weapon = spells[i];
@@ -238,7 +228,7 @@
     UnitRangePanel.getUnitAttackRange = function(unit) {
         var obj = alias9.call(this, unit);
         if (unit.getUnitType() != UnitType.PLAYER) {
-            var spells = unit.custom.spellsAttack;
+            var spells = MagicAttackControl.getAttackSpells(unit);
             var weapon;
             for (var i=0; i<spells.length; i++) {
                 weapon = spells[i];
@@ -262,7 +252,7 @@
         alias10.call(this, misc);
         var unit = misc.unit;
 
-        var spells = unit.custom.spellsSupport;
+        var spells = MagicAttackControl.getSupportSpells(unit);
         var item;
         for (var i = 0; i < spells.length; i++) {
 			item = spells[i];
@@ -338,8 +328,7 @@
     var alias15 = ScriptCall_AppearEventUnit;
     ScriptCall_AppearEventUnit = function(unit) {
         alias15.call(this, unit);
-        if (unit.custom.spellsAttack==null) {
-            //root.log(unit.getName());
+        if (unit!=null && unit.custom.spellsAttack==null) {
             MagicAttackControl.setSpells(unit);
         }
     }
@@ -347,144 +336,6 @@
     //We are missing the guest units. Note: The event guests are covered in alias15
 
 })();
-
-MagicAttackControl = {
-
-    setSpellsAllUnits: function() {
-        var groupArray = [];
-        groupArray.push(PlayerList.getAliveList());
-        groupArray.push(EnemyList.getAliveList());
-        groupArray.push(AllyList.getAliveList());
-
-        var list, unit, magicSkills, skill, item;
-        for (var h=0; h<groupArray.length; h++) {
-            list = groupArray[h];
-            for (var i=0; i<list.getCount(); i++) {
-                unit = list.getData(i);
-                this.setSpells(unit);
-            }
-        }
-    },
-
-    setSpells: function(unit) {
-        var magicSkills, skill, item;
-        //Skill weapons
-        magicSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillAttack");
-        unit.custom.spellsAttack = [];
-        for (var j=0; j<magicSkills.length; j++) {
-            skill = magicSkills[j].skill;
-            item = root.duplicateItem(root.getBaseData().getWeaponList().getDataFromId(skill.custom.weapon));
-            unit.custom.spellsAttack.push(item);
-        }
-        //Equip the first skill if the unit doesn't have any normal weapon
-        if (unit.custom.spellsAttack.length>0 && ItemControl.getEquippedWeapon(unit)==null) {
-            unit.custom.equipped = unit.custom.spellsAttack[0];
-        }
-        //Skill items
-        magicSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillSupport");
-        unit.custom.spellsSupport = [];
-        for (var j=0; j<magicSkills.length; j++) {
-            skill = magicSkills[j].skill;
-            item = root.duplicateItem(root.getBaseData().getItemList().getDataFromId(skill.custom.item));
-            unit.custom.spellsSupport.push(item);
-        }
-
-        this.setMagicUses(unit);
-    },
-
-    addSpell: function(unit, skill) {
-        var item;
-        if (skill!=null && skill.getSkillType()==SkillType.CUSTOM) {            
-            if (skill.getCustomKeyword() == "SkillAttack") {
-                item = root.duplicateItem(root.getBaseData().getWeaponList().getDataFromId(skill.custom.weapon));
-                unit.custom.spellsAttack.push(item);
-            }
-            else if (skill.getCustomKeyword() == "SkillSupport") {
-                item = root.duplicateItem(root.getBaseData().getItemList().getDataFromId(skill.custom.item));
-                unit.custom.spellsSupport.push(item);
-            }
-        }
-    },
-
-    getWeaponFromUnit: function(unit, weapon) {
-        var unitWeapon = null;
-        var spells = unit.custom.spellsAttack;
-        var i = 0;
-        var found = false;
-        while (i<spells.length && !found) {
-            if (spells[i].getId() == weapon.getId()) {
-                found = true;
-                unitWeapon = spells[i];
-            }
-            i++;
-        }            
-        
-        return unitWeapon;
-    },
-
-    getWandFromUnit: function(unit, item) {
-        var unitItem = null;
-        var spells = unit.custom.spellsSupport;
-        var i = 0;
-        var found = false;
-        while (i<spells.length && !found) {
-            if (spells[i].getId() == item.getId()) {
-                found = true;
-                unitItem = spells[i];
-            }
-            i++;
-        }        
-
-        return unitItem;
-    },
-
-    setMagicUses: function(unit) {
-        var spells, item, type;
-
-        var black = SkillControl.getPossessionCustomSkill(unit, "DoubleBlackUses");
-        var white = SkillControl.getPossessionCustomSkill(unit, "DoubleWhiteUses");
-        var dark = SkillControl.getPossessionCustomSkill(unit, "DoubleDarkUses");
-
-        spells = unit.custom.spellsAttack;
-        for (var j=0; j<spells.length; j++) {
-            item = spells[j];
-            if (item.custom.magic!=null && item.custom.magic) {
-                type = item.custom.type;
-                if (type == "Black" && black!=null) {
-                    item.setLimit(item.getLimitMax());
-                }
-                else if (type == "Dark" && dark!=null) {
-                    item.setLimit(item.getLimitMax());
-                }
-                else if (type == "White" && white!=null) {
-                    item.setLimit(item.getLimitMax());
-                }
-                else {
-                    item.setLimit(Math.ceil(item.getLimitMax()/2));
-                }
-            }
-        }
-        spells = unit.custom.spellsSupport; 
-        for (var j=0; j<spells.length; j++) {
-            item = spells[j];
-            if (item.custom.magic!=null && item.custom.magic) {                
-                type = item.custom.type;
-                if (type == "Black" && black!=null) {
-                    item.setLimit(item.getLimitMax());
-                }
-                else if (type == "Dark" && dark!=null) {
-                    item.setLimit(item.getLimitMax());
-                }
-                else if (type == "White" && white!=null) {
-                    item.setLimit(item.getLimitMax());
-                }
-                else {
-                    item.setLimit(Math.ceil(item.getLimitMax()/2));
-                }
-            }
-        }
-    }
-}
 
 //CHANGES TO MAKE BOTH TYPES OF SPELLS BE VISIBLE IN THE ITEM COMMAND
 var ItemAndSpellListWindow = defineObject(ItemListWindow, {
@@ -512,23 +363,19 @@ var ItemAndSpellListScrollbar = defineObject(ItemListScrollbar, {
             }
         }
 
-        var magicSkills, skill;
 
-        magicSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillAttack");
-        skill;
-        for (i=0; i<magicSkills.length; i++) {
-            skill = magicSkills[i].skill;
-            item = MagicAttackControl.getWeaponFromUnit(unit, root.getBaseData().getWeaponList().getDataFromId(skill.custom.weapon));        
+        var attackSpells = MagicAttackControl.getAttackSpells(unit);
+        for (i=0; i<attackSpells.length; i++) {
+            item = attackSpells[i];    
             if (item!=null) {       
                 this.objectSet(item);
             }
         }
 
         magicSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillSupport");
-        skill;
+        var supportSpells = MagicAttackControl.getSupportSpells(unit);
         for (i=0; i<magicSkills.length; i++) {
-            skill = magicSkills[i].skill;
-            item = MagicAttackControl.getWandFromUnit(unit, root.getBaseData().getItemList().getDataFromId(skill.custom.item));        
+            item = magicSkills[i];  
             if (item!=null) {       
                 this.objectSet(item);
             }

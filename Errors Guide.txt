@@ -104,8 +104,28 @@ Error 22:
     The parameter should be a integer number, like {magicRange: 3}.
     The value can't be zero.
     
+
 CHANGES TO DAMAGE FORMULA FOR WEAPONS
 Error 23:
     A problem with one of the custom parameters of this plugin.
     All the parameters used for this plugin, except for 'alternative', must be integer numbers.
     For example: {alternative: true, ski: 50}.
+
+
+WEAPONS AND ITEMS AS SKILLS
+Error 24:
+    A problem with the custom parameter 'ballista' on a chapter.
+    The parameter should be like this: {ballista: [{x:3, y:5, skill:30}, {x:7, y:3, skill:30}] }.
+
+Error 25:
+    A problem with the ballista on a specific chapter. Make sure you are using the Opening Event with the code
+    BallistaControl.addBallista();
+
+Error 26:
+    A problem with the skill weapons and items on a specific chapter. Make sure you are using the Opening Event with the code
+    MagicAttackControl.setSpellsAllUnits();
+
+Error 27:
+    A problem witt the custom parameters 'weapon' or 'item' on a custom skill.
+    Note that "SkillAttack" skills use the parameter 'weapon', and "SkillSupport" skills use the parameter 'item'.
+    These two parameter should be integer numbers, like {weapon:15} and {item:3}.
