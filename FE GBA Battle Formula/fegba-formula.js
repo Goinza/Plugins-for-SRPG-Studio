@@ -1,3 +1,5 @@
+//Plugin by Goinza
+
 (function() {
     
 	//Uses normal version if magic is enabled. Else, it only uses Str.
