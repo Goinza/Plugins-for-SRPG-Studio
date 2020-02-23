@@ -1,6 +1,6 @@
 //Plugin by Goinza
 
-HybridControl = {
+var HybridControl = {
 
     isHybrid: function(weapon) {
         var isHybrid;
