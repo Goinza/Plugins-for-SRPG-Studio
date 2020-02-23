@@ -80,3 +80,6 @@ var MasteryItemUse = defineObject(BaseItemUse, {
 
 		return this._dynamicEvent.executeDynamicEvent();
 	},
+	
+INCOMPATIBILITY ISSUES
+This plugin is compatible with any other plugin.
