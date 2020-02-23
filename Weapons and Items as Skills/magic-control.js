@@ -1,6 +1,6 @@
 //Plugin by Goinza
 
-MagicAttackControl = {
+var MagicAttackControl = {
 
     setSpellsAllUnits: function() {
         var groupArray = [];
