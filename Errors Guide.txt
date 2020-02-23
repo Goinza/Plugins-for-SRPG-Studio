@@ -136,3 +136,9 @@ Error 28:
     A problem with the custom parameter 'hybridAttack' on a weapon.
     The parameter should be an array of arrays, where the the first element has a string, the second a number and the third a true or false value.
     For example: {hybridAttack: [ ["Sword", 1, true], ["Wind", 2, false] ]}
+
+
+HP COST FOR WEAPONS AND ITEMS
+Error 29:
+    A problem with the custom parameter 'lifeCost' on a weapon or item.
+    The parameter should be a positive number, like {lifeCost: 5}.
