@@ -142,3 +142,10 @@ HP COST FOR WEAPONS AND ITEMS
 Error 29:
     A problem with the custom parameter 'lifeCost' on a weapon or item.
     The parameter should be a positive number, like {lifeCost: 5}.
+
+
+LEARNABLE SKILLS BY CLASS
+Error 30:
+    A problem with the custom paramter 'skills' on a class.
+    The parameter needs to be an array of objects. Each of those objects has two parameters: "id" and "level".
+    Both of these parameter should be positive numbers, like for example: {skills: [ {id:4, level:10}, {id:7, level:15} ]} or {skills: [ {id:12, level: 20} ]}.
