@@ -149,3 +149,15 @@ Error 30:
     A problem with the custom paramter 'skills' on a class.
     The parameter needs to be an array of objects. Each of those objects has two parameters: "id" and "level".
     Both of these parameter should be positive numbers, like for example: {skills: [ {id:4, level:10}, {id:7, level:15} ]} or {skills: [ {id:12, level: 20} ]}.
+
+
+COVER SYSTEM
+Error 31:
+    A problem with the custom parameter 'wall' on a terrain.
+    It should be a boolean value, like {wall: true} or {wall: false}.
+
+Error 32:
+    A problem with the custom parameter 'cover' on a terrain.
+    This parameter must be an object that contais at least one of these parameters: 'dmg', 'hit' and/or 'crit'.
+    You can use one, two or all of them. The values of these parameters are numbers.
+    For example: {cover: {dmg: 0.7}}, {cover: {hit: 0.5, crit:2}} or {cover: {hit:0.75, crit:0}}
