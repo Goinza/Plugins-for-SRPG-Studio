@@ -399,4 +399,10 @@
         return found;
     }
     
+	var alias11 = UnitMenuScreen._configureBottomWindows;
+	UnitMenuScreen._configureBottomWindows = function(groupArray) {
+		alias11.call(this, groupArray);
+		groupArray.appendWindowObject(WeaponRanksWindow, this);
+	}
+	
 }) ()
