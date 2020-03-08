@@ -4,6 +4,7 @@
     var alias1 = ExperienceControl.obtainData;
     ExperienceControl.obtainData = function(unit) {    
         alias1.call(this, unit);
+        root.msg(unit.getName());
         SkillGranter.checkCustomSkills(unit);    
     }
 
@@ -13,4 +14,4 @@
         var itemTargetInfo = this._itemUseParent.getItemTargetInfo();
         SkillGranter.checkCustomSkills(itemTargetInfo.unit);
     }
-})
+})()
