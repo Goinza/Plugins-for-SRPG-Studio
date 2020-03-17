@@ -15,8 +15,14 @@ var CoverControl = {
         var movX, movY, terrain;
         var sight = true;
         if (Math.abs(vector.y)>Math.abs(vector.x)) {
-            movX = (vector.x / vector.y) / 4;
-            movY = vector.y>0 ? 0.25 : -0.25;
+            movX = Math.abs((vector.x / vector.y) * this.getVectorScale());
+            movY = this.getVectorScale();
+            if (vector.x<0) {
+                movX *= -1;
+            }
+            if (vector.y<0) {
+                movY *= -1;
+            }
             while (lineY!=passiveY && sight) {
                 lineX += movX;
                 lineY += movY;
@@ -25,15 +31,21 @@ var CoverControl = {
             }
         }
         else {
-            movX = vector.x>0 ? 0.25 : -0.25;
-            movY = (vector.y / vector.x) / 4;
+            movX = this.getVectorScale();
+            movY = Math.abs((vector.y / vector.x) * this.getVectorScale());
+            if (vector.x<0) {
+                movX *= -1;
+            }
+            if (vector.y<0) {
+                movY *= -1;
+            }
             while (lineX!=passiveX && sight) {
                 lineX += movX;
                 lineY += movY;
                 terrain = PosChecker.getTerrainFromPos(Math.floor(lineX), Math.floor(lineY));
                 sight = !this.isWall(terrain);
             }
-        }        
+        }    
 
         return sight;
     },
@@ -53,16 +65,28 @@ var CoverControl = {
         var movX, movY, terrain, cover;
         
         if (Math.abs(vector.y)>Math.abs(vector.x)) {
-            movX = (vector.x / vector.y);
-            movY = vector.y>0 ? 1 : -1;
+            movX = Math.abs((vector.x / vector.y) * this.getVectorScale());
+            movY = this.getVectorScale();
+            if (vector.x<0) {
+                movX *= -1;
+            }
+            if (vector.y<0) {
+                movY *= -1;
+            }
             lineX += movX;
             lineY += movY;
             terrain = PosChecker.getTerrainFromPos(Math.floor(lineX), Math.floor(lineY));
             cover = this.getCoverValue(terrain);
         }
         else {
-            movX = vector.x>0 ? 1 : -1;
-            movY = (vector.y / vector.x);
+            movX = this.getVectorScale();
+            movY = Math.abs((vector.y / vector.x) * this.getVectorScale());
+            if (vector.x<0) {
+                movX *= -1;
+            }
+            if (vector.y<0) {
+                movY *= -1;
+            }
             lineX += movX;
             lineY += movY;
             terrain = PosChecker.getTerrainFromPos(Math.floor(lineX), Math.floor(lineY));

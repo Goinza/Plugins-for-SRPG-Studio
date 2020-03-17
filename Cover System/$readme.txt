@@ -1,7 +1,7 @@
 Cover System
 By Goinza
-February 28, 2020
-Version 1.0
+March 17, 2020
+Version 1.1
 
 This plugin adds a cover system for ranged attacks. It comes with two types of cover:
     - Walls: This type of terrain blocks line of sight between units, so units from opposite sides of the wall can't attack each other.
@@ -22,3 +22,12 @@ HOW TO USE
 INCOMPATIBILITY ISSUES
 This plugin is not compatible with other plugins that use the following functions:
     - AttackChecker.getAttackIndexArray from singleton-system.js line 923.
+
+VERSION HISTORY
+1.0 - February 28, 2020
+    - Initial version
+
+1.1 - March 17, 2020
+    - Fixed an issue where, in some specific situations, a player unit could attack an enemy unit from a position that doesn't have line of sight with that unit.
+    - AI was not behaving properly. It has been partially fixed. Now, enemy units should only attack other units that are within their line of sight. 
+        But the current problem is that they will only attack if they have line of sight without moving. This will be fixed in the next version. 

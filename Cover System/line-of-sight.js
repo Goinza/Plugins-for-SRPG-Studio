@@ -49,19 +49,22 @@
         return Math.round(critical * cover.crit);
     }
     
+    //THIS FUNCTION CANNOT USE combination.posIndex SO I NEED TO FIX IT SO IT CAN USE THAT OR SOMETHING SIMILAR
     var alias4 = AIScorer.Weapon.getScore;
     AIScorer.Weapon.getScore = function(unit, combination) {
-        var index = combination.posIndex;
+       /* var index = combination.posIndex;
         var currentX = unit.getMapX();
         var currentY = unit.getMapY();
 
         unit.setMapX(CurrentMap.getX(index));
         unit.setMapY(CurrentMap.getY(index));
 
-        var score = CoverControl.hasLineOfSight(unit, combination.targetUnit) ? -1 : alias4.call(this, unit, combination);
+        root.log("X: " + CurrentMap.getX(index) + " - Y: " + CurrentMap.getY(index));*/
 
-        unit.setMapX(currentX);
-        unit.setMapY(currentY);
+        var score = CoverControl.hasLineOfSight(unit, combination.targetUnit) ? alias4.call(this, unit, combination) : -1;
+
+       /* unit.setMapX(currentX);
+        unit.setMapY(currentY);*/
 
         return score;
     }
