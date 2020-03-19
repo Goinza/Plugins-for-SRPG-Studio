@@ -161,3 +161,17 @@ Error 32:
     This parameter must be an object that contais at least one of these parameters: 'dmg', 'hit' and/or 'crit'.
     You can use one, two or all of them. The values of these parameters are numbers.
     For example: {cover: {dmg: 0.7}}, {cover: {hit: 0.5, crit:2}} or {cover: {hit:0.75, crit:0}}
+
+
+AUTOMATIC STAS FOR ENEMY UNITS
+Error 33:
+    A problem with the custom parameter 'growths' on a class.
+    The paramater should only contain the following paramters: all - mhp - str - mag - ski - spd - luk - def - res - bld - mov - wlv.
+    All of these parameters must have a positive integer, and they are optional, meaning that not all parameters must be present at the same time. 
+    For example: {growths: {all: 50, str:100, mag: 25, mov:0}}
+
+Error 34:
+    A problem with the global parameter 'variance' on a class.
+    The paramater should only contain the following paramters: all - mhp - str - mag - ski - spd - luk - def - res - bld - mov - wlv.
+    All of these parameters must have a positive integer, and they are optional, meaning that not all parameters must be present at the same time. 
+    For example: {variance: {all:1, ski: 2, spd:0, bld:0, mov:0}}
