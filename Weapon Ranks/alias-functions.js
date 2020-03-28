@@ -215,10 +215,10 @@
             if (found) {        
                 wexp = item.custom.wexp!=null ? item.custom.wexp : 0;
                 if (typeof wexp != 'number') {
-                    throwError002(virtualActive.weapon);
+                    throwError002(item);
                 }
 
-                skill = SkillControl.getPossessionCustomSkill(virtualPassive.unitSelf, "Discipline");
+                skill = SkillControl.getPossessionCustomSkill(unit, "Discipline");
                 if (skill!=null) {
                     if (typeof skill.custom.multiplier != 'number') {
                         throwError003(skill);
