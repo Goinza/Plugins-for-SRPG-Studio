@@ -8,7 +8,7 @@
  * The only two things you must keep is that the first rank must have a value of 0,
  * and that each rank must have a bigger value than the one before and lower that the one next to it.
  */
-var RANK_SYSTEM = [ ["", 0], ["E", 1], ["D", 31], ["C", 71], ["B", 121], ["A", 181] ];
+var RANK_SYSTEM = [ ["", 0], ["E", 1], ["D", 31], ["C", 71], ["B", 121], ["A", 181], ["S", 251] ];
 
 /**
  * If this variable is true, then all the weapon types will be shown on the weapon ranks window, even the ones the unit cannot use.

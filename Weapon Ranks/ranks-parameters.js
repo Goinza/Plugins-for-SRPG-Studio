@@ -27,7 +27,7 @@ var RankUnitParameter = defineObject(BaseUnitParameter, {
                 //[i][0] is the name of the rank. [i][1] is the value of the rank
                 if (rankArray[i][0]==this._name) {
                     found = true;
-                    rank = rankArray[i][1]
+                    rank = rankArray[i][1];
                 }
                 i++;
             }      

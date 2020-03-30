@@ -156,6 +156,7 @@
                 oldValue = ParamGroup.getUnitValue(virtualActive.unitSelf, paramType);
                 newValue = oldValue + wexp;
                 ParamGroup.setUnitValue(virtualActive.unitSelf, paramType, newValue);
+                newValue = ParamGroup.getUnitValue(virtualActive.unitSelf, paramType);
                 WeaponRankControl.checkRankUp(virtualActive.unitSelf, paramType, newValue-oldValue);
             }      
         }
@@ -186,6 +187,7 @@
                 oldValue = ParamGroup.getUnitValue(virtualPassive.unitSelf, paramType);
                 newValue = oldValue + wexp;
                 ParamGroup.setUnitValue(virtualPassive.unitSelf, paramType, newValue);
+                newValue = ParamGroup.getUnitValue(virtualPassive.unitSelf, paramType);
                 WeaponRankControl.checkRankUp(virtualPassive.unitSelf, paramType, newValue-oldValue);
             }      
         }
@@ -360,6 +362,17 @@
             WeaponRankControl.showRankUp();
         }
         
+        return result;
+    }
+
+    //After combat, checks if the the unit increased rank in the equipped item type
+    var alias12 = ItemExpFlowEntry.moveFlowEntry;
+    ItemExpFlowEntry.moveFlowEntry = function() {
+        var result = alias12.call(this);
+        if (result == MoveResult.END) {
+            WeaponRankControl.showRankUp();
+        }
+
         return result;
     }
 
