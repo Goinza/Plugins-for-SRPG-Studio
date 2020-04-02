@@ -154,8 +154,7 @@
                     wexp = Math.round(skill.custom.multiplier * wexp);
                 }
                 oldValue = ParamGroup.getUnitValue(virtualActive.unitSelf, paramType);
-                newValue = oldValue + wexp;
-                ParamGroup.setUnitValue(virtualActive.unitSelf, paramType, newValue);
+                ParamGroup.setUnitValue(virtualActive.unitSelf, paramType, oldValue + wexp);
                 newValue = ParamGroup.getUnitValue(virtualActive.unitSelf, paramType);
                 WeaponRankControl.checkRankUp(virtualActive.unitSelf, paramType, newValue-oldValue);
             }      
@@ -185,8 +184,7 @@
                     wexp = Math.round(skill.custom.multiplier * wexp);
                 }
                 oldValue = ParamGroup.getUnitValue(virtualPassive.unitSelf, paramType);
-                newValue = oldValue + wexp;
-                ParamGroup.setUnitValue(virtualPassive.unitSelf, paramType, newValue);
+                ParamGroup.setUnitValue(virtualPassive.unitSelf, paramType, oldValue + wexp);
                 newValue = ParamGroup.getUnitValue(virtualPassive.unitSelf, paramType);
                 WeaponRankControl.checkRankUp(virtualPassive.unitSelf, paramType, newValue-oldValue);
             }      
@@ -196,13 +194,13 @@
     //Handles the weapon experience gain with staves and other item custom types
     var alias06 = ItemExpFlowEntry._completeMemberData;
     ItemExpFlowEntry._completeMemberData = function(itemUseParent) {
-        alias06.call(this, itemUseParent);
+        var result = alias06.call(this, itemUseParent);
         var unit = itemUseParent.getItemTargetInfo().unit;
         var item = itemUseParent.getItemTargetInfo().item;
         var paramType = 0;
         var found = false;
         var wexp = 0;
-        var value, skill;
+        var oldValue, newValue, skill;
         var defaultItemType = root.getBaseData().getWeaponTypeList(3).getDataFromId(1);
         if (unit.getUnitType() === UnitType.PLAYER && item.getWeaponType()!=defaultItemType) {
             while (paramType<ParamType.COUNT && !found) {
@@ -228,10 +226,14 @@
                     wexp = Math.round(skill.custom.multiplier * wexp);
                 }
 
-                value = ParamGroup.getUnitValue(unit, paramType) + wexp;
-                ParamGroup.setUnitValue(unit, paramType, value);
+                oldValue = ParamGroup.getUnitValue(unit, paramType);
+                ParamGroup.setUnitValue(unit, paramType, oldValue + wexp);
+                newValue = ParamGroup.getUnitValue(unit, paramType);
+                WeaponRankControl.checkRankUp(unit, paramType, newValue-oldValue);
             }      
         }
+
+        return result;
     };
 
     //If the item is not the default "Item" type, then add the magic stat of the unit to the recovery value.
