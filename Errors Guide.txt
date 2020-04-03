@@ -175,3 +175,25 @@ Error 34:
     The paramater should only contain the following paramters: all - mhp - str - mag - ski - spd - luk - def - res - bld - mov - wlv.
     All of these parameters must have a positive integer, and they are optional, meaning that not all parameters must be present at the same time. 
     For example: {variance: {all:1, ski: 2, spd:0, bld:0, mov:0}}
+
+
+COMBAT ART
+Error 35:
+    A problem with the custom parameter 'artSkill' on a skill.
+    The parameter must be an array of numbers, which must be the ID's of other skills.
+    For example: {artSkill: [7, 11]} or {artSkill: [4]}
+
+Error 36:
+    A problem with the custom parameter 'cost' on a skill.
+    The parameter should be a positive number, like {cost: 3}.
+
+Error 37:
+    A problem with the custom parameters 'startRange' and/or 'endRange' on a skill.
+    Both parameters should be positive numbers, and startRange should be less or equal than endRange.
+    For example: {startRange: 1, endRange: 3} or {starRange: 1, endRange: 1}
+
+Error 38:
+    A problem with the custom parameter 'weaponName' or 'weaponType' on a skill.
+    Only one of the parameter should be present at a time.
+    Both of those parameter should be a string.
+    For example: {weaponType: "Sword"} or {weaponName: "Iron Lance"}
