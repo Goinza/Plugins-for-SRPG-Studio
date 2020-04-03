@@ -1,7 +1,7 @@
 Weapon Ranks System
 By Goinza
-Version 1.0
-February 11, 2020.
+Version 1.1
+April 3, 2020.
 
 This plugin allows you to make individual ranks for each weapon type, without having to edit anything on the code itself.
 To make this work, is necessary to make several custom parameters on units, classes, weapons and staves.
@@ -83,3 +83,10 @@ INCOMPATIBILITY ISSUES
 This plugin is not compatible with other plugins that use the following functions:
     - ItemListScrollbar.setStockItemFormationFromWeaponType from window-itemlist.js line 202
     - UnitMenuBottomWindow._drawWeaponTypeArea from screen.unitmenu.js line 600
+	
+VERSION HISTORY
+1.0 - February 11, 2020
+	- Initial version
+	
+1.1 - April 3, 2020
+	- Fixed issues regarding the "Rank Up" notifaction.

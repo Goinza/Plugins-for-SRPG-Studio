@@ -126,7 +126,7 @@
     var alias05 = NormalAttackOrderBuilder._endVirtualAttack;
     NormalAttackOrderBuilder._endVirtualAttack = function(virtualActive, virtualPassive) {
         alias05.call(this, virtualActive, virtualPassive);
-        var oldValue, newValue, wexp, skill;
+        var oldValue, newTotalValue, oldTotalValue, wexp, skill;
         var paramType = 0;
         var found = false;
         if (virtualActive.unitSelf.getUnitType() === UnitType.PLAYER && virtualActive.weapon!=null) {
@@ -154,9 +154,10 @@
                     wexp = Math.round(skill.custom.multiplier * wexp);
                 }
                 oldValue = ParamGroup.getUnitValue(virtualActive.unitSelf, paramType);
+                oldTotalValue = ParamGroup.getClassUnitValue(virtualActive.unitSelf, paramType);
                 ParamGroup.setUnitValue(virtualActive.unitSelf, paramType, oldValue + wexp);
-                newValue = ParamGroup.getUnitValue(virtualActive.unitSelf, paramType);
-                WeaponRankControl.checkRankUp(virtualActive.unitSelf, paramType, newValue-oldValue);
+                newTotalValue = ParamGroup.getClassUnitValue(virtualActive.unitSelf, paramType);
+                WeaponRankControl.checkRankUp(virtualActive.unitSelf, paramType, newTotalValue-oldTotalValue);
             }      
         }
         else if (virtualPassive.unitSelf.getUnitType() === UnitType.PLAYER && virtualPassive.weapon!=null) {
@@ -184,9 +185,10 @@
                     wexp = Math.round(skill.custom.multiplier * wexp);
                 }
                 oldValue = ParamGroup.getUnitValue(virtualPassive.unitSelf, paramType);
+                oldTotalValue = ParamGroup.getClassUnitValue(virtualPassive.unitSelf, paramType);
                 ParamGroup.setUnitValue(virtualPassive.unitSelf, paramType, oldValue + wexp);
-                newValue = ParamGroup.getUnitValue(virtualPassive.unitSelf, paramType);
-                WeaponRankControl.checkRankUp(virtualPassive.unitSelf, paramType, newValue-oldValue);
+                newTotalValue = ParamGroup.getClassUnitValue(virtualPassive.unitSelf, paramType);
+                WeaponRankControl.checkRankUp(virtualPassive.unitSelf, paramType, newTotalValue-oldTotalValue);
             }      
         }
     };
@@ -200,7 +202,7 @@
         var paramType = 0;
         var found = false;
         var wexp = 0;
-        var oldValue, newValue, skill;
+        var oldValue, oldTotalValue, newTotalValue, skill;
         var defaultItemType = root.getBaseData().getWeaponTypeList(3).getDataFromId(1);
         if (unit.getUnitType() === UnitType.PLAYER && item.getWeaponType()!=defaultItemType) {
             while (paramType<ParamType.COUNT && !found) {
@@ -227,9 +229,10 @@
                 }
 
                 oldValue = ParamGroup.getUnitValue(unit, paramType);
+                oldTotalValue = ParamGroup.getClassUnitValue(unit, paramType);
                 ParamGroup.setUnitValue(unit, paramType, oldValue + wexp);
-                newValue = ParamGroup.getUnitValue(unit, paramType);
-                WeaponRankControl.checkRankUp(unit, paramType, newValue-oldValue);
+                newTotalValue = ParamGroup.getClassUnitValue(unit, paramType);
+                WeaponRankControl.checkRankUp(unit, paramType, newTotalValue-oldTotalValue);
             }      
         }
 
@@ -368,8 +371,8 @@
     }
 
     //After combat, checks if the the unit increased rank in the equipped item type
-    var alias12 = ItemExpFlowEntry.moveFlowEntry;
-    ItemExpFlowEntry.moveFlowEntry = function() {
+    var alias12 = ItemUseParent.moveUseCycle;
+    ItemUseParent.moveUseCycle = function() {
         var result = alias12.call(this);
         if (result == MoveResult.END) {
             WeaponRankControl.showRankUp();
