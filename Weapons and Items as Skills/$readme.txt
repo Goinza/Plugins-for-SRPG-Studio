@@ -1,7 +1,7 @@
 Weapons and Items as Skills
 By Goinza
-Version 1.0
-February 22, 2020
+Version 1.1
+April 8, 2020
 
 This plugin allows the creation of skills that act as weapons or items.
 This means that you can, for example, make a magic system where the magic is not in the inventory, but instead it is a skill from the unit.
@@ -39,3 +39,10 @@ This plugin is not compatible with other plugins that use the following function
     - WandSelectMenu._setWandbar from windowmanager-weaponselectmenu.js line 222.
     - ItemSelectMenu.setMenuTarget from windowmanager-itemselectmenu.js line 24.
     - ItemSelectMenu._resetItemList from windowmanager-itemselectmenu.js line 243.
+
+VERSION HISTORY
+1.0 - February 22, 2020
+	- Initial version.
+
+1.1 - April 8, 2020
+	- Fixed an issue where loading a file would crash the game.

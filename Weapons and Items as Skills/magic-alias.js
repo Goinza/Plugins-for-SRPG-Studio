@@ -332,8 +332,16 @@
             MagicAttackControl.setSpells(unit);
         }
     }
-
     //We are missing the guest units. Note: The event guests are covered in alias15
+
+    //Resets item data from the custom parameters when loading the game.
+    //This is done because objects like items can't be saved correctly as custom parameters when the game ends.
+    var alias16 = LoadSaveScreen._executeLoad;
+    LoadSaveScreen._executeLoad = function() {
+        alias16.call(this);
+        MagicAttackControl.clear();
+		MagicAttackControl.setSpellsPlayerUnits();
+    }
 
 })();
 

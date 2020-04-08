@@ -2,6 +2,14 @@
 
 var MagicAttackControl = {
 
+    clear: function() {
+        var list = PlayerList.getAliveList();
+        for (var i=0; i<list.getCount(); i++) {
+            unit = list.getData(i);
+            unit.custom.equipped = null;
+        }
+    },
+
     setSpellsAllUnits: function() {
         var groupArray = [];
         groupArray.push(PlayerList.getAliveList());
@@ -15,6 +23,14 @@ var MagicAttackControl = {
                 unit = list.getData(i);
                 this.setSpells(unit);
             }
+        }
+    },
+
+    setSpellsPlayerUnits: function() {
+        var list = PlayerList.getAliveList();
+        for (var i=0; i<list.getCount(); i++) {
+            unit = list.getData(i);
+            this.setSpells(unit);
         }
     },
 
