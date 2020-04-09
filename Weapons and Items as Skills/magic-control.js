@@ -79,7 +79,7 @@ var MagicAttackControl = {
     },
 
     addSpell: function(unit, skill) {
-        if (typeof unit.custom.spellsAttack != 'undefined' || typeof unit.custom.spellsSupport != 'undefined') {
+        if (typeof unit.custom.spellsAttack == 'undefined' || typeof unit.custom.spellsSupport == 'undefined') {
             throwError026();
         }
         var item;
