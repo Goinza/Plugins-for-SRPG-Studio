@@ -35,14 +35,14 @@ var MagicAttackControl = {
     },
 
     getAttackSpells: function(unit) {
-        if (typeof unit.custom.spellsAttack != undefined) {
+        if (typeof unit.custom.spellsAttack == "undefined") {
             throwError026();
         }
         return unit.custom.spellsAttack;
     },
 
     getSupportSpells: function(unit) {
-        if (typeof unit.custom.spellsSupport != undefined) {
+        if (typeof unit.custom.spellsSupport == "undefined") {
             throwError026();
         }
         return unit.custom.spellsSupport;
@@ -79,7 +79,7 @@ var MagicAttackControl = {
     },
 
     addSpell: function(unit, skill) {
-        if (typeof unit.custom.spellsAttack != 'undefined' || typeof unit.custom.spellsSupport) {
+        if (typeof unit.custom.spellsAttack != 'undefined' || typeof unit.custom.spellsSupport != 'undefined') {
             throwError026();
         }
         var item;
