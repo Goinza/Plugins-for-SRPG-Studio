@@ -65,9 +65,10 @@ in each indivdual file, they will be covered here:
     
 ### CONTACT
 If you have problem with some of the instructions (here or in the plugin's readme) or some of the plugins are
-not working correctly, you can contact me through Discord. You can use direct message or, if you are in the
-/r/SRPGStudio Discord server, you can ping me there. \
-My username in Discord is Goinza#5058 and you can enter the server here https://discord.gg/yRbuKUd
+not working correctly, you can contact me through Discord. You can use direct message or, if you are in the SRPG Studio University server o the /r/SRPGStudio Discord server, you can ping me there. \
+My username in Discord is Goinza#5058 and you can enter the servers through these links: \
+SRPG Studio Universtiy server - https://discord.gg/GcTS5EH \
+/r/SRPGStudio server https://discord.gg/yRbuKUd
 
 
 ### MIT License
