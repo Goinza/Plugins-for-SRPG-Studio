@@ -380,10 +380,9 @@ var ItemAndSpellListScrollbar = defineObject(ItemListScrollbar, {
             }
         }
 
-        magicSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "SkillSupport");
         var supportSpells = MagicAttackControl.getSupportSpells(unit);
-        for (i=0; i<magicSkills.length; i++) {
-            item = magicSkills[i];  
+        for (i=0; i<supportSpells.length; i++) {
+            item = supportSpells[i];  
             if (item!=null) {       
                 this.objectSet(item);
             }
