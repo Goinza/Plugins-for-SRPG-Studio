@@ -1,4 +1,6 @@
-CombatArtSelectMenu = defineObject(BaseWindowManager, {
+//Plugin by Goinza
+
+var CombatArtSelectMenu = defineObject(BaseWindowManager, {
 
     _unit: null,
     _artList: null,
@@ -8,20 +10,20 @@ CombatArtSelectMenu = defineObject(BaseWindowManager, {
     setMenuTarget: function(unit) {
         this._unit = unit;
 
-        this._artList = createWindowObject(CombartArtWindow);
+        this._artList = createWindowObject(CombatArtWindow);
         this._artList.setUnit(unit);
 
         this._artInfo = createWindowObject(CombatArtInfo);
-        this._artInfo.setSkill(this._artList.getSelectedArtSkill());
+        this._artInfo.setCombatArt(this._artList.getSelectedCombatArt());
 
         this._supportWindow = createWindowObject(CombatArtSupport);
-        this._supportWindow.setSupportSkill(this._artList.getSelectedArtSkill());
+        this._supportWindow.setCombatArt(this._artList.getSelectedCombatArt());
     },
 
     moveWindowManager: function() {
         var result = this._artList.moveWindow();
-        this._artInfo.setSkill(this._artList.getSelectedArtSkill());
-        this._supportWindow.setSupportSkill(this._artList.getSelectedArtSkill());
+        this._artInfo.setCombatArt(this._artList.getSelectedCombatArt());
+        this._supportWindow.setCombatArt(this._artList.getSelectedCombatArt());
 
         return result;
     },
@@ -40,8 +42,8 @@ CombatArtSelectMenu = defineObject(BaseWindowManager, {
         
     },
 
-    getSelectedArtSkill: function() {
-        return this._artList.getSelectedArtSkill();
+    getSelectedCombatArt: function() {
+        return this._artList.getSelectedCombatArt();
     },
 
     getTotalWindowWidth: function() {
@@ -65,26 +67,26 @@ CombatArtSelectMenu = defineObject(BaseWindowManager, {
 
 })
 
-CombartArtWindow = defineObject(BaseWindow, {
+var CombatArtWindow = defineObject(BaseWindow, {
 
     _unit: null,
-    _skillList: null,
+    _combatArtScrollbar: null,
 
     setUnit: function(unit) {
         this._unit = unit;
 
-        var artSkills = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "CombatArt");
+        var artSkills = CombatArtControl.getCombatArtsArray(unit);
         var availableArtSkills = this._getAvailableArtSkillsArray(artSkills);
 
-        this._skillList = createScrollbarObject(CombatArtScrollbar, this);
-        this._skillList.setScrollFormation(1, 5);
-        this._skillList.setObjectArray(availableArtSkills);
-        this._skillList.enableSelectCursor(true);
+        this._combatArtScrollbar = createScrollbarObject(CombatArtScrollbar, this);
+        this._combatArtScrollbar.setScrollFormation(1, 5);
+        this._combatArtScrollbar.setObjectArray(availableArtSkills);
+        this._combatArtScrollbar.enableSelectCursor(true);
     },
 
     moveWindowContent: function() {
         var result = MoveResult.CONTINUE;
-        var input = this._skillList.moveScrollbarCursor();
+        var input = this._combatArtScrollbar.moveScrollbarCursor();
         
         if (InputControl.isSelectAction()) {
             result = MoveResult.SELECT;
@@ -96,32 +98,32 @@ CombartArtWindow = defineObject(BaseWindow, {
         return result;
     },
 
-    getSelectedArtSkill: function() {
-        return this._skillList.getObject();
+    getSelectedCombatArt: function() {
+        return this._combatArtScrollbar.getObject();
     },
 
     drawWindowContent: function(x, y) {
-        this._skillList.drawScrollbar(x, y);
+        this._combatArtScrollbar.drawScrollbar(x, y);
     },
 
     getWindowWidth: function() {
-		return this._skillList.getObjectWidth() + (this.getWindowXPadding() * 2);
+		return this._combatArtScrollbar.getObjectWidth() + (this.getWindowXPadding() * 2);
 	},
 	
 	getWindowHeight: function() {
-		return this._skillList.getObjectCount() * this._skillList.getObjectHeight() + (this.getWindowYPadding() * 2);
+		return this._combatArtScrollbar.getObjectCount() * this._combatArtScrollbar.getObjectHeight() + (this.getWindowYPadding() * 2);
     },
     
     _getAvailableArtSkillsArray: function(skillArray) {
         var availableArray = [];
-        var toAddRemoveSkills, toAddSkill, artSkill;
+        var toAddRemoveSkills, toAddSkill, combatArt;
         
         var dynamicEvent, generator;
 
         for (var i=0; i<skillArray.length; i++) {
-            artSkill = skillArray[i].skill;
-            if (CombatArtControl.isUnitAttackable(this._unit, artSkill)) {
-                availableArray.push(artSkill);
+            combatArt = skillArray[i];
+            if (CombatArtControl.isUnitAttackable(this._unit, combatArt)) {
+                availableArray.push(combatArt);
             }
         }
         return availableArray;
@@ -129,26 +131,26 @@ CombartArtWindow = defineObject(BaseWindow, {
 
 })
 
-CombatArtInfo = defineObject(BaseWindow, {
+var CombatArtInfo = defineObject(BaseWindow, {
 
-    _skill: null,
+    _combatArt: null,
 
     drawWindowContent: function(x, y) {
         var textui = this.getWindowTextUI();
 		var color = textui.getColor();
         var font = textui.getFont();
 
-        var text = this._skill.getDescription();
+        var text = this._combatArt.getDescription();
         var width = ItemRenderer.getItemWidth();
         var height = Math.ceil(TextRenderer.getTextWidth(text, font) / width) * ItemInfoRenderer.getSpaceY();
 
         var range = createRangeObject(x, y, width, height);
         
-        TextRenderer.drawRangeText(range, TextFormat.LEFT, this._skill.getDescription(), -1, color, font);
+        TextRenderer.drawRangeText(range, TextFormat.LEFT, this._combatArt.getDescription(), -1, color, font);
     },
 
-    setSkill: function(skill) {
-        this._skill = skill;
+    setCombatArt: function(combatArt) {
+        this._combatArt = combatArt;
     },
 
     getWindowWidth: function() {
@@ -157,8 +159,8 @@ CombatArtInfo = defineObject(BaseWindow, {
     
     getWindowHeight: function() {
         var height = this.getWindowYPadding()*2;
-        if (this._skill!=null) {
-            var text = this._skill.getDescription();
+        if (this._combatArt!=null) {
+            var text = this._combatArt.getDescription();
             var textui = this.getWindowTextUI();
             var color = textui.getColor();
             var font = textui.getFont();
@@ -169,10 +171,9 @@ CombatArtInfo = defineObject(BaseWindow, {
 
 })
 
-CombatArtSupport = defineObject(BaseWindow, {
+var CombatArtSupport = defineObject(BaseWindow, {
 
-    _artSkill: null,
-    _supportSkill: null,
+    _combatArt: null,
     _sentences: null,
     
     initialize: function() {
@@ -189,18 +190,13 @@ CombatArtSupport = defineObject(BaseWindow, {
 
     drawWindowContent: function(x, y) {
         for (var i=0; i<this._sentences.length; i++) {
-            this._sentences[i].drawSkillSentence(x, y, this._artSkill, this._supportSkill);
-            y += this._sentences[i].getSkillSentenceCount(this._artSkill, this._supportSkill) * ItemInfoRenderer.getSpaceY();
+            this._sentences[i].drawSkillSentence(x, y, this._combatArt);
+            y += this._sentences[i].getSkillSentenceCount(this._combatArt) * ItemInfoRenderer.getSpaceY();
         }
     },
 
-    hasSupportSkill: function() {
-       return this._supportSkill!=null; 
-    },
-
-    setSupportSkill: function(artSkill) {
-        this._artSkill = artSkill;
-        this._supportSkill = CombatArtControl.getSupportSkill(artSkill);
+    setCombatArt: function(combatArt) {
+        this._combatArt = combatArt;
     },
 
     getWindowWidth: function() {
@@ -211,7 +207,7 @@ CombatArtSupport = defineObject(BaseWindow, {
         var height = this.getWindowYPadding()*2;
         if (this._sentences!=null) {
             for (var i=0; i<this._sentences.length; i++) {  
-                height += this._sentences[i].getSkillSentenceCount(this._artSkill, this._supportSkill) * ItemInfoRenderer.getSpaceY();
+                height += this._sentences[i].getSkillSentenceCount(this._combatArt) * ItemInfoRenderer.getSpaceY();
             }
         }
 
@@ -226,10 +222,10 @@ var BaseSkillSentence = defineObject(BaseObject, {
 		return MoveResult.CONTINUE;
 	},
 	
-	drawSkillSentence: function(x, y, artSkill, supportSkill) {
+	drawSkillSentence: function(x, y, combatArt) {
 	},
 	
-	getSkillSentenceCount: function(artSkill, supportSkill) {
+	getSkillSentenceCount: function(combatArt) {
 		return 0;
     },
     
@@ -249,15 +245,15 @@ var SupportSentence = {};
 
 SupportSentence.Cost = defineObject(BaseSkillSentence, {
 
-    drawSkillSentence: function(x, y, artSkill, supportSkill) {
+    drawSkillSentence: function(x, y, combatArt) {
         var text = "Cost";
-        var cost = artSkill.custom.cost;
+        var cost = CombatArtControl.getCost(combatArt);
 		ItemInfoRenderer.drawKeyword(x, y, text);
 		x += ItemInfoRenderer.getSpaceX();
 		NumberRenderer.drawRightNumber(x, y, cost);
     },
     
-    getSkillSentenceCount: function(artSkill, supportSkill) {
+    getSkillSentenceCount: function(combatArt) {
         return 1;
     }
 
@@ -265,20 +261,22 @@ SupportSentence.Cost = defineObject(BaseSkillSentence, {
 
 SupportSentence.Range = defineObject(BaseSkillSentence, {
 
-    drawSkillSentence: function(x, y, artSkill, supportSkill) {
-        text = root.queryCommand('range_capacity');
-		ItemInfoRenderer.drawKeyword(x, y, text);
-		x += ItemInfoRenderer.getSpaceX();
-		this._drawRange(x, y, artSkill, supportSkill);
+    drawSkillSentence: function(x, y, combatArt) {
+        if (combatArt.custom.startRange!=null && combatArt.custom.endRange!=null) {
+            text = root.queryCommand('range_capacity');
+            ItemInfoRenderer.drawKeyword(x, y, text);
+            x += ItemInfoRenderer.getSpaceX();
+            this._drawRange(x, y, CombatArtControl.getRanges(combatArt));
+        }        
     },
 
-    getSkillSentenceCount: function(artSkill, supportSkill) {
-		return 1;
+    getSkillSentenceCount: function(combatArt) {
+		return combatArt.custom.startRange!=null && combatArt.custom.endRange!=null ? 1 : 0;
     },
     
-    _drawRange: function(x, y, artSkill, supportSkill) {
-        var startRange = artSkill.custom.startRange;
-		var endRange = artSkill.custom.endRange;
+    _drawRange: function(x, y, ranges) {
+        var startRange = ranges.start;
+		var endRange = ranges.end;
 		var textui = root.queryTextUI('default_window');
 		var color = textui.getColor();
 		var font = textui.getFont();
@@ -296,159 +294,124 @@ SupportSentence.Range = defineObject(BaseSkillSentence, {
 
 SupportSentence.Attack = defineObject(BaseSkillSentence, {
 
-    drawSkillSentence: function(x, y, artSkill, supportSkill) {
-        if (supportSkill!=null) {
-            var text;
-            var status = supportSkill.getSupportStatus();
-            
-            if (status.getPower()!=0) {
-                text = root.queryCommand('attack_capacity');
-                ItemInfoRenderer.drawKeyword(x, y, text);
-                x += ItemInfoRenderer.getSpaceX();
-                this._drawNumber(x, y, status.getPower());
-            }
-        }                
+    drawSkillSentence: function(x, y, combatArt) {
+        var text;
+        var pow = combatArt.getOriginalContent().getValue(0);
+        
+        if (pow!=0) {
+            text = root.queryCommand('attack_capacity');
+            ItemInfoRenderer.drawKeyword(x, y, text);
+            x += ItemInfoRenderer.getSpaceX();
+            this._drawNumber(x, y, pow);
+        }             
 	},
 	
-	getSkillSentenceCount: function(artSkill, supportSkill) {
-        if (supportSkill==null) {
-            return 0;
-        }
-        var status = supportSkill.getSupportStatus();
-		return status.getPower()!=0 ? 1 : 0;
+	getSkillSentenceCount: function(combatArt) {
+		return combatArt.getOriginalContent().getValue(0)!=0 ? 1 : 0;
 	}
 
 })
 
 SupportSentence.Hit = defineObject(BaseSkillSentence, {
 
-    drawSkillSentence: function(x, y, artSkill, supportSkill) {
-        if (supportSkill!=null) {
-            var text;
-            var status = supportSkill.getSupportStatus();
+    drawSkillSentence: function(x, y, combatArt) {
+        var text;
+        var hit = combatArt.getOriginalContent().getValue(1);
 
-            if (status.getHit()!=0) {
-                text = root.queryCommand('hit_capacity');
-                ItemInfoRenderer.drawKeyword(x, y, text);
-                x += ItemInfoRenderer.getSpaceX();
-                this._drawNumber(x, y, status.getHit());
-            }
-        }                
+        if (hit!=0) {
+            text = root.queryCommand('hit_capacity');
+            ItemInfoRenderer.drawKeyword(x, y, text);
+            x += ItemInfoRenderer.getSpaceX();
+            this._drawNumber(x, y, hit);
+        }
+                      
     },
 
-    getSkillSentenceCount: function(artSkill, supportSkill) {
-        if (supportSkill==null) {
-            return 0;
-        }
-        var status = supportSkill.getSupportStatus();
-		return status.getHit()!=0 ? 1 : 0;
+    getSkillSentenceCount: function(combatArt) {
+        return combatArt.getOriginalContent().getValue(1)!=0 ? 1 : 0;
 	}
 
 })
 
 SupportSentence.Critical = defineObject(BaseSkillSentence, {
 
-    drawSkillSentence: function(x, y, artSkill, supportSkill) {
-        if (supportSkill!=null) {
-            var text;
-            var status = supportSkill.getSupportStatus();
-    
-            if (status.getCritical()) {
-                text = root.queryCommand('critical_capacity');
-                ItemInfoRenderer.drawKeyword(x, y, text);
-                x += ItemInfoRenderer.getSpaceX();
-                this._drawNumber(x, y, status.getCritical());  
-            }
-        }                
+    drawSkillSentence: function(x, y, combatArt) {
+        var text;
+        var crit = combatArt.getOriginalContent().getValue(2);
+
+        if (crit!=0) {
+            text = root.queryCommand('critical_capacity');
+            ItemInfoRenderer.drawKeyword(x, y, text);
+            x += ItemInfoRenderer.getSpaceX();
+            this._drawNumber(x, y, crit);  
+        }               
     },
 
-    getSkillSentenceCount: function(artSkill, supportSkill) {
-        if (supportSkill==null) {
-            return 0;
-        }
-        var status = supportSkill.getSupportStatus();
-        return status.getCritical()!=0 ? 1 : 0;
+    getSkillSentenceCount: function(combatArt) {
+        return combatArt.getOriginalContent().getValue(2)!=0 ? 1 : 0;
     }
 
 })
 
 SupportSentence.Defense = defineObject(BaseSkillSentence, {
 
-    drawSkillSentence: function(x, y, artSkill, supportSkill) {
-        if (supportSkill!=null) {
-            var text;
-            var status = supportSkill.getSupportStatus();
-    
-            if (status.getDefense()!=0) {
-                text = root.queryCommand('def_param');
-                ItemInfoRenderer.drawKeyword(x, y, text);
-                x += ItemInfoRenderer.getSpaceX();
-                this._drawNumber(x, y, status.getDefense());
-            } 
-        }
+    drawSkillSentence: function(x, y, combatArt) {
+        var text;
+        var def = combatArt.getOriginalContent().getValue(3);
+
+        if (def!=0) {
+            text = root.queryCommand('def_param');
+            ItemInfoRenderer.drawKeyword(x, y, text);
+            x += ItemInfoRenderer.getSpaceX();
+            this._drawNumber(x, y, def);
+        } 
                
     },
 
-    getSkillSentenceCount: function(artSkill, supportSkill) {
-        if (supportSkill==null) {
-            return 0;
-        }
-        var status = supportSkill.getSupportStatus();
-        return status.getDefense()!=0 ? 1 : 0;
+    getSkillSentenceCount: function(combatArt) {
+        return combatArt.getOriginalContent().getValue(3)!=0 ? 1 : 0;
     }
 })
 
 SupportSentence.Avoid = defineObject(BaseSkillSentence, {
 
-    drawSkillSentence: function(x, y, artSkill, supportSkill) {
-        if (supportSkill!=null) {
-            var text;
-            var status = supportSkill.getSupportStatus();
-    
-            if (status.getAvoid()!=0) {
-                text = root.queryCommand('avoid_capacity');
-                ItemInfoRenderer.drawKeyword(x, y, text);
-                x += ItemInfoRenderer.getSpaceX();
-                this._drawNumber(x, y, status.getAvoid());
-            }  
-        }              
+    drawSkillSentence: function(x, y, combatArt) {
+        var text;
+        var avo = combatArt.getOriginalContent().getValue(4);
+
+        if (avo!=0) {
+            text = root.queryCommand('avoid_capacity');
+            ItemInfoRenderer.drawKeyword(x, y, text);
+            x += ItemInfoRenderer.getSpaceX();
+            this._drawNumber(x, y, avo);
+        }        
     },
 
-    getSkillSentenceCount: function(artSkill, supportSkill) {
-        if (supportSkill==null) {
-            return 0;
-        }
-        var status = supportSkill.getSupportStatus();
-        return status.getAvoid()!=0 ? 1 : 0;
+    getSkillSentenceCount: function(combatArt) {
+        return combatArt.getOriginalContent().getValue(4)!=0 ? 1 : 0;
     }
 })
 
 SupportSentence.CriticalAvoid = defineObject(BaseSkillSentence, {
 
-    drawSkillSentence: function(x, y, artSkill, supportSkill) {
-        if (supportSkill!=null) {
-            var text;
-            var status = supportSkill.getSupportStatus();
-    
-            if (status.getCriticalAvoid()!=0) {
-                text = root.queryCommand('critical_capacity') + " " + root.queryCommand('avoid_capacity');
-                ItemInfoRenderer.drawKeyword(x, y, text);
-                x += ItemInfoRenderer.getSpaceX();
-                this._drawNumber(x, y, status.getCriticalAvoid());
-            }  
-        }              
+    drawSkillSentence: function(x, y, combatArt) {
+        var text;
+        var critAvo = combatArt.getOriginalContent().getValue(5);
+
+        if (critAvo!=0) {
+            text = root.queryCommand('critical_capacity') + " " + root.queryCommand('avoid_capacity');
+            ItemInfoRenderer.drawKeyword(x, y, text);
+            x += ItemInfoRenderer.getSpaceX();
+            this._drawNumber(x, y, critAvo);
+        }             
     },
 
-    getSkillSentenceCount: function(artSkill, supportSkill) {
-        if (supportSkill==null) {
-            return 0;
-        }
-        var status = supportSkill.getSupportStatus();
-        return status.getCriticalAvoid()!=0 ? 1 : 0;
+    getSkillSentenceCount: function(combatArt) {
+        return combatArt.getOriginalContent().getValue(5)!=0 ? 1 : 0;
     }
 })
 
-CombatArtScrollbar = defineObject(BaseScrollbar, {
+var CombatArtScrollbar = defineObject(BaseScrollbar, {
     
     drawScrollContent: function(x, y, object, isSelect, index) {
         var skill = object;
@@ -473,28 +436,21 @@ CombatArtScrollbar = defineObject(BaseScrollbar, {
         
 })
 
-ArtWeaponSelectMenu = defineObject(WeaponSelectMenu, {
+var ArtWeaponSelectMenu = defineObject(WeaponSelectMenu, {
 
-    _currentArtSkill: null,
+    _currentCombatArt: null,
 
-    setArtSkill: function(skill) {
-        this._currentArtSkill = skill;
+    getCombatArt: function() {
+        return this._currentCombatArt;
+    },
+
+    setCombatArt: function(combatArt) {
+        this._currentCombatArt = combatArt;
     },
 
     _isWeaponAllowed: function(unit, item) {
         var available = ItemControl.isWeaponAvailable(unit, item);
-
-        var weaponType = this._currentArtSkill.custom.weaponType;
-        var weaponName = this._currentArtSkill.custom.weaponName;
-        var cost = this._currentArtSkill.custom.cost!=null ? this._currentArtSkill.custom.cost : 0;
-
-        var startRange = this._currentArtSkill.custom.startRange;
-        var endRange = this._currentArtSkill.custom.endRange;
-
-        var correctType = weaponType!=null ? weaponType==item.getWeaponType().getName() : true;
-        var correctWeapon = weaponName!=null ? weaponName==item.getName() : true;
-        var durability = cost <= item.getLimit() || item.getLimitMax() === 0;
         
-        return available && correctType && correctWeapon && durability;
+        return available && CombatArtControl.isWeaponAllowed(this._currentCombatArt, item);
     }
 })

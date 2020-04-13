@@ -1,23 +1,25 @@
-function throwError035(skill) {
-    var message = "Error 35." + '\n' + "There is a problem with the skill " + skill.getName() + "." + '\n' + "Check the custom parameter 'artSkill'.";
+//Plugin by Goinza
+
+function throwError036(combatArt) {
+    var message = "Error 36." + '\n' + "There is a problem with the Original Data " + combatArt.getName() + "." + '\n' + "Check the custom parameter 'cost'.";
     root.msg(message);
     root.endGame();
 }
 
-function throwError036(skill) {
-    var message = "Error 36." + '\n' + "There is a problem with the skill " + skill.getName() + "." + '\n' + "Check the custom parameter 'cost'.";
+function throwError037(combatArt) {
+    var message = "Error 37." + '\n' + "There is a problem with the Original Data " + combatArt.getName() + "." + '\n' + "Check the custom parameters 'startRange' and/or 'endRange'.";
     root.msg(message);
     root.endGame();
 }
 
-function throwError037(skill) {
-    var message = "Error 37." + '\n' + "There is a problem with the skill " + skill.getName() + "." + '\n' + "Check the custom parameters 'startRange' and/or 'endRange'.";
+function throwError039(combatArt) {
+    var message = "Error 39." + '\n' + "There is a problem with the Original Data " + combatArt.getName() + "." + '\n' + "Check the custom keyword.";
     root.msg(message);
     root.endGame();
 }
 
-function throwError038(skill) {
-    var message = "Error 38." + '\n' + "There is a problem with the skill " + skill.getName() + "." + '\n' + "Check the custom parameters 'weaponName' and/or 'weaponType.";
+function throwError040(unit) {
+    var message = "Error 40." + '\n' + "There is a problem with the unit " + unit.getName() + "." + '\n' + "Check the custom parameter 'combatArt'.";
     root.msg(message);
     root.endGame();
 }

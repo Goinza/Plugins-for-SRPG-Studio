@@ -1,28 +1,122 @@
-CombatArtControl = {
+//Plugin by Goinza
 
-    isUnitAttackable: function(unit, artSkill) {
-		var i, item, indexArray, durability, correctType, correctWeapon;
+var CombatArtControl = {
+
+    getCombatArtsArray: function(unit) {
+        this.validateUnit(unit);
+        var unitArts = unit.custom.combatArt;  
+        
+        var combatArts = [];
+        if (unitArts!=null) {
+            var originalDataList = root.getBaseData().getOriginalDataList(TAB_COMBATART);
+            var originalData;
+    
+            for (var i=0; i<unitArts.length; i++) {
+                originalData = originalDataList.getDataFromId(unitArts[i]);
+                this.validateCombatArt(originalData);
+                combatArts.push(originalData);
+            }
+        }       
+
+        return combatArts;
+    },
+
+    getArtSkillsArray: function(combatArt) {
+        var multipleData = combatArt.getOriginalContent().getTargetAggregation();
+        var count = multipleData.getObjectCount();
+        var artSkills = [];
+        for (var i=0; i<count; i++) {
+            if (multipleData.getObjectType(i) == ObjectType.SKILL) {
+                artSkills.push(multipleData.getObjectData(i));
+            }
+        }
+
+        return artSkills;
+    },
+
+    getArtWeaponsArray: function(combatArt) {
+        var multipleData = combatArt.getOriginalContent().getTargetAggregation();
+        var count = multipleData.getObjectCount();
+        var artWeapons = [];
+        for (var i=0; i<count; i++) {
+            if (multipleData.getObjectType(i) == ObjectType.WEAPON) {
+                artWeapons.push(multipleData.getObjectData(i));
+            }
+        }
+
+        return artWeapons;
+    },
+
+    getCost: function(combatArt) {
+        var cost = combatArt.custom.cost;
+        if (typeof cost != 'number') {
+            throwError036(combatArt);
+        }
+        return cost;
+    },
+
+    getRanges: function(combatArt, weapon) {
+        var ranges = {};
+        ranges.start = combatArt.custom.startRange!=null ? combatArt.custom.startRange : weapon.getStartRange();
+        ranges.end = combatArt.custom.endRange!=null ? combatArt.custom.endRange : weapon.getEndRange();
+        if (typeof ranges.start != 'number' || typeof ranges.end != 'number') {
+            throwError037(combatArt);
+        }
+
+        return ranges;
+    },
+
+    getArtWeaponTypesArray: function(combatArt) {
+        var multipleData = combatArt.getOriginalContent().getTargetAggregation();
+        var count = multipleData.getObjectCount();
+        var artWeaponTypes = [];
+        for (var i=0; i<count; i++) {
+            if (multipleData.getObjectType(i) == 203) { //203 = Weapon Type value
+                artWeaponTypes.push(multipleData.getObjectData(i));
+            }
+        }
+
+        return artWeaponTypes;
+    },
+
+    addCombatArt: function(combatArt, unit) {
+        this.validateUnit(unit);
+        if (unit.custom.combatArt==null) {
+            unit.custom.combatArt = [];
+        }
+        this.validateCombatArt(combatArt);
+        unit.custom.combatArt.push(combatArt.getId());
+    },
+
+    removeCombatArt: function(combatArt, unit) {
+        this.validateUnit(unit);
+        var unitArts = unit.custom.combatArt;
+        var found = false;
+        var i = 0;
+        while (i<unitArts.length && !found) {
+            if (unitArts[i] == combatArt.getId()) {
+                found = true;
+                unit.custom.combatArt.splice(i, 1);
+            }
+            i++;
+        }
+
+        return found;
+    },
+    
+    isUnitAttackable: function(unit, combatArt) {
+		var i, item, indexArray;
         var count = UnitItemControl.getPossessionItemCount(unit);
-        var artType = artSkill.custom.weaponType;
-        var artWeapon = artSkill.custom.weaponName;   
-        var cost = artSkill.custom.cost!=null ? artSkill.custom.cost : 0;   
-        var startRange = artSkill.custom.startRange;
-        var endRange = artSkill.custom.endRange;
-        		
+        var ranges;
+        
 		for (i = 0; i < count; i++) {
 			item = UnitItemControl.getItem(unit, i);
-			if (item !== null && ItemControl.isWeaponAvailable(unit, item)) {
-                correctType = artType!=null ? artType==item.getWeaponType().getName() : true;
-                correctWeapon = artWeapon!=null ? artWeapon==item.getName() : true;
-                durability = cost <= item.getLimit() || item.getLimitMax() === 0;
-
-                if (correctType && correctWeapon && durability) {
-                    indexArray = this.getAttackIndexArray(unit, startRange, endRange, true);
-                    if (indexArray.length !== 0) {
-                        return true;
-                    }
-                }
-				
+			if (item !== null && ItemControl.isWeaponAvailable(unit, item) && this.isWeaponAllowed(combatArt, item)) {
+                ranges = this.getRanges(combatArt, item);
+                indexArray = this.getAttackIndexArray(unit, ranges.start, ranges.end, true);
+                if (indexArray.length !== 0) {
+                    return true;
+                }				
 			}
 		}
 		
@@ -52,60 +146,58 @@ CombatArtControl = {
         return indexArrayNew;
     },
 
-    getSupportSkill: function(skill) {
-        var artSkill = skill.custom.artSkill;
-        var i = 0;
-        var supportSkill = null;
-        var skill;
-        while (i<artSkill.length && supportSkill==null) {
-            skill = root.getBaseData().getSkillList().getDataFromId(artSkill[i]);
-            if (skill.getSkillType() == SkillType.SUPPORT) {
-                supportSkill = skill;
+    //Checks that the weapon is compatible with the selected combat art
+    isWeaponAllowed: function(combatArt, weapon) {
+        var artWeapons = this.getArtWeaponsArray(combatArt);
+        var artWeaponTypes = this.getArtWeaponTypesArray(combatArt);
+        var cost = this.getCost(combatArt);
+        var isWeapon, isWeaponType, durability, i;
+
+        if (artWeapons.length > 0) {
+            isWeapon = false;
+            i = 0;
+            while (i<artWeapons.length && !isWeapon) {
+                isWeapon = weapon.getName()==artWeapons[i].getName();
+                i++;
             }
-            i++;
         }
-        return supportSkill;
+        else {
+            isWeapon = true;
+        }
+
+        if (artWeaponTypes.length > 0) {
+            isWeaponType = false;
+            i = 0;
+            while (i<artWeaponTypes.length && !isWeaponType) {
+                isWeaponType = weapon.getWeaponType().getName() == artWeaponTypes[i].getName();
+            }
+        }
+        else {
+            isWeaponType = true;
+        }
+
+        durability = cost <= weapon.getLimit() || weapon.getLimitMax() === 0;
+
+        return isWeapon && isWeaponType && durability;
     },
 
     //Check that all parameters work correctly
-    validateSkill: function(skill) {
-        //{artSkill: [4], weaponType: "Sword", cost:5, startRange: 1, endRange: 1}
-        //{artSkill: [4], weaponName: "Steel Axe"}
-        var artSkill = skill.custom.artSkill;
-        var weaponType = skill.custom.weaponType;
-        var weaponName = skill.custom.weaponName;
-        var cost = skill.custom.cost;
-        var startRange = skill.custom.startRange;
-        var endRange = skill.custom.endRange;
+    validateCombatArt: function(combatArt) {
+        if (combatArt.getOriginalContent().getCustomKeyword() != "CombatArt") {
+            throwError039(combatArt);
+        }        
+    },
 
-        if (artSkill==null || typeof artSkill.length != 'number') {
-            throwError035(skill);
-        }
-        else {
-            for (var i=0; i<artSkill.length; i++) {
-                if (typeof artSkill[i] != 'number') {
-                    throwError035(skill);
+    validateUnit: function(unit) {
+        var unitArts = unit.custom.combatArt;
+        if (unitArts!=null) {
+            if (typeof unitArts.length != 'number') {
+                throwError040(unit);
+            }
+            for (var i=0; i<unitArts.length; i++) {
+                if (typeof unitArts[i] != 'number') {
+                    throwError040(unit);
                 }
-            }
-        }
-
-        if (cost==null || typeof cost != 'number') {
-            throwError036(skill);
-        }
-
-        if (startRange==null || endRange==null || typeof startRange != 'number' || typeof endRange != 'number') {
-            throwError037(skill);
-        }
-
-        //Throw error 38 for any problems regarding custom parameters 'weaponType' and 'weaponName'
-        if (weaponType!=null) {
-            if (weaponName!=null || typeof weaponType != "string") {
-                throwError038(skill);
-            }
-        }
-        if (weaponName!=null) {
-            if (weaponType!=null || typeof weaponName != 'string') {
-                throwError038(skill);
             }
         }
     }

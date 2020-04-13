@@ -1,3 +1,5 @@
+//Plugin by Goinza
+
 CombatArtMode = {
     ART: 0,     //Select the Combat Art
     WEAPON: 1,  //Select the weapon
@@ -30,6 +32,8 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
         this._dynamicEvent = createObject(DynamicEvent);        
 
         this.changeCycleMode(CombatArtMode.ART);
+        
+        root.getMetaSession().global.combatArt = true;
     },
 
     moveCommand: function() {
@@ -50,6 +54,10 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
         }
         else if (mode == CombatArtMode.ASSIGNING) {
             result = this._moveAssign();
+        }
+
+        if (result == MoveResult.END) {            
+            root.getMetaSession().global.combatArt = false;
         }
 
         return result;
@@ -75,12 +83,12 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
     isCommandDisplayable: function() {
         var displayable = false;
         var i = 0;
-        var artSkills = SkillControl.getDirectSkillArray(this.getCommandTarget(), SkillType.CUSTOM, "CombatArt");
+        var combatArts = CombatArtControl.getCombatArtsArray(this.getCommandTarget());
 
-        while (!displayable && i<artSkills.length) {
-            CombatArtControl.validateSkill(artSkills[i].skill);
-            this._assignArtSkill(artSkills[i].skill); 
-            displayable =  CombatArtControl.isUnitAttackable(this.getCommandTarget(), artSkills[i].skill);
+        while (!displayable && i<combatArts.length) {
+            CombatArtControl.validateCombatArt(combatArts[i]);
+            this._assignArtSkills(combatArts[i]); 
+            displayable =  CombatArtControl.isUnitAttackable(this.getCommandTarget(), combatArts[i]);
             this._removeArtSkill();
             i++;
         }
@@ -89,7 +97,7 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
     },
 
     getCommandName: function() {
-        return "Combat Art";
+        return COMMAND_COMBATART;
     },    
 
     isRepeatMoveAllowed: function() {
@@ -101,7 +109,7 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
         
         if (result == MoveResult.SELECT) {
             result = MoveResult.CONTINUE;
-            this._assignArtSkill(this._artMenu.getSelectedArtSkill());
+            this._assignArtSkills(this._artMenu.getSelectedCombatArt());
             this.changeCycleMode(CombatArtMode.ASSIGNING);
         }
         else if (result == MoveResult.CANCEL) {
@@ -114,7 +122,8 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
     _moveAssign: function() {
         var resultEvent = this._dynamicEvent.moveDynamicEvent();
         if (resultEvent == MoveResult.END) {
-            this._weaponMenu.setArtSkill(this._artMenu.getSelectedArtSkill());
+            this._weaponMenu.setCombatArt(this._artMenu.getSelectedCombatArt());
+            root.getMetaSession().global.selectedArt = this._weaponMenu.getCombatArt();
             this._weaponMenu.setMenuTarget(this.getCommandTarget());
             this.changeCycleMode(CombatArtMode.WEAPON);
         }
@@ -131,6 +140,7 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
 		}
 		else if (input === ScrollbarInput.CANCEL) {
             this.changeCycleMode(CombatArtMode.ART);
+            root.getMetaSession().global.selectedArt = null;
             this._removeArtSkill();
         }
         
@@ -143,12 +153,11 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
 		
 		if (result === PosSelectorResult.SELECT) {
 			if (this._isPosSelectable()) {
-				this._posSelector.endPosSelector();
-				
+                this._posSelector.endPosSelector();
+                                
 				attackParam = this._createAttackParam();
 				
                 this._preAttack = createObject(PreAttack);
-                root.getMetaSession().global.combatArt = true;
 				result = this._preAttack.enterPreAttackCycle(attackParam);
 				if (result === EnterResult.NOTENTER) {
 					this.endCommandAction();
@@ -172,7 +181,6 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
             this.endCommandAction();
             this._removeArtSkill();
             this._reduceWeaponDurability();
-            root.getMetaSession().global.combatArt = false;
 			return MoveResult.END;
 		}
 		
@@ -220,12 +228,11 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
 	
 	_getIndexArray: function(unit, weapon) {
         var indexArray = [];
-        var artSkill = this._artMenu.getSelectedArtSkill();
+        var combatArt = this._artMenu.getSelectedCombatArt();
 
-        if (artSkill!=null) {
-            var startRange = artSkill.custom.startRange;
-            var endRange = artSkill.custom.endRange;
-            indexArray = CombatArtControl.getAttackIndexArray(unit, startRange, endRange, false);
+        if (combatArt!=null) {
+            var ranges = CombatArtControl.getRanges(combatArt, weapon);
+            indexArray = CombatArtControl.getAttackIndexArray(unit, ranges.start, ranges.end, false);
         }
 
 		return indexArray;
@@ -248,21 +255,21 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
     },
 
     _checkAllArtSkills: function() {
-        var artSkills = SkillControl.getDirectSkillArray(this.getCommandTarget(), SkillType.CUSTOM, "CombatArt");
+        var artSkills = CombatArtControl.getCombatArtsArray(this.getCommandTarget());
         if (artSkills.length==0) {
             return false;
         }
 
         for (var i=0; i<artSkills.length; i++) {
-            this._assignArtSkill(artSkills[i].skill);
+            this._assignArtSkills(artSkills[i]);
         }       
     },
     
-    _assignArtSkill: function(skill) {
+    _assignArtSkills: function(skill) {
         if (this._currentSkillArray==null) {
             this._currentSkillArray = [];
         }
-        var skillArray = skill.custom.artSkill!=null ? skill.custom.artSkill : [];
+        var skillArray = CombatArtControl.getArtSkillsArray(skill);
         for (var i=0; i<skillArray.length; i++) {
             this._currentSkillArray.push(skillArray[i]);
         }
@@ -270,11 +277,8 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
         this._dynamicEvent = createObject(DynamicEvent);
         var generator = this._dynamicEvent.acquireEventGenerator();
 
-        var toAdd;
-        var skillList = root.getBaseData().getSkillList();
         for (var i=0; i<this._currentSkillArray.length; i++) {
-            toAdd = skillList.getDataFromId(this._currentSkillArray[i]);
-            generator.skillChange(this.getCommandTarget(), toAdd, IncreaseType.INCREASE, true);
+            generator.skillChange(this.getCommandTarget(), this._currentSkillArray[i], IncreaseType.INCREASE, true);
         }
 
         this._dynamicEvent.executeDynamicEvent();
@@ -284,11 +288,8 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
         var dynamicEvent = createObject(DynamicEvent);
         var generator = dynamicEvent.acquireEventGenerator();
 
-        var toAdd;
-        var skillList = root.getBaseData().getSkillList();
         for (var i=0; i<this._currentSkillArray.length; i++) {
-            toAdd = skillList.getDataFromId(this._currentSkillArray[i]);
-            generator.skillChange(this.getCommandTarget(), toAdd, IncreaseType.DECREASE, true);
+            generator.skillChange(this.getCommandTarget(), this._currentSkillArray[i], IncreaseType.DECREASE, true);
         }
 
         this._currentSkillArray = [];
@@ -296,7 +297,7 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
     },
 
     _reduceWeaponDurability: function() {
-        var cost = this._artMenu.getSelectedArtSkill().custom.cost;
+        var cost = CombatArtControl.getCost(this._artMenu.getSelectedCombatArt());
         if (cost!=null) {
             var dynamicEvent = createObject(DynamicEvent);
             var generator = dynamicEvent.acquireEventGenerator();

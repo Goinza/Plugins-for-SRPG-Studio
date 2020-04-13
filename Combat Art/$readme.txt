@@ -1,52 +1,81 @@
 Combat Arts
 By Goinza
-Version 1.0
-April 3, 2020
+Version 2.0
+April 13, 2020
 
 INTRODUCTION
-This plugin allows you to use Combat Arts, which are attacks with special effect and cost more weapon uses.
+This plugin allows you to use Combat Arts, which are attacks with special effect at the expense of more weapon uses per attack.
 For example, you can make an attack that deals more damage but cost 2 weapon uses instead of 1.
-While basic bonus to stats like hit, avoid and crit are the easiests to do, you can also give the unit during the attack any other effect
-through the use of other skills, like making a double attack or dealing effective damage. This also includes custom skills from other plugins.
+This system also allows for adding effects from skills to the attack, and restrict the combat art to a specific weapon or weapon type.
 
 IMPORTANT: This plugin only works for player-controlled units. AI units can't use combat arts.
 
-HOW TO USE
-To use combat arts, you need a custom skill with the keyword "CombatArt". That skill itself won't do much, it will only allow you to use the Combat Art command,
-To specify what the Combat Art does, you need to use a custom parameter inside the custom skill called "artSkill".
-This parameter will have a list of numbers of ID's of other skills, so while the unit is attacking someone with the combat art, it will have equipped those skills.
+HOW TO CREATE A COMBAT ART
+To make a combat art, you need to create a new Original Data. If you don't know how to use Original Data, check the instructions below.
+There are multiple fields that you can write data, but some of them are ignored for the purposes of this plugin. 
+Here is a list of all the values used and what do each do:
+    -Value 1: Bonus to attack.
+    -Value 2: Bonus to hit.
+    -Value 3: Bonus to critical.
+    -Value 4: Bonus to defense.
+    -Value 5: Bonus to avoid.
+    -Value 6: Bonus to critical avoid.
+    -Keyword: This value must always be "CombatArt".
+    -Multiple Data: In here, you can select skills, weapons and weapon types:
+        -Skills: Each skill marked will be added to the unit during the attack. This includes custom skills created by other plugins.
+        -Weapons: If there is at least one weapon marked, then the unit can only use this combat art with one of those selected weapons.
+            If no weapon is marked, the combat art is allowed for any weapon, unless there are additional restrictions for the weapon types.
+        -Weapon Types: If there is at least one weapon type marked, then the unit can only use this combat art with one of those selected weapon types.
+            If no weapon type is marked, the combat art is allowed for any weapon type, unless there are additional restrictions for specific weapons.
 
-Note that when you use the combat art, its description will be the same as the "CombatArt" custom skill that the unit has.
- 
-For example, if I have a support skill (ID 4) that gives +15 Hit, then the paramter will be like this: {artSkill: [4]}.
-Note that this will allow you to assign more than one skill, including custom skill from other scripts, like the extended weapon range skill.
- 
-There are also two other parameters for combat arts: "weaponType" and "weaponName". 
-The first one is used when you want to restrict the combat art to one specific weapon type., and the second to restric to a specific weapon.
-You write the name of the weapon type or the weapon in the parameters.
-Note that both of this parameters are optional.
- 
-For example, using the example above, if you wanto to restrict the art to only swords, you would use:
-    {artSkill: [4], weaponType: "Sword"}
-And if you want to restrict to a specific weapon, like Steel Axe, you would use:
-    {artSkill: [4], weaponName: "Steel Axe"}
- 
-Finally, there are three other parameters which are necessary to make the combat art work:
-    -"cost" parameter, which determines how much durability it will take from the weapon when the combat art is used.
-    -"startRange" and "endRange" determines the start and end of the attack range.
-For example:
-    {artSkill: [4], weaponType: "Sword", cost:5, startRange: 1, endRange: 1} 
-Would be a combat art that only works with swords at melee range, give the skill with ID 4 and it will take 5 durability from the weapon used.
-Another example: 
-    {artSkill: [7, 11], weaponType: "Bow", cost:2, startRange: 2, endRange: 3}
-Combat art that works with bows at range 2-3, gives the skills with IDs 7 and 11 and it takes 2 durability from the weapon. 
+HOW TO CREATE ORIGINAL DATA
+    -First, go to Tools->Options->Expert->Display original data on conifg tab and enable that option.
+    -Now you can go to Database->Config->Original Data. This will take you to the Original Data window.
+    -Inside, you have several tabs (default name go from tab 1 to tab 10). In the bottom left, you will find the "Create Original Data" button.
+    -IMPORTANT: all Original Data related to combat arts must be in the same tab. 
+        You also need to specify which tab are you going to use in the config.js file. More details can be found below.
 
-Note that all custom parameters are necessary to make the skill work. The only exception are "weaponType" and "weaponName", you only need one of them.
+CUSTOM PARAMETERS
+In addition to the values explained above, you will also need to write some custom parameters:
+    -'cost': This parameter defines the amount of weapon uses that will be consumed when doing an attack with the combat art.
+    -'startRange' and 'endRange': These two parameters are optional, but if one of them is used, the other must be used too.
+        With these parameters, you can define the attack range of the combat art. That way it won't depend on the equipped weapon.
+        If you don't use these parameters, the weapon's default range will be used instead.
+Some examples of the use of the custom parameters: {cost: 3, startRange: 1, endRange: 3}, {cost:5, startRange:1, endRange: 1}.
 
-KNOWN ISSUES
-    -If an unequipped weapon has a Combat Art skill assigned, it won't show up in the Combat Art command.
-        You either need to equip the weapon or assign the skill to the unit and use the custom parameter "weaponName" to limit it to that weapon only.
+HOW TO ASSIGN TO UNITS
+To assign a combat art to an unit use the custom parameter 'combatArt', which uses an array of the ID's of the combat arts that unit knows.
+For example: {combatArt: [1, 4, 5]}, {combatArt: [2]}
+If you want to assign (or remove) a combat art to an unit during an event, you need to do the following:
+    -Create a "Execute Script" event command.
+    -Inside the event, select the type "Event Command".
+    -In the "Property" field, use the parameter 'combatArtID' to define the ID of the Combat Art that you want to assign to the unit.
+        For example: {combatArtID: 2}
+    -In the Original Data tab of the event, select the unit that will receive (or lose) the combat art.
+        You also need to fill the keyword field to specify the type of command:
+            -"Add": This will add the combat art to the unit.
+            -"Remove": This will remove the combat art from the unit.
+
+PLUGIN CUSTOMIZATION
+There are some elements of this plugin that can be modified. For example, you can modify the name of the combat arts unit command.
+To do this, you need to open the file config.js, you can use any text editor like Notepad.
+In the file you will find a list of variables, each with a default value. You can change any of them.
+Note that among those variables you will find the variable called "TAB_COMBATART", 
+which is needed to specify which tab of the Original Data window you are using for the combat art entries.
 
 INCOMPATIBILITY ISSUES
 This plugin is not compatible with other plugins that use the following functions:
     - AttackFlow._doAttackAction from attack-flow.js line 175.
+    - SkillChecker.arrangeSkill from singleton-calculator.js line 457
+
+VERSION HISTORY
+1.0 - April 3, 2020
+    - Initial version
+
+2.0 - April 13, 2020
+    - Reworked plugin: now it uses Original Data instead of Skills to implement the Combat Arts.
+        This allows to reduce the amount of skills for each unit, in addition to reduce the amount of custom parameters.
+        Note that because of this changes, you can only assign combat arts to individual units. 
+        You can no longer assign combat arts to other things like classes, items, etc
+    - Added a new window for the unit menu screen. In there you can see the combat arts that the unit currently has.
+    - Added an Event Command that allows to add and remove combat arts from an unit.
