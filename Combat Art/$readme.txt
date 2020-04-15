@@ -45,7 +45,8 @@ Some examples of the use of the custom parameters: {cost: 3, startRange: 1, endR
 
 HOW TO ASSIGN TO UNITS
 To assign a combat art to an unit use the custom parameter 'combatArt', which uses an array of the ID's of the combat arts that unit knows.
-For example: {combatArt: [1, 4, 5]}, {combatArt: [2]}
+This parameter defines the starting scenario for the unit. If the unit doesn't have the parameter, it wil start the game without combat arts.
+For example: {combatArt: [1, 4, 5]}, {combatArt: [2]}. 
 If you want to assign (or remove) a combat art to an unit during an event, you need to do the following:
     -Create a "Execute Script" event command.
     -Inside the event, select the type "Event Command".

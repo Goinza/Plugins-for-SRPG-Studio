@@ -178,11 +178,6 @@ Error 34:
 
 
 COMBAT ART
-Error 35:
-    A problem with the custom parameter 'artSkill' on a skill.
-    The parameter must be an array of numbers, which must be the ID's of other skills.
-    For example: {artSkill: [7, 11]} or {artSkill: [4]}
-
 Error 36:
     A problem with the custom parameter 'cost' on a skill.
     The parameter should be a positive number, like {cost: 3}.
@@ -192,8 +187,12 @@ Error 37:
     Both parameters should be positive numbers, and startRange should be less or equal than endRange.
     For example: {startRange: 1, endRange: 3} or {starRange: 1, endRange: 1}
 
-Error 38:
-    A problem with the custom parameter 'weaponName' or 'weaponType' on a skill.
-    Only one of the parameter should be present at a time.
-    Both of those parameter should be a string.
-    For example: {weaponType: "Sword"} or {weaponName: "Iron Lance"}
+Error 39:
+    A problem with an Original Data entry. There are two possible scenarios for this error:
+        -The entry was misssing the "CombatArt" keyword.
+        -The entry is not a combat art, so there is a problem with a unit having this entry as a combat art in the unit custom parameter 'combatArt'.
+
+Error 40:
+    A problem with the custom parameter 'combatArt' on an unit.
+    The parameter should be an array contating the ID's of the combat arts used by the unit.
+    For example: {combatArt: [2, 4]} or {combatArt: [6]}
