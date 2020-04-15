@@ -132,10 +132,10 @@ Error 27:
 
 
 HYBRID TYPE FOR WEAPONS
-Error 28:
-    A problem with the custom parameter 'hybridAttack' on a weapon.
-    The parameter should be an array of arrays, where the the first element has a string, the second a number and the third a true or false value.
-    For example: {hybridAttack: [ ["Sword", 1, true], ["Wind", 2, false] ]}
+Error 41:
+    A problem with the custom parameter 'hybrid' on a weapon.
+    The parameter should be an array of objects, where each object has the parameters 'type', 'range' and 'physical'.
+    For example: {hybrid: [ {type:"Sword", range: 1, physical: true}, {type:"Fire", range: 2, physical: false} ]}
 
 
 HP COST FOR WEAPONS AND ITEMS

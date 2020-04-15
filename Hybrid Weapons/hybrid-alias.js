@@ -1,40 +1,14 @@
 //Plugin by Goinza
 
 (function() {
-    CompatibleCalculator._getCompatible = function(active, passive, weapon) {
-        var compatible;
-        var passiveWeapon = ItemControl.getEquippedWeapon(passive);
-
-        if (weapon==null || passiveWeapon==null) {
-            return null;
-        }
-
-        var dx = Math.abs(active.getMapX() - passive.getMapX());
-        var dy = Math.abs(active.getMapY() - passive.getMapY());
-        var range = dx + dy;
-
-        var activeWeaponType = HybridControl.isHybrid(weapon) ? HybridControl.getWeaponType(weapon, range) : weapon.getWeaponType();
-        var passiveWeaponType = HybridControl.isHybrid(passiveWeapon) ? HybridControl.getWeaponType(passiveWeapon, range) : passiveWeapon.getWeaponType();
-
-        var count = activeWeaponType.getCompatibleCount();
-		for (i = 0; i < count; i++) {
-			compatible = activeWeaponType.getCompatibleData(i);
-			if (compatible.getSrcObject() === passiveWeaponType) {
-				return compatible.getSupportStatus();
-			}
-        }
-        
-        return null;
-    }
-
+    //hybtidAttack[i][2] is the type of attack. True is physic attack, false is magic attack
     var alias1 = DamageCalculator.calculateAttackPower;
-    DamageCalculator.calculateAttackPower = function(active, passive, weapon, isCritical, totalStatus, trueHitValue) {
-        var dx = Math.abs(active.getMapX() - passive.getMapX());
-        var dy = Math.abs(active.getMapY() - passive.getMapY());
-        var range = dx + dy;
-
+    DamageCalculator.calculateAttackPower = function(active, passive, weapon, isCritical, totalStatus, trueHitValue) {      
         if (HybridControl.isHybrid(weapon)) {
-            weapon.custom.physical = HybridControl.getWeaponCategory(weapon, range);            
+            var deltaX = Math.abs(active.getMapX() - passive.getMapX());
+            var deltaY = Math.abs(active.getMapY() - passive.getMapY());
+            var range = deltaX + deltaY;
+            weapon.custom.physical = HybridControl.isPhysical(weapon, range);
         }
 
         var pow = alias1.call(this, active, passive, weapon, isCritical, totalStatus, trueHitValue);
@@ -47,13 +21,12 @@
     }
 
     var alias2 = DamageCalculator.calculateDefense;
-    DamageCalculator.calculateDefense = function(active, passive, weapon, isCritical, totalStatus, trueHitValue) {
-        var dx = Math.abs(active.getMapX() - passive.getMapX());
-        var dy = Math.abs(active.getMapY() - passive.getMapY());
-        var range = dx + dy;
-
+    DamageCalculator.calculateDefense = function(active, passive, weapon, isCritical, totalStatus, trueHitValue) {    
         if (HybridControl.isHybrid(weapon)) {
-            weapon.custom.physical = HybridControl.getWeaponCategory(weapon, range);
+            var deltaX = Math.abs(active.getMapX() - passive.getMapX());
+            var deltaY = Math.abs(active.getMapY() - passive.getMapY());
+            var range = deltaX + deltaY;
+            weapon.custom.physical = HybridControl.isPhysical(weapon, range);
         }
 
         var def = alias2.call(this, active, passive, weapon, isCritical, totalStatus, trueHitValue);
@@ -73,6 +46,29 @@
         else {
             return alias3.call(this, weapon);
         }
+    }
+
+    CompatibleCalculator._getCompatible = function(active, passive, weapon) {
+		var i, count, compatible, weaponTypeActive, weaponTypePassive;
+		var weaponPassive = ItemControl.getEquippedWeapon(passive);
+		
+		if (weaponPassive === null || weapon === null) {
+			return null;
+		}
+        
+        var range = Math.abs(active.getMapX() - passive.getMapX()) + Math.abs(active.getMapY() - passive.getMapY());
+		weaponTypeActive = HybridControl.isHybrid(weapon) ? HybridControl.getWeaponType(weapon, range) : weapon.getWeaponType();
+		weaponTypePassive = HybridControl.isHybrid(weaponPassive) ? HybridControl.getWeaponType(weaponPassive, range) : weaponPassive.getWeaponType();
+		
+		count = weaponTypeActive.getCompatibleCount();
+		for (i = 0; i < count; i++) {
+			compatible = weaponTypeActive.getCompatibleData(i);
+			if (compatible.getSrcObject() === weaponTypePassive) {
+				return compatible.getSupportStatus();
+			}
+		}
+		
+        return null;
     }
 
 })()

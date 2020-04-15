@@ -3,71 +3,59 @@
 var HybridControl = {
 
     isHybrid: function(weapon) {
-        var isHybrid;
-        var hybrid = unit.custom.hybridAttack;
-        if (hybrid!=null) {
-            if (typeof hybrid.length != 'number' || typeof hybrid[0].length != 'number') {
-                throwError028(weapon);
-            }
-            isHybrid = true;
+        var isHybrid = weapon!=null && weapon.custom.hybrid!=null;
+        if (isHybrid) {
+            this._validateParameter(weapon);
         }
-        else {
-            isHybrid = false;
-        }
-
+        
         return isHybrid;
     },
 
-    //Example of how hybridAttack works: {hybridAttack: [ ["Sword", 1, true], ["Wind", 2, false] ]}
+    //Finds the element of the hybrid weapons assigned to the selected range.
+    //If not element is found, return null and treat the weapon as a normal weapon. 
+    findElement: function(weapon, range) {
+        var hybrid = weapon.custom.hybrid;
+        var i = 0;
+        var found = false;
+        var element = null;
 
-    //Assumes that the hybrid check is done before calling this function.
+        while (i<hybrid.length && element==null) {
+            if (hybrid[i].range == range) {
+                element = hybrid[i];
+            }
+            i++;
+        }
+
+        return element;
+    },
+
+    isPhysical: function(weapon, range) {
+        var element = this.findElement(weapon, range);
+
+        return element!=null ? element.physical : Miscellaneous.isPhysicsBattle(weapon);
+    },
+
     getWeaponType: function(weapon, range) {
-        var hybrid = unit.custom.hybridAttack;
-        var i = 0;
-        var found = false;
-        var weaponType = weapon.getWeaponType();
-        while (i<hybrid.length && !found) {
-            if (hybrid[i][1] == range) {
-                found = true;
-                weaponType = this._findWeaponType(weapon, hybrid[i][0]);
-            }
-            i++;
-        }
+        var element = this.findElement(weapon, range);
 
-        return weaponType;
+        return element!=null ? this.findWeaponTypeObject(weapon, element.type) : weapon.getWeaponType();
     },
 
-    //Returns true if the weapon deals physical damage, or false if it deals magical damage.
-    getWeaponCategory: function(weapon, range) {
-        var hybrid = unit.custom.hybridAttack;
-        var i = 0;
-        var found = false;
-        var physical = Miscellaneous.isPhysicsBattle(weapon);
-
-        while (i<hybrid.length && !found) {
-            if (hybrid[i][1] == range) {
-                found = true;
-                physical = hybrid[i][2]
-            }
-            i++;
-        }
-
-        return physical;
-    },
-
-    _findWeaponType: function(weapon, weaponTypeName) {
-        var list, count, weaponType;
+    findWeaponTypeObject: function(weapon, weaponTypeName) {
         var found = false;
         var i = 0;
         var j;
+        var weaponType;
+        var weaponTypeList;
+        var count;
         while (i<3 && !found) {
-            list = root.getBaseData().getWeaponTypeList(i);
-            count = list.getDataCount();
+            weaponTypeList = root.getBaseData().getWeaponTypeList(i);
             j = 0;
+            count = weaponTypeList.getCount();
             while (j<count && !found) {
-                weaponType = list.getData(j);
-                if (weaponType.getName() == weaponTypeName) {
+                if (weaponTypeList.getData(j).getName() == weaponTypeName) {
                     found = true;
+                    weaponType = weaponTypeList.getData(j);
                 }
                 j++;
             }
@@ -75,10 +63,31 @@ var HybridControl = {
         }
 
         if (!found) {
-            throwError028(weapon);
+            throwError041(weapon);
         }
 
         return weaponType;
+    },
+
+    //Assume weapon.custom.hybrid != null
+    _validateParameter: function(weapon) {
+        var hybrid = weapon.custom.hybrid;
+
+        if (typeof hybrid.length != 'number') {
+            throwError041(weapon);
+        }
+        // {hybrid: [ {type:"Sword", range: 1, physical: true}, {type:"Fire", range: 2, physical: false} ]}
+        for (var i=0; i<hybrid.length; i++) {
+            if (typeof hybrid[i].type != 'string') {
+                throwError041(weapon);
+            }
+            if (typeof hybrid[i].range != 'number') {
+                throwError041(weapon);
+            }
+            if (typeof hybrid[i].physical != 'boolean') {
+                throwError041(weapon);
+            }
+        }
     }
 
 }

@@ -1,25 +1,32 @@
-Hybrid Types for Weapons
+Hybrid Weapons
 By Goinza
-Version 1.0
-February 22, 2020
+Version 1.1
+April 15, 2020
 
-INTRODUCTION
-This plugins adds the feature of making a weapon change its type depending on the range of the attack.
-For example, you can make a weapon called "Fire Sword" that acts as a "Sword" weapon type at range 1 and as a "Fire" weapon type at range 2.
-You can even make the sword deal magic damage at range when is treated as a "Fire" weapon.
+This plugin allows to create "hybrid weapons", which behave as different weapon types depending on the range of the attack.
+For example, you can make a "Wind Sword" which acts as a Sword weapon during melee and acts as a Wind weapon during ranged attacks.
+In this example, you can even make the melee attacks deal phyisical damage, while the ranged attacks deal magic damage, or make all attacks do phyisical or magic damage.
 
-CUSTOM PARAMETER
-Using the custom parameter "hybridAttack", you can make a weapon change the weapon type during the attack depending on the range.
-The requirement to use the weapon doesn't change, so the unit must know how to use the original weapon type of the weapon,
-no matter which weapon types are chosen in the parameter.
-For example, a weapon with the weapon type "Sword" and the custom parameter {hybridAttack: [ ["Sword", 1, true], ["Wind", 2, false] ]}.
-In each weapon type, there are three values: the first one is the weapon type name, the second one is the attack range,
-and the last value is true if the the attack is phyisical, and if the value is false then it is a magic attack.
-So, in this case, if the weapon attacks at range 2, it will be a Wind-based attack and it will be a magic attack.
-Even if the sword have a parameter like {hybridAttack: [ ["Lance", 1, true], ["Fire", 2, false] ]}, because 
-the weapon type is Sword, the unit will only need to know how to wield Sword weapons.
-In this example, if the weapon can attack in a range of 3, it will use the default weapon type "Sword".
+HOW TO USE
+To use this plugin, you need to add the custom parameter "hybrid" to the weapon. For example:
+    {{hybrid: [ {type:"Sword", range: 1, physical: true}, {type:"Wind", range: 2, physical: false} ]}}
+This is a complex parameter, so let's analyze it part by part:
+    -type: this parameter needs to be the name of the weapon type that will replace the default weapon type.
+    -range: the range of the attack.
+    -physical: true if you want the weapon to deal phyisical damage. False if you want the weapon to deal magic damage.
+Note that if the unit attacks from a range that is not specified on the custom parameter, the weapon type and type of damage will be the default used by the weapon.
+
+Also, in the example used above, if the weapon belongs to the Sword weapon type and deals phyisical damage by default, then the object that specifies the damage at melee was not necessary.
+That means that you don't need to specify the type of weapon and damage at ranges where the weapon uses its default values.
 
 INCOMPATIBILITY ISSUES
-This plugin is incompatible with other plugins that use the following functions:
-    - CompatibleCalculator._getCompatible from singleton-calculator.js line 741.
+This plugin is not compatible with other plugins that use the following functions:
+    - CompatibleCalculator._getCompatible from singleton-calculator.js line 741
+
+VERSION HISTORY
+    1.0 - February 22, 2020
+            - Initial version
+
+    1.1 - April 15, 2020
+            - Changed the structure of the custom parameter for the hybrid weapons. Check the instructions for details.
+            - Changed the name of the parameter from 'hybridAttack' to 'hybrid'.
