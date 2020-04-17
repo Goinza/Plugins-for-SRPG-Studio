@@ -36,10 +36,6 @@ var CombatArtEventCommand = defineObject(BaseEventCommand, {
 		this._noticeView.drawNoticeView(x, y);
 	},
 	
-	backEventCommandCycle: function() {
-		return MoveResult.CONTNUE;
-	},
-	
 	mainEventCommand: function() {
         var keyword = root.getEventCommandObject().getOriginalContent().getCustomKeyword();
         if (keyword == "Add") {
@@ -51,7 +47,6 @@ var CombatArtEventCommand = defineObject(BaseEventCommand, {
 	},
 	
 	getEventCommandName: function() {
-		// If implement original event command, return the name.
 		return 'CombatArtEventCommand';
 	}
 
