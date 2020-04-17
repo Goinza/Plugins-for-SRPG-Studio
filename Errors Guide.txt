@@ -189,10 +189,37 @@ Error 37:
 
 Error 39:
     A problem with an Original Data entry. There are two possible scenarios for this error:
-        -The entry was misssing the "CombatArt" keyword.
+        -The entry was missing the "CombatArt" keyword.
         -The entry is not a combat art, so there is a problem with a unit having this entry as a combat art in the unit custom parameter 'combatArt'.
 
 Error 40:
     A problem with the custom parameter 'combatArt' on an unit.
     The parameter should be an array contating the ID's of the combat arts used by the unit.
     For example: {combatArt: [2, 4]} or {combatArt: [6]}
+
+
+TRAITS SYSTEM:
+Error 42:
+    A problem with the custom parameter 'trait' on a unit or class.
+    The parameter should be an array contating the ID's of the traits used by the object.
+    For example: {trait: [2, 4]} or {trait: [6]}
+
+Error 43:
+    A problem with the custom parameter 'reqTrait' on a weapon or item.
+    The parameter should be an array contating the ID's of the traits used by the object.
+    For example: {reqTrait: [2, 4]} or {reqTrait: [6]}
+
+Error 44:
+    A problem with the custom parameter 'effTrait' on a weapon.
+    The parameter should be an array contating the ID's of the traits used by the object.
+    For example: {effTrait: [2, 4]} or {effTrait: [6]}
+
+Error 45:
+    A problem with the custom parameter 'addTrait' on a custom item.
+    The parameter should be an array contating the ID's of the traits used by the object.
+    For example: {effTrait: [2, 4]} or {effTrait: [6]}
+
+Error 46:
+    A problem with an Original Data entry. There are two possible scenarios for this error:
+        -The entry was missing the "Trait" keyword.
+        -The entry is not a trait, so there is a problem with an object having this entry as a trait in one of its custom parameters.
