@@ -197,6 +197,10 @@ Error 40:
     The parameter should be an array contating the ID's of the combat arts used by the unit.
     For example: {combatArt: [2, 4]} or {combatArt: [6]}
 
+Error 47:
+    A problem with the event command. The field Value 1 must be a valid number.
+    Currently, the only valid numbers are 0 for ID mode and 1 for Variable mode.
+
 
 TRAITS SYSTEM:
 Error 42:

@@ -1,7 +1,7 @@
 Combat Arts
 By Goinza
-Version 2.0
-April 13, 2020
+Version 2.1
+April 17, 2020
 
 INTRODUCTION
 This plugin allows you to use Combat Arts, which are attacks with special effect at the expense of more weapon uses per attack.
@@ -50,10 +50,19 @@ For example: {combatArt: [1, 4, 5]}, {combatArt: [2]}.
 If you want to assign (or remove) a combat art to an unit during an event, you need to do the following:
     -Create a "Execute Script" event command.
     -Inside the event, select the type "Event Command".
-    -In the "Property" field, use the parameter 'combatArtID' to define the ID of the Combat Art that you want to assign to the unit.
-        For example: {combatArtID: 2}
-    -In the Original Data tab of the event, select the unit that will receive (or lose) the combat art.
-        You also need to fill the keyword field to specify the type of command:
+    -In the name field, write "CombatArt".
+    -In the Original Data tab of the event, there are some additional fields you need to fill:
+        -In the unit field select the unit that will receive (or lose) the combat art.
+        -In the field Value 1 you need to specify if you using the ID of the combat art directly,
+            or if you are using a variable to specify which combat art you want to add (or remove):
+            You can write '0' to set into ID mode, or '1' to use the Variable mode.
+        -In the field Value 2:
+            -If you are in ID mode, you write the ID of the combat art.
+            -If you are in Variable mode, you write the ID of the Tab where the variable is located. Note that the first tab has ID 0, the second ID 1, and so on.
+        -In the field Value 3:
+            -If you are in ID mode, this field will be ignored.
+            -If you are in Variable mode, you write the ID of the variable you want to use.
+        -In the keyword field to specify the type of command:
             -"Add": This will add the combat art to the unit.
             -"Remove": This will remove the combat art from the unit.
 
@@ -80,3 +89,8 @@ VERSION HISTORY
         You can no longer assign combat arts to other things like classes, items, etc
     - Added a new window for the unit menu screen. In there you can see the combat arts that the unit currently has.
     - Added an Event Command that allows to add and remove combat arts from an unit.
+
+2.1 - April 17, 2020
+    - Changed the event command to allow the use of variables instead. Now you have two options:
+        Use the ID directly or use the value stored in a variable.
+    - Changed the name of the event commadn from "CombatArtEventCommand" to "CombatArt".

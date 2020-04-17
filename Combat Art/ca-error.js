@@ -23,3 +23,9 @@ function throwError040(unit) {
     root.msg(message);
     root.endGame();
 }
+
+function throwError047() {
+    var message = "Error 47." + '\n' + "There is a problem with an event command." + '\n' + "Check the that the Value 1 is a valid number.";
+    root.msg(message);
+    root.endGame();
+}
