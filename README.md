@@ -43,7 +43,7 @@ in each indivdual file, they will be covered here:
   This is used in some plugins as a value for some custom parameters. For example, a plugin could need the ID of a skill
   in the custom parameter of an unit. If the skill has ID 15, the something like {skill:15} could be used in some plugin. \
   Note that by default, the engine doesn't show the ID's of the objects in the database. To make them visible, you need 
-  to go to Tools->Options->Data and check the option "Display id next to data name". \
+  to go to Tools->Options->Data and check the option "Display id next to data name".
     
   #### Compatibility issues
   Just like mods in other games, plugins are not always compatible with each other. \
