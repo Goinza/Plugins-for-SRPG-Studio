@@ -115,16 +115,18 @@
     }
 
     //Combat calculations are over, so now the selected combat art is set to null
-    var alias4 = VirtualAttackControl.createVirtualAttackUnit;
-    VirtualAttackControl.createVirtualAttackUnit = function(unitSelf, targetUnit, isSrc, attackInfo) {
-        var toReturn = alias4.call(this, unitSelf, targetUnit, isSrc, attackInfo);
+    var alias4 = AttackFlow.moveEndFlow;
+    AttackFlow.moveEndFlow = function(virtualActive, virtualPassive) {
+        var mode = alias4.call(this, virtualActive, virtualPassive);
 
-        var currentArt = root.getMetaSession().global.selectedArt;
-        if (currentArt!=null) {
-            root.getMetaSession().global.selectedArt = null;
+        if (mode == MoveResult.END) {
+            var currentArt = root.getMetaSession().global.selectedArt;
+            if (currentArt!=null) {
+                root.getMetaSession().global.selectedArt = null;
+            }
         }
 
-        return toReturn;
+        return mode;
     }
 
     //Adds the Combat Art window to the unit menu screen

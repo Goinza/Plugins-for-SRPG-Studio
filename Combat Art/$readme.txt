@@ -94,3 +94,4 @@ VERSION HISTORY
     - Changed the event command to allow the use of variables instead. Now you have two options:
         Use the ID directly or use the value stored in a variable.
     - Changed the name of the event commadn from "CombatArtEventCommand" to "CombatArt".
+    - Fixed a graphical bug where the bonus from a combat art attack would not display properly during the animations of a battle.
