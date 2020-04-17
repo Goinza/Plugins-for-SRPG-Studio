@@ -13,13 +13,13 @@ function throwError043(item) {
 }
 
 function throwError044(weapon) {
-    var message = "Error 43." + '\n' + "There is a problem with the weapon " + weapon.getName() + "." + '\n' + "Check the custom parameter 'effTrait'.";
+    var message = "Error 44." + '\n' + "There is a problem with the weapon " + weapon.getName() + "." + '\n' + "Check the custom parameter 'effTrait'.";
     root.msg(message);
     root.endGame();
 } 
 
 function throwError045(item) {
-    var message = "Error 45." + '\n' + "There is a problem with the item " + weapon.getName() + "." + '\n' + "Check the custom parameter 'addTrait' and the keyword 'Trait'.";
+    var message = "Error 45." + '\n' + "There is a problem with the item " + weapon.getName() + "." + '\n' + "Check the custom parameter 'addTrait' and/or the keyword 'Trait'.";
     root.msg(message);
     root.endGame();
 }
