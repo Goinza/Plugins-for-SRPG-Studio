@@ -170,6 +170,7 @@ var CombatArtControl = {
             i = 0;
             while (i<artWeaponTypes.length && !isWeaponType) {
                 isWeaponType = weapon.getWeaponType().getName() == artWeaponTypes[i].getName();
+                i++;
             }
         }
         else {
