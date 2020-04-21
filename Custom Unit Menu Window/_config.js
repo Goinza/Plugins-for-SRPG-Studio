@@ -5,8 +5,8 @@ var TOP_OPTIONS = [NullInteraction, TopRaceInteraction, TopStateInteraction, Gro
 var BOTTOM_OPTIONS = [NullInteraction, BottomRaceInteraction, BottomStateInteraction, ClassTypeInteraction]
 
 var Options = {
-    TOPLEFT: TOP_OPTIONS[3],
-    TOPRIGHT: TOP_OPTIONS[2],
-    BOTTOMLEFT: BOTTOM_OPTIONS[0],
-    BOTTOMRIGHT: BOTTOM_OPTIONS[0]
+    TOPLEFT: TOP_OPTIONS[1],
+    TOPRIGHT: TOP_OPTIONS[3],
+    BOTTOMLEFT: BOTTOM_OPTIONS[3],
+    BOTTOMRIGHT: BOTTOM_OPTIONS[2]
 }
