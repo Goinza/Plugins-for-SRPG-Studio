@@ -65,8 +65,8 @@ var CoverControl = {
         var movX, movY, terrain, cover;
         
         if (Math.abs(vector.y)>Math.abs(vector.x)) {
-            movX = Math.abs((vector.x / vector.y) * this.getVectorScale());
-            movY = this.getVectorScale();
+            movX = Math.abs((vector.x / vector.y) * this.getVectorScaleCover());
+            movY = this.getVectorScaleCover();
             if (vector.x<0) {
                 movX *= -1;
             }
@@ -79,8 +79,8 @@ var CoverControl = {
             cover = this.getCoverValue(terrain);
         }
         else {
-            movX = this.getVectorScale();
-            movY = Math.abs((vector.y / vector.x) * this.getVectorScale());
+            movX = this.getVectorScaleCover();
+            movY = Math.abs((vector.y / vector.x) * this.getVectorScaleCover());
             if (vector.x<0) {
                 movX *= -1;
             }
@@ -141,6 +141,10 @@ var CoverControl = {
 
     getVectorScale: function() {
         return 0.25;
+    },
+
+    getVectorScaleCover: function() {
+        return 0.71;
     }
 
 }
