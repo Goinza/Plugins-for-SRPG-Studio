@@ -61,7 +61,7 @@ var GrowthScrollbar = defineObject(TopCustomScrollbar, {
 	},
 
     _isParameterDisplayable: function(index) {
-		return index<=ParamType.BLD;
+		return ParamGroup.isParameterDisplayable(UnitStatusType.NORMAL, index);
 	}
 
 })
