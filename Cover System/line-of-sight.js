@@ -68,5 +68,27 @@
 
         return score;
     }
+    
+    var alias5 = AIScorer.Avoid.getScore;
+    AIScorer.Avoid.getScore = function(unit, combination) {
+        var score = alias5.call(this, unit, combination);
+
+        var x = unit.getMapX();
+		var y = unit.getMapY();
+		
+		// Change the unit current position temporarily.
+		unit.setMapX(CurrentMap.getX(combination.posIndex));
+        unit.setMapY(CurrentMap.getY(combination.posIndex));
+
+        var cover = CoverControl.getCoverBonus(combination.targetUnit, unit);
+        var damage = Math.round((1 - cover.dmg) * 100);
+        var hit = Math.round((1 - cover.hit) * 50);
+        score += damage + hit;
+
+        unit.setMapX(x);
+		unit.setMapY(y);
+
+        return score;
+    }
 
 })()
