@@ -8,7 +8,7 @@ var SupportInteraction = defineObject(TopCustomInteraction, {
     },
 
     getTitle: function() {
-        return 'Supports';
+        return SUPPORTS_TITLE;
     },
 
     getScrollbarObject: function() {

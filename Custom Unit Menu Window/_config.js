@@ -10,3 +10,9 @@ var Options = {
     BOTTOMLEFT: BOTTOM_OPTIONS[3],
     BOTTOMRIGHT: BOTTOM_OPTIONS[2]
 }
+
+var RACES_TITLE = "Races";
+var STATES_TITLE = "States";
+var CLASSTYPE_TITLE = "Class Type";
+var GROWTHS_TITLE = "Growths";
+var SUPPORTS_TITLE = "Supports";

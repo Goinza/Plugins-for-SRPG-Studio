@@ -8,7 +8,7 @@ var ClassTypeInteraction = defineObject(BottomCustomInteraction, {
     },
 
     getTitle: function() {
-        return 'Class Type';
+        return CLASSTYPE_TITLE;
     },
 
     getScrollbarObject: function() {

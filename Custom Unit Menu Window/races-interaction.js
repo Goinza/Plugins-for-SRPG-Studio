@@ -3,7 +3,7 @@
 var TopRaceInteraction = defineObject(TopCustomInteraction, {
 
     getTitle: function() {
-        return "Races";
+        return RACES_TITLE;
     },
 
     getScrollbarObject: function() {
@@ -15,7 +15,7 @@ var TopRaceInteraction = defineObject(TopCustomInteraction, {
 var BottomRaceInteraction = defineObject(BottomCustomInteraction, {
 
     getTitle: function() {
-        return "Races";
+        return RACES_TITLE;
     },
 
     getScrollbarObject: function() {

@@ -8,7 +8,7 @@ var GrowthInteraction = defineObject(TopCustomInteraction, {
     },
     
     getTitle: function() {
-        return 'Growths';
+        return GROWTHS_TITLE;
     },
 
     getScrollbarObject: function() {

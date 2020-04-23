@@ -3,7 +3,7 @@
 var TopStateInteraction = defineObject(TopCustomInteraction, {
 
     getTitle: function() {
-        return 'States';
+        return STATES_TITLE;
     },
 
     getScrollbarObject: function() {
