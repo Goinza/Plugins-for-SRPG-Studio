@@ -245,7 +245,7 @@ var RankUnitParameter = defineObject(BaseUnitParameter, {
         value = statusEntry.param;
         var text = WeaponRankControl.numberToRank(value);
         if (!statusEntry.visible) {
-            if (text!='') {
+            if (text!=RANK_SYSTEM[0][0]) {
                 text = "(" + text + ")";
             }
         }

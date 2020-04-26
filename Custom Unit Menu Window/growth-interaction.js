@@ -29,6 +29,7 @@ var GrowthScrollbar = defineObject(TopCustomScrollbar, {
 
     setDataScrollbar: function(unit) {
         var count = ParamGroup.getParameterCount();
+        var weapon = ItemControl.getEquippedWeapon(unit);
         var growth, name, value;
 
         this.resetScrollData();
@@ -37,7 +38,7 @@ var GrowthScrollbar = defineObject(TopCustomScrollbar, {
             if (this._isParameterDisplayable(i)) {
                 growth = createObject(GrowthObject);
                 name = ParamGroup.getParameterName(i);
-                value = ParamGroup.getGrowthBonus(unit, i) + ParamGroup.getGrowthBonus(unit.getClass(), i);
+                value = ParamGroup.getGrowthBonus(unit, i) + ParamGroup.getUnitTotalGrowthBonus(unit, i, weapon);
                 growth.setGrowth(name, value);
                 this.objectSet(growth);
             }
