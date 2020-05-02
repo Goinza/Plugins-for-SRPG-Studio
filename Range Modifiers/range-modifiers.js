@@ -276,7 +276,7 @@ UnitRangePanel.getUnitAttackRange = function(unit) {
     }
 
     if (item!=null && skill!=null) {
-        if (typeof skillArr[j].skill.custom.type != 'string') {
+        if (typeof skill.custom.type != 'string') {
             throwError019(skillArr[j].skill);
         }
         if (skill.custom.type==item.getWeaponType().getName()) {
