@@ -21,7 +21,7 @@
     Calculator.calculateRoundCount = function(active, passive, weapon) {
         var rounds;
         var combatArt = root.getMetaSession().global.combatArt;
-        if (combatArt!=null && combatArt) {
+        if (combatArt!=null && combatArt && active.getUnitType()==UnitType.PLAYER) {
             rounds = 1;
         }
         else {
