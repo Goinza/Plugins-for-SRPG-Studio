@@ -79,7 +79,8 @@ var CombatArtInteraction = defineObject(BaseInteraction, {
 
     setData: function(unit) {
         var combatArts = CombatArtControl.getCombatArtsArray(unit);
-        this._scrollbar.setObjectArray(combatArts);
+		this._scrollbar.setObjectArray(combatArts);		
+		this._window.setCombatArt(this._scrollbar.getObject());
     },
 
     getWindowTextUI: function() {
