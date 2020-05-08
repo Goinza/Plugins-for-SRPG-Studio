@@ -1,7 +1,7 @@
 //Plugin by Goinza
 
 IndexArray.createExtendedIndexArray = function(x, y, item, unit) {
-    var i, rangeValue, rangeType, arr, skill, skillArr;
+    var i, rangeValue, rangeType, arr, extendedRange;
     var startRange = 1;
     var endRange = 1;
     var count = 1;
@@ -13,32 +13,9 @@ IndexArray.createExtendedIndexArray = function(x, y, item, unit) {
     else if (item.isWeapon()) {
         startRange = item.getStartRange();
         endRange = item.getEndRange();
-
-        skillArr = SkillControl.getDirectSkillArray(unit, SkillType.CUSTOM, "WeaponRange");
-        skill = null;
-        var j = 0;
-        var found = false;
-        while (j<skillArr.length && !found) {
-            if (typeof skillArr[j].skill.custom.type != 'string') {
-                throwError019(skillArr[j].skill);
-            }
-            if (skillArr[j].skill.custom.type==item.getWeaponType().getName()) {
-                skill = skillArr[j].skill;
-                found = true;
-            }
-            j++;
-        }
-
-        if (skill!=null) {
-            startRange += skill.custom.startRange!=null ? skill.custom.startRange : 0;
-            endRange += skill.custom.endRange!=null ? skill.custom.endRange : 0;
-            if (typeof startRange != 'number') {
-                throwError020(skill);
-            }
-            if (typeof endRange != 'number') {
-                throwError021(skill);
-            }
-        }
+        extendedRange = RangeControl.getExtendedWeaponRange(unit, item);
+        startRange += extendedRange.start;
+        endRange += extendedRange.end;
     }
     else {
         if (item.getItemType() === ItemType.TELEPORTATION && item.getRangeType() === SelectionRangeType.SELFONLY) {
@@ -54,37 +31,10 @@ IndexArray.createExtendedIndexArray = function(x, y, item, unit) {
             return [];
         }
         else if (rangeType === SelectionRangeType.MULTI) {
-            endRange = rangeValue;
-
-            if (item.custom.magicRange!=null) {
-                if (typeof item.custom.magicRange != 'number') {
-                    throwError022(item);
-                }
-                endRange = Math.floor(RealBonus.getMag(unit) / item.custom.magicRange);
-            }
-
-            skill = SkillControl.getPossessionCustomSkill(unit, "StaffRange");
-            if (skill!=null && item.isWand()) {
-                startRange += skill.custom.startRange!=null ? skill.custom.startRange : 0;
-                endRange += skill.custom.endRange!=null ? skill.custom.endRange : 0;
-                if (typeof startRange != 'number') {
-                    throwError020(skill);
-                }
-                if (typeof endRange != 'number') {
-                    throwError021(skill);
-                }
-            }
-            skill = SkillControl.getPossessionCustomSkill(unit, "ItemRange");  
-            if (skill!=null && !item.isWand()) {
-                startRange += skill.custom.startRange!=null ? skill.custom.startRange : 0;
-                endRange += skill.custom.endRange!=null ? skill.custom.endRange : 0;
-                if (typeof startRange != 'number') {
-                    throwError020(skill);
-                }
-                if (typeof endRange != 'number') {
-                    throwError021(skill);
-                }
-            }          
+            endRange = RangeControl.getMagicRange(unit, item);            
+            extendedRange = RangeControl.getExtendedItemRange(unit, item);
+            startRange += extendedRange.start;
+            endRange += extendedRange.end;      
         }
         else if (rangeType === SelectionRangeType.ALL) {
             count = CurrentMap.getSize();
@@ -264,33 +214,14 @@ AttackChecker.isCounterattackPos = function(unit, targetUnit, x, y) {
 var extrng01 = UnitRangePanel.getUnitAttackRange;
 UnitRangePanel.getUnitAttackRange = function(unit) {
     var attackRange = extrng01.call(this, unit);
-
-    var skill = SkillControl.getPossessionCustomSkill(unit, "WeaponRange");  
     var item = ItemControl.getEquippedWeapon(unit);
 
-    if (item!=null && item.custom.magicRange!=null) {
-        if (typeof item.custom.magicRange != 'number') {
-            throwError022(item);
-        }
-        attackRange.endRange = Math.floor(RealBonus.getMag(unit) / item.custom.magicRange);
-    }
-
-    if (item!=null && skill!=null) {
-        if (typeof skill.custom.type != 'string') {
-            throwError019(skillArr[j].skill);
-        }
-        if (skill.custom.type==item.getWeaponType().getName()) {
-            attackRange.startRange += skill.custom.startRange!=null ? skill.custom.startRange : 0;
-            attackRange.endRange += skill.custom.endRange!=null ? skill.custom.endRange : 0;
-            if (typeof attackRange.startRange != 'number') {
-                throwError020(skill);
-            }
-            if (typeof attackRange.endRange != 'number') {
-                throwError021(skill);
-            }
-        }
-        
-    }
+    if (item!=null) {
+        //attackRange.endRange = RangeControl.getMagicRange(unit, item)
+        var extendedRange = RangeControl.getExtendedWeaponRange(unit, item);
+        attackRange.startRange += extendedRange.start;
+        attackRange.endRange += extendedRange.end;
+    }    
 
     return attackRange;
 }
@@ -300,25 +231,13 @@ BaseCombinationCollector._setUnitRangeCombination = function(misc, filter, range
     var unit = misc.unit;
     var item = misc.item;
 
-    if (item.isWeapon()) {
-        var skill = SkillControl.getPossessionCustomSkill(unit, "WeaponRange");  
-        if (item!=null && item.custom.magicRange!=null) {
-            if (typeof item.custom.magicRange != 'number') {
-                throwError022(item);
-            }
-            rangeMetrics.endRange = Math.floor(RealBonus.getMag(unit) / item.custom.magicRange);
-        }
-    
-        if (item!=null && skill!=null && skill.custom.type==item.getWeaponType().getName()) {
-            rangeMetrics.startRange += skill.custom.startRange!=null ? skill.custom.startRange : 0;
-            rangeMetrics.endRange += skill.custom.endRange!=null ? skill.custom.endRange : 0;
-            if (typeof rangeMetrics.startRange != 'number') {
-                throwError020(skill);
-            }
-            if (typeof rangeMetrics.endRange != 'number') {
-                throwError021(skill);
-            }
-        }
+    if (item.isWeapon()) {        
+        var extendedRange = RangeControl.getExtendedWeaponRange(unit, item);
+        rangeMetrics.startRange += extendedRange.start;
+        rangeMetrics.endRange += extendedRange.end;
+    }
+    else {
+        rangeMetrics.endRange = RangeControl.getMagicRange(unit, item);
     }
 
     extrng03.call(this, misc, filter, rangeMetrics);
@@ -346,16 +265,7 @@ BaseItemInfo.drawRange = function(x, y, rangeValue, rangeType) {
 }
 
 EntireRecoveryControl._isTargetAllowed = function(unit, targetUnit, item) {
-    var scope;
-    if (item.custom.magicRange != null) {
-        if (typeof item.custom.magicRange != 'number') {
-            throwError022(item);
-        }
-        scope = Math.floor(RealBonus.getMag(unit) / item.custom.magicRange);
-    }
-    else {
-        scope = item.getRangeValue();
-    }
+    var scope = RangeControl.getMagicRange(unit, item);
     var dx = Math.abs(unit.getMapX() - targetUnit.getMapX()); //The horizontal distance
     var dy = Math.abs(unit.getMapY() - targetUnit.getMapY()); //The vertical distance
     return (dx + dy) <= scope; //The total distance must be equal or less than the scope of the item
