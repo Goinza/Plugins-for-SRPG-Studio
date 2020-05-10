@@ -133,7 +133,9 @@
     var alias5 = UnitMenuScreen._configureBottomWindows;
     UnitMenuScreen._configureBottomWindows = function(groupArray) {
         alias5.call(this, groupArray);
-        groupArray.appendWindowObject(CombatArtMenuBottomWindow, this);
+        if (ENABLE_CA_WINDOW) {
+            groupArray.appendWindowObject(CombatArtMenuBottomWindow, this);
+        }        
     }
 
     //Adds the CombatArtEventCommand to the list of custom event commands
