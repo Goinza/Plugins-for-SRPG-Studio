@@ -4,7 +4,9 @@
     var alias1 = UnitMenuScreen._configureBottomWindows;
     UnitMenuScreen._configureBottomWindows = function(groupArray) {
         alias1.call(this, groupArray);
-        groupArray.appendWindowObject(TraitWindow, this);
+        if (TraitsConfig.ENABLE_WINDOW) {
+            groupArray.appendWindowObject(TraitWindow, this);
+        }
     }
 })()
 
@@ -35,7 +37,7 @@ var TraitWindow = defineObject(BaseMenuBottomWindow, {
         var textui = root.queryTextUI('extraname_title');
 		var color = textui.getColor();
 		var font = textui.getFont();
-		TextRenderer.drawText(x + ItemRenderer.getItemWidth()*3/4, y, MENU_TITLE, 15, color, font);
+		TextRenderer.drawText(x + ItemRenderer.getItemWidth()*3/4, y, TraitsConfig.MENU_TITLE, 15, color, font);
 		this._traitInteraction.getInteractionScrollbar().drawScrollbar(x, y + 40);
     },
 

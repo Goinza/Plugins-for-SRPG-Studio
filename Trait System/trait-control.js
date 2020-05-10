@@ -67,7 +67,7 @@ var TraitControl = {
 
     //We assume that the traits are ordered in a way that the first trait has ID 0, the second ID 1, and so on.
     getTraitFromId: function(id) {
-        var list = root.getBaseData().getOriginalDataList(TAB_TRAITS);
+        var list = root.getBaseData().getOriginalDataList(TraitsConfig.TAB_TRAITS);
         var trait = list.getDataFromId(id);
         if (trait.getOriginalContent().getCustomKeyword() != "Trait") {
             //Throw new error

@@ -1,7 +1,7 @@
 Traits System
 By Goinza
-Version 1.0
-April 17, 2020
+Version 1.1
+May 9, 2020
 
 This plugin allows you to add "traits" to units and classes, similar to how the "Races" option works.
 The main difference is that races can only be assigned to classes, while traits can be assigned to units and classes.
@@ -19,6 +19,7 @@ Because traits are not something that comes with the engine, we will need to cre
 
 CONFIGURATION OPTIONS
 In the file config-traits.js you can modify some variables. In this plugin there are two variable to modify:
+	-ENABLE_WINDOW: This is the value that will enable or disable the traits window. By default it is true, so the window will be visible.
 	-TAB_TRAITS: This is the tab that will be used in the Original Data window. Note that 0 is the first tab, 1 is the second tab, and so on.
 	-MENU_TITLE: This is the string that will show up as the title of the traits window.
 
@@ -42,3 +43,10 @@ This plugin is not compatible with other plugins that use the following function
 	- ItemSentence.Effective.getItemSentenceCount from window-iteminfo.js line 359.
 	- ItemSentence.Only.drawItemSentence from window-iteminfo.js line 540.
 	- ItemSentence.Only.getItemSentenceCount from window-iteminfo.js line 544.
+
+VERSION HISTORY
+1.0 - April 17, 2020
+	- Initial version
+	
+1.1 - May 9, 2020
+	- Added an option to enable or disable the traits window.
