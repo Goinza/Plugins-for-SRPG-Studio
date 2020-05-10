@@ -61,6 +61,7 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
         this._drawTopRight(x + width, y);
         this._drawBottomLeft(x, y + height);
         this._drawBottomRight(x + width, y + height);
+        this._drawHelpWindow(x, y, width);
 	},
 	
 	setHelpMode: function() {
@@ -254,6 +255,24 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
         TextRenderer.drawText(x, y, title, -1, color, font);
 
         this._bottomRightInteraction.getInteractionScrollbar().drawScrollbar(x, y + 22);
+    },
+
+    _drawHelpWindow: function(x, y, dx) {
+        if (this.isHelpMode()) {
+            if (this._unitMenuHelp == CustomHelpMode.TOPLEFT && this._topLeftInteraction.hasWindow()) {
+                this._topLeftInteraction.getInteractionWindow().drawWindow(x + dx, y);
+            }
+            else if (this._unitMenuHelp == CustomHelpMode.TOPRIGHT && this._topRightInteraction.hasWindow()) {
+                this._topRightInteraction.getInteractionWindow().drawWindow(x, y);
+            }
+            else if (this._unitMenuHelp == CustomHelpMode.BOTTOMLEFT && this._bottomLeftInteraction.hasWindow()) {
+                this._bottomLeftInteraction.getInteractionWindow().drawWindow(x + dx, y);
+            }
+            else if (this._unitMenuHelp == CustomHelpMode.BOTTOMRIGHT && this._bottomRightInteraction.hasWindow()) {
+                this._bottomRightInteraction.getInteractionWindow().drawWindow(x, y);
+            }
+        }
+       
     }
 
 })

@@ -18,6 +18,10 @@ var CustomInteraction = defineObject(BaseInteraction, {
 
     getWindowTextUI: function() {
         return root.queryTextUI('default_window');
+    },
+
+    hasWindow: function() {
+        return this._window!=null;
     }
 })
 

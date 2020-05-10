@@ -1,7 +1,7 @@
 Custom Unit Menu Window
 By Goinza
-Version 1.0
-April 19, 2020
+Version 1.1
+May 9, 2020
 
 This plugin adds a new window to the unit menu screen, which shows data from the unit that is not available by default.
 The data that will be displayed will be choosen by the user from the list of data that was added to the plugin.
@@ -26,11 +26,14 @@ The variables TOP_OPTIONS and BOTTOM_OPTIONS have the data available to use, whi
         - TopStateInteraction: States list. While by default the game shows the current states of an unit, this will let you see its name and description.
         - GrowthInteraction: Unit's growth values.
         - SupportInteraction: Supports list.
+        - TopTraitsInteraction: List of traits. This only works if you also have the plugin "Traits System" installed.
+        - CustomCombatArtsInteraction: List of combat arts. This only works if you also have the plugin "Combat Arts" installed.
     - BOTTOM_OPTIONS: this is an array containing with all the options available for bottom sectors:
         - NullInteraction: Empty space. Used when you don't want to fill this sector with data.
         - BottomRaceInteraction: Races list. Shows icon.
         - BottomStateInteraction: States list. While by default the game shows the current states of an unit, this will let you see its description.
         - ClassTypeInteraction: Class type of the unit's current class. Shows name and icon.
+        - BottomTraitsInteraction: List of traits. This only works if you also have the plugin "Traits System" installed.
     - Options: this variable has 4 fields, where each field correspond to one of the window's sectors.
         Each field has its name explaning the sector that will be assigned, for example the field TOPLEFT is assigned to the top left sector. 
         There are two way to assign a value to the field:
@@ -40,3 +43,11 @@ The variables TOP_OPTIONS and BOTTOM_OPTIONS have the data available to use, whi
 
 INCOMPATIBILIY ISSUES
 This plugin is compatible with all other plugins.
+
+VERSION HISTORY
+1.0 - April 19, 2020
+	- Initial version
+	
+1.1 - May 9, 2020
+	- Added option to see traits in the window. Requires the Traits System plugin.
+    - Added option to see combat arts in the window. Requires the Combat Arts plugin.
