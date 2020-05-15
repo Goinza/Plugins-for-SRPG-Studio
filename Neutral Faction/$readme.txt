@@ -49,6 +49,7 @@ This plugin is not compatible with other plugins that use the following function
     - EasyAttackWindow._drawWindowInternal (override of BaseWindow._drawWindowInternal from base-objects.js).
     - PosBaseWindow._drawWindowInternal (override of BaseWindow._drawWindowInternal from base-objects.js).
     - BaseTurnLogoFlowEntry._changeMusic from map-turnchange.js 313.
+    - UIBattleLayout._drawLifeGadget from attack_realbattle.js line 1826.
 
 If you have the value of ADD_OBJECTIVE_WINDOW set to true, then this plugin won't be compatile with other plugins that use the following functions:
     - ObjectiveWindow.getWindowWidth from screen-objective.js line 94.

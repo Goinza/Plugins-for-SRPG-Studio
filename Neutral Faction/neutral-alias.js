@@ -16,6 +16,7 @@ List of features and the functions that handle each of them:
         -PosBaseWindow._drawWindowInternal
         -alias05: BaseTurnLogoFlowEntry._isTurnGraphicsDisplayable
         -BaseTurnLogoFlowEntry._changeMusic
+        -UIBattleLayout._drawLifeGadget
     -Neutral units can't pass through enemy units and viceversa:
         -BlockerRule.Neutral
         -alias06: SimulationBlockerControl._configureBlockerRule
@@ -413,5 +414,29 @@ List of features and the functions that handle each of them:
         
         return unit;
     }
+
+    UIBattleLayout._drawLifeGadget = function(x, y, battler) {
+		var handle = root.queryGraphicsHandle('battlecrystal');
+		var pic = GraphicsRenderer.getGraphics(handle, GraphicsType.PICTURE);
+		var dx = 0;
+		var type = FactionControl.getUnitType(battler.getUnit());
+		
+		if (type === UnitType.PLAYER) {
+			dx = 0;
+		}
+		else if (type === UnitType.ENEMY) {
+			dx = 84;
+		}
+		else if (type == UnitType.ALLY) {
+			dx = 168;
+        }
+        else if (type == UnitType.NEUTRAL) {
+            dx = 252;
+        }
+		
+		if (pic !== null) {
+			pic.drawStretchParts(x, y, 84, 84, dx, 0, 84, 84);
+		}
+	}
 
 })()
