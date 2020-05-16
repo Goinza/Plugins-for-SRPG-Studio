@@ -227,3 +227,14 @@ Error 46:
     A problem with an Original Data entry. There are two possible scenarios for this error:
         -The entry was missing the "Trait" keyword.
         -The entry is not a trait, so there is a problem with an object having this entry as a trait in one of its custom parameters.
+
+
+NEUTRAL FACTION
+Error 48:
+    A problem with the custom parameter "neutralFaction" on a unit.
+    The parameter should always have the true value, like this: {neutralFaction: true}.
+
+Error 49:
+    A problem with the custom parameter "neutralMusic" on a map.
+    The parameter should be a positive integer number that represents the ID of an imported music file.
+    For example: {neutralMusic: 4}.
