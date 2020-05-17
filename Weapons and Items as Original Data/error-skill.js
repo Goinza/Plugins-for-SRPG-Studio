@@ -18,8 +18,14 @@ function throwError026() {
     root.endGame();
 }
 
-function throwError027(skill) {
-    var message = "Error 27." + '\n' + "There is a problem with the skill " + skill.getName() + "." + '\n' + "Check the custom paramters 'weapon' or 'item'.";
+function throwError050(unit) {
+    var message = "Error 50." + '\n' + "There is a problem with the unit " + unit.getName() + "." + '\n' + "Check the custom paramters 'spells'.";
+    root.msg(message);
+    root.endGame();
+}
+
+function throwError051(originalData) {
+    var message = "Error 50." + '\n' + "There is a problem with the Original Data entry " + originalData.getName() + "." + '\n' + "The entry should have the 'Spell' keyword.";
     root.msg(message);
     root.endGame();
 }

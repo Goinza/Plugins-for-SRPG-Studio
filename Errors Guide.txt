@@ -112,7 +112,7 @@ Error 23:
     For example: {alternative: true, ski: 50}.
 
 
-WEAPONS AND ITEMS AS SKILLS
+WEAPONS AND ITEMS AS ORIGINAL DATA
 Error 24:
     A problem with the custom parameter 'ballista' on a chapter.
     The parameter should be like this: {ballista: [{x:3, y:5, skill:30}, {x:7, y:3, skill:30}] }.
@@ -125,11 +125,13 @@ Error 26:
     A problem with the skill weapons and items on a specific chapter. Make sure you are using the Opening Event with the code
     MagicAttackControl.setSpellsAllUnits();
 
-Error 27:
-    A problem with the custom parameters 'weapon' or 'item' on a custom skill.
-    Note that "SkillAttack" skills use the parameter 'weapon', and "SkillSupport" skills use the parameter 'item'.
-    These two parameter should be integer numbers, like {weapon:15} and {item:3}.
+Error 50:
+    A problem with the custom parameter 'spells' on a unit. The parameter must be an array of positive integers,
+    where each number is an ID of an Original Data entry. For example: {spells: [1]} or {spells: [3, 4, 7]}.
 
+Error 51:
+    A problem with an Original Data entry. If you want that entry to be used in this plugin, you have to 
+    set the custom keyword as "Spell".
 
 HYBRID TYPE FOR WEAPONS
 Error 41:

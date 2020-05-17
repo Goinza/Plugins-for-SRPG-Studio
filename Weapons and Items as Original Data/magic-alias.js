@@ -1,7 +1,7 @@
 //Plugin by Goinza
 
 (function() {
-    //THE FOLLOWING FUNCTIONS AFFECT HOW COMBAT WORKS USING WEAPONS FROM SKILLS
+    //THE FOLLOWING FUNCTIONS AFFECT HOW COMBAT WORKS USING WEAPONS FROM ORIGINAL DATA ENTRIES
 
     //The Attack command will display if the unit has a magic skill
     var alias1 = AttackChecker.isUnitAttackable;
@@ -290,13 +290,24 @@
 	AIScorer.Weapon._resetTemporaryWeapon = function(unit, combination, prevItemIndex) {
     }
     
-    //Add spells for units when they learn a skill in the middle of a chapter
+    //Add spells for units when they learn a spell in the middle of a chapter
+    var alias17 = ExperienceControl.obtainData;
+    ExperienceControl.obtainData = function(unit) {
+        MagicAttackControl.checkSpells(unit);
+    }
+
+    var alias18 = ClassChangeItemUse.mainAction;
+    ClassChangeItemUse.mainAction = function() {
+        alias18.call(this);
+        var itemTargetInfo = this._itemUseParent.getItemTargetInfo();
+        MagicAttackControl.checkSpells(itemTargetInfo.unit);
+    }
+/*
     var alias11 = AllEventFlowEntry._skillChange;
     AllEventFlowEntry._skillChange = function(generator, targetUnit, command) {
         alias11.call(this, generator, targetUnit, command);
         MagicAttackControl.addSpell(targetUnit, command.getTargetSkill());
     }
-
     var alias12 = SkillChangeItemUse.enterMainUseCycle;
     SkillChangeItemUse.enterMainUseCycle = function(itemUseParent) {
         alias12.call(this, itemUseParent);
@@ -313,6 +324,7 @@
         }
     }
 
+*/
     //Adds spells to reinforcements
     var alias14 = ReinforcementChecker._appearUnit;
     ReinforcementChecker._appearUnit = function(pageData, x, y) {
@@ -323,7 +335,6 @@
 
         return unit;
     }
-
     //Adds spells to event units
     var alias15 = ScriptCall_AppearEventUnit;
     ScriptCall_AppearEventUnit = function(unit) {
