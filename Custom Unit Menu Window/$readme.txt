@@ -1,7 +1,7 @@
 Custom Unit Menu Window
 By Goinza
-Version 1.1
-May 9, 2020
+Version 1.2
+May 18, 2020
 
 This plugin adds a new window to the unit menu screen, which shows data from the unit that is not available by default.
 The data that will be displayed will be choosen by the user from the list of data that was added to the plugin.
@@ -28,6 +28,7 @@ The variables TOP_OPTIONS and BOTTOM_OPTIONS have the data available to use, whi
         - SupportInteraction: Supports list.
         - TopTraitsInteraction: List of traits. This only works if you also have the plugin "Traits System" installed.
         - CustomCombatArtsInteraction: List of combat arts. This only works if you also have the plugin "Combat Arts" installed.
+        - CustomSpellsInteraction: List of weapons and items from Orignal Data entries. This only works with the plugin "Weapons and Items as Original Data" installed.
     - BOTTOM_OPTIONS: this is an array containing with all the options available for bottom sectors:
         - NullInteraction: Empty space. Used when you don't want to fill this sector with data.
         - BottomRaceInteraction: Races list. Shows icon.
@@ -51,3 +52,7 @@ VERSION HISTORY
 1.1 - May 9, 2020
 	- Added option to see traits in the window. Requires the Traits System plugin.
     - Added option to see combat arts in the window. Requires the Combat Arts plugin.
+
+1.2 - May 18, 2020
+    - Added option to see weapons and items from Original Data entries.
+        Requires the Weapons and Items as Original Data plugin

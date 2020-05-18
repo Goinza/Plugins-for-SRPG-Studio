@@ -139,7 +139,6 @@ var MagicAttackControl = {
             var i = 0;
             while (i<magicData.length && !found) {
                 found = magicData[i] == originalData.getId();
-                root.log(originalData.getName() + " - " + found);
                 i++;
             }
         } 

@@ -1,7 +1,7 @@
 //Plugin by Goinza
 
 var TOP_OPTIONS = [NullInteraction, TopRaceInteraction, TopStateInteraction, GrowthInteraction, SupportInteraction,
-                    TopTraitsInteraction, CustomCombatArtsInteraction]
+                    TopTraitsInteraction, CustomCombatArtsInteraction, CustomSpellsInteraction]
 
 var BOTTOM_OPTIONS = [NullInteraction, BottomRaceInteraction, BottomStateInteraction, ClassTypeInteraction, 
                     BottomTraitsInteraction]
@@ -9,8 +9,8 @@ var BOTTOM_OPTIONS = [NullInteraction, BottomRaceInteraction, BottomStateInterac
 var Options = {
     TOPLEFT: TopRaceInteraction,
     TOPRIGHT: GrowthInteraction,
-    BOTTOMLEFT: BottomStateInteraction,
-    BOTTOMRIGHT: ClassTypeInteraction
+    BOTTOMLEFT: ClassTypeInteraction,
+    BOTTOMRIGHT: BottomStateInteraction
 }
 
 var RACES_TITLE = "Races";
