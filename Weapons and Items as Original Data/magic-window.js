@@ -73,9 +73,7 @@ var SpellsInteraction = defineObject(BaseInteraction, {
     },
 
     setData: function(unit) {
-        var spells = MagicAttackControl.getAttackSpells(unit);
-        spells.concat(MagicAttackControl.getSupportSpells(unit));
-        this._scrollbar.setObjectArray(spells);
+        this._scrollbar.setSpellsData(unit);
     },
 
     getWindowTextUI: function() {
@@ -95,6 +93,24 @@ var SpellsInteraction = defineObject(BaseInteraction, {
 })
 
 var SpellsScrollbar = defineObject(BaseScrollbar, {
+
+    setSpellsData: function(unit) {
+        var attackSpells = MagicAttackControl.getAttackSpells(unit);
+        var supportSpells = MagicAttackControl.getSupportSpells(unit);
+
+        this.resetScrollData();
+		
+		for (var i=0; i<attackSpells.length; i++) {
+			this.objectSet(attackSpells[i]);
+        }
+        
+        for (var i=0; i<supportSpells.length; i++) {
+            this.objectSet(supportSpells[i]);
+        }
+		
+		this.objectSetEnd();
+
+    },
 
     drawScrollContent: function(x, y, object, isSelect, index) {        
         var textui = this.getParentTextUI();

@@ -15,16 +15,20 @@ var CustomSpellsInteraction = defineObject(TopCustomInteraction, {
 var CustomSpellsScrollbar = defineObject(TopCustomScrollbar, {
 
     setDataScrollbar: function(unit) {
-        var spells = MagicAttackControl.getAttackSpells(unit);
-        spells.concat(MagicAttackControl.getSupportSpells(unit));
+        var attackSpells = MagicAttackControl.getAttackSpells(unit);
+        var supportSpells = MagicAttackControl.getSupportSpells(unit);
 
         this.resetScrollData();
-
-        for (var i=0; i<spells.length; i++) {
-            this.objectSet(spells[i]);
+		
+		for (var i=0; i<attackSpells.length; i++) {
+			this.objectSet(attackSpells[i]);
         }
-
-        this.objectSetEnd();
+        
+        for (var i=0; i<supportSpells.length; i++) {
+            this.objectSet(supportSpells[i]);
+        }
+		
+		this.objectSetEnd();
     },
 
     drawScrollContent: function(x, y, object, isSelect, index) {        
