@@ -194,7 +194,7 @@
             var unit = this.getCommandTarget();
             var attackSpells = MagicAttackControl.getAttackSpells(unit);
             var supportSpells = MagicAttackControl.getSupportSpells(unit);
-            displayable = attackSkills.length>0 || supportSkills.length>0; 
+            displayable = attackSpells.length>0 || supportSpells.length>0; 
         }
 
         return displayable;
