@@ -140,7 +140,7 @@
     WandSelectMenu.getWandCount = function() {
         var count = alias6.call(this);
 
-        var supportSpells = MagicAttackControl.getSupportSpells(this._uunit);
+        var supportSpells = MagicAttackControl.getSupportSpells(this._unit);
         for (var i=0; i<supportSpells.length; i++) {
             item = supportSpells[i];
             if (this._isWandAllowed(this._unit, item)) {
@@ -302,29 +302,7 @@
         var itemTargetInfo = this._itemUseParent.getItemTargetInfo();
         MagicAttackControl.checkSpells(itemTargetInfo.unit);
     }
-/*
-    var alias11 = AllEventFlowEntry._skillChange;
-    AllEventFlowEntry._skillChange = function(generator, targetUnit, command) {
-        alias11.call(this, generator, targetUnit, command);
-        MagicAttackControl.addSpell(targetUnit, command.getTargetSkill());
-    }
-    var alias12 = SkillChangeItemUse.enterMainUseCycle;
-    SkillChangeItemUse.enterMainUseCycle = function(itemUseParent) {
-        alias12.call(this, itemUseParent);
-        var itemTargetInfo = itemUseParent.getItemTargetInfo();
-        var info = itemTargetInfo.item.getSkillChangeInfo();
-        MagicAttackControl.addSpell(itemTargetInfo.targetUnit, info.getSkill());
-    }
 
-    var alias13 = SkillChecker.arrangeSkill;
-    SkillChecker.arrangeSkill = function(unit, skill, increaseType) {
-        alias13.call(this, unit, skill, increaseType);
-        if (increaseType == IncreaseType.INCREASE) {
-            MagicAttackControl.addSpell(unit, skill);
-        }
-    }
-
-*/
     //Adds spells to reinforcements
     var alias14 = ReinforcementChecker._appearUnit;
     ReinforcementChecker._appearUnit = function(pageData, x, y) {
@@ -347,11 +325,26 @@
 
     //Resets item data from the custom parameters when loading the game.
     //This is done because objects like items can't be saved correctly as custom parameters when the game ends.
-    var alias16 = LoadSaveScreen._executeLoad;
-    LoadSaveScreen._executeLoad = function() {
-        alias16.call(this);
+    var alias16 = ScriptCall_Load;
+    ScriptCall_Load = function() {
+        alias16.call(this);    
         MagicAttackControl.clear();
-		MagicAttackControl.setSpellsPlayerUnits();
+        var scene = root.getBaseScene()
+        if (scene == SceneType.FREE) {
+            MagicAttackControl.deserialize();
+        }
+        else {
+            MagicAttackControl.setSpellsPlayerUnits();
+        } 
+    }
+
+    var alias17 = LoadSaveScreen._executeSave;
+    LoadSaveScreen._executeSave = function() {
+        var scene = root.getBaseScene()
+        if (scene == SceneType.FREE) {
+            MagicAttackControl.serialize();
+        }
+        alias17.call(this);
     }
 
 })();

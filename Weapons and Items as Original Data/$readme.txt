@@ -1,7 +1,7 @@
 Weapons and Items as Original Data
 By Goinza
-Version 2.0
-May 17, 2020
+Version 2.1
+May 26, 2020
 
 This plugin allows the creation of Original Data entries that act as weapons or items.
 This means that you can, for example, make a magic system where the magic is not in the inventory, but instead it is from Original Data entries.
@@ -70,3 +70,7 @@ VERSION HISTORY
 2.0 - May 17, 2020
     - Reworked the system to use Original Data instead of Skills. Ballista weapons are still using the same skill system.
     - Added an "AddSpell" event to use in the editor.
+
+2.1 - May 26, 2020
+    - Fixed an issue that would crash the game when loading a save file mid-chapter.
+        Keep in mind that this update doesn't work on save files made before the update.

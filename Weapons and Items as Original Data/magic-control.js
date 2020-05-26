@@ -9,6 +9,81 @@ var MagicAttackControl = {
             unit.custom.equipped = null;
         }
     },
+    
+    serialize: function() {
+        var groupArray = [];
+        groupArray.push(PlayerList.getAliveList());
+        groupArray.push(EnemyList.getAliveList());
+        groupArray.push(AllyList.getAliveList());
+
+        var list, unit;
+        for (var h=0; h<groupArray.length; h++) {
+            list = groupArray[h];
+            for (var i=0; i<list.getCount(); i++) {
+                unit = list.getData(i);           
+                this._serializeUnit(unit);
+            }
+        }
+    },
+
+    deserialize: function() {
+        var groupArray = [];
+        groupArray.push(PlayerList.getAliveList());
+        groupArray.push(EnemyList.getAliveList());
+        groupArray.push(AllyList.getAliveList());
+        var list, unit;
+        for (var h=0; h<groupArray.length; h++) {
+            list = groupArray[h];
+            for (var i=0; i<list.getCount(); i++) {
+                unit = list.getData(i);
+                this._deserializeUnit(unit);
+            }
+        }
+    },
+
+    _serializeUnit: function(unit) {
+        var spells;
+        unit.custom.storedInfo = [];
+        var object;
+
+        spells = this.getAttackSpells(unit);
+        for (var i=0; i<spells.length; i++) {
+            object = {};
+            object.id = spells[i].getId();
+            object.uses = spells[i].getLimit();            
+            object.isWeapon = true;
+            unit.custom.storedInfo.push(object);
+        }
+
+        spells = this.getSupportSpells(unit);
+        for (var i=0; i<spells.length; i++) {
+            object = {};
+            object.id = spells[i].getId();
+            object.uses = spells[i].getLimit();
+            object.isWeapon = false;
+            unit.custom.storedInfo.push(object);
+        }
+
+    },
+
+    _deserializeUnit: function(unit) {
+        var storedInfo = unit.custom.storedInfo;        
+        unit.custom.spellsAttack = [];
+        unit.custom.spellsSupport = [];
+
+        var dataList, item, index;
+        for (var i=0; i<storedInfo.length; i++) {
+            dataList = storedInfo[i].isWeapon ? dataList = root.getBaseData().getWeaponList() : dataList = root.getBaseData().getItemList();
+            item = root.duplicateItem(dataList.getDataFromId(storedInfo[i].id));                       
+            item.setLimit(storedInfo[i].uses);
+            if (storedInfo[i].isWeapon) {
+                index = unit.custom.spellsAttack.push(item);
+            }
+            else {
+                unit.custom.spellsSupport.push(item);
+            }
+        }
+    },
 
     setSpellsAllUnits: function() {
         var groupArray = [];
@@ -197,6 +272,7 @@ var MagicAttackControl = {
 
     _addItem: function(unit, item) {
         var copyItem = root.duplicateItem(item);
+       
         if (item.isWeapon()) {
             unit.custom.spellsAttack.push(copyItem);
         }
