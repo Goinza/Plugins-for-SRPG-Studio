@@ -61,7 +61,19 @@
 
         root.log("X: " + CurrentMap.getX(index) + " - Y: " + CurrentMap.getY(index));*/
 
-        var score = CoverControl.hasLineOfSight(unit, combination.targetUnit) ? alias4.call(this, unit, combination) : -1;
+        if (combination.item === null || !combination.item.isWeapon()) {
+			return 0;
+        }
+
+        var score;
+        if (combination.item.getEndRange() == 1) {
+            //Melee unit, ignore line of sight
+            score = alias4.call(this, unit, combination);
+        }
+        else {
+            //Check line of sight
+            score = CoverControl.hasLineOfSight(unit, combination.targetUnit) ? alias4.call(this, unit, combination) : -1;
+        }
 
        /* unit.setMapX(currentX);
         unit.setMapY(currentY);*/
