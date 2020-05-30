@@ -3,6 +3,9 @@
 var CoverControl = {
 
     hasLineOfSight: function(active, passive) {
+        if (passive==null) {
+            return false;
+        }
         var activeX = active.getMapX() + 0.5;
         var activeY = active.getMapY() + 0.5;
         var passiveX = passive.getMapX() + 0.5;
@@ -53,6 +56,9 @@ var CoverControl = {
     //The active unit is attacking the passive unit.
     //The cover bonus defense applies to the passive unit if it has a cover next to it.
     getCoverBonus: function(active, passive) {
+        if (active==null) {
+            return {dmg: 1, hit: 1, crit: 1};
+        }
         var activeX = active.getMapX() + 0.5;
         var activeY = active.getMapY() + 0.5;
         var passiveX = passive.getMapX() + 0.5;
