@@ -14,12 +14,13 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
     _bottomLeftInteraction: null,
     _bottomRightInteraction: null,
     _unitMenuHelp: -1,
+    _index: 0,
 
     setUnitMenuData: function() {
-        this._topLeftInteraction = createObject(Options.TOPLEFT);
-        this._topRightInteraction = createObject(Options.TOPRIGHT);
-        this._bottomLeftInteraction = createObject(Options.BOTTOMLEFT);       
-        this._bottomRightInteraction = createObject(Options.BOTTOMRIGHT);
+        this._topLeftInteraction = createObject(Options.TOPLEFT[this._index]);
+        this._topRightInteraction = createObject(Options.TOPRIGHT[this._index]);
+        this._bottomLeftInteraction = createObject(Options.BOTTOMLEFT[this._index]);       
+        this._bottomRightInteraction = createObject(Options.BOTTOMRIGHT[this._index]);
 	},
 	
 	changeUnitMenuTarget: function(unit) {
@@ -115,6 +116,10 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
         }
 
 		return text;
+    },
+
+    setIndex: function(newIndex) {
+        this._index = newIndex;
     },
 
     _moveTopLeft: function() {
@@ -215,44 +220,40 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
     
     _drawTopLeft: function(x, y) {
         var textui = this.getWindowTextUI();
-        var color = textui.getColor();
         var font = textui.getFont();
         var title = this._topLeftInteraction.getTitle();
 
-        TextRenderer.drawText(x, y - 5, title, -1, color, font);
+        TextRenderer.drawText(x, y - 5, title, -1, ColorValue.KEYWORD, font);
 
         this._topLeftInteraction.getInteractionScrollbar().drawScrollbar(x, y + 20);
     },
 
     _drawTopRight: function(x, y) {
         var textui = this.getWindowTextUI();
-        var color = textui.getColor();
         var font = textui.getFont();
         var title = this._topRightInteraction.getTitle();
 
-        TextRenderer.drawText(x, y - 5, title, -1, color, font);
+        TextRenderer.drawText(x, y - 5, title, -1, ColorValue.KEYWORD, font);
 
         this._topRightInteraction.getInteractionScrollbar().drawScrollbar(x, y + 20);
     },
 
     _drawBottomLeft: function(x, y) {
         var textui = this.getWindowTextUI();
-        var color = textui.getColor();
         var font = textui.getFont();
         var title = this._bottomLeftInteraction.getTitle();
 
-        TextRenderer.drawText(x, y, title, -1, color, font);
+        TextRenderer.drawText(x, y, title, -1, ColorValue.KEYWORD, font);
 
         this._bottomLeftInteraction.getInteractionScrollbar().drawScrollbar(x, y + 22);
     },
 
     _drawBottomRight: function(x, y) {
         var textui = this.getWindowTextUI();
-        var color = textui.getColor();
         var font = textui.getFont();
         var title = this._bottomRightInteraction.getTitle();
 
-        TextRenderer.drawText(x, y, title, -1, color, font);
+        TextRenderer.drawText(x, y, title, -1, ColorValue.KEYWORD, font);
 
         this._bottomRightInteraction.getInteractionScrollbar().drawScrollbar(x, y + 22);
     },
