@@ -16,6 +16,10 @@ var CustomInteraction = defineObject(BaseInteraction, {
         return BaseScrollbar;
     },
 
+    getWindowObject: function() {
+        return null;
+    },
+
     getWindowTextUI: function() {
         return root.queryTextUI('default_window');
     },
@@ -29,7 +33,11 @@ var TopCustomInteraction = defineObject(CustomInteraction, {
 
     initialize: function() {
 		this._scrollbar = createScrollbarObject(this.getScrollbarObject(), this);
-		this._scrollbar.setScrollFormation(1, 4);
+        this._scrollbar.setScrollFormation(1, DataConfig.getMaxUnitItemCount()-1);
+        if (this.getWindowObject()!=null) {
+            this._window = createWindowObject(this.getWindowObject(), this);
+        }
+        
     }
 
 })
@@ -38,7 +46,10 @@ var BottomCustomInteraction = defineObject(CustomInteraction, {
 
     initialize: function() {
 		this._scrollbar = createScrollbarObject(this.getScrollbarObject(), this);
-		this._scrollbar.setScrollFormation(6, 1);
+        this._scrollbar.setScrollFormation(6, 1);
+        if (this.getWindowObject()!=null) {
+            this._window = createWindowObject(this.getWindowObject(), this);
+        }
     }
 
 })

@@ -36,6 +36,10 @@ var TopWeaponTypeScrollbar = defineObject(TopCustomScrollbar, {
             this.objectSet(refList.getTypeData(i));
         }
 
+        if (unit.getClass().getClassOption() & ClassOptionFlag.WAND) {
+            this.objectSet(root.getBaseData().getWeaponTypeList(3).getDataFromId(0));
+        }
+
         this.objectSetEnd();
     },
 
@@ -62,6 +66,10 @@ var BottomWeaponTypeScrollbar = defineObject(BottomCustomScrollbar, {
 
         for (var i=0; i<count; i++) {
             this.objectSet(refList.getTypeData(i));
+        }
+
+        if (unit.getClass().getClassOption() & ClassOptionFlag.WAND) {
+            this.objectSet(root.getBaseData().getWeaponTypeList(3).getDataFromId(0));
         }
 
         this.objectSetEnd();

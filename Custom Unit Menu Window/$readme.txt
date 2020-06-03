@@ -1,7 +1,7 @@
 Custom Unit Menu Window
 By Goinza
-Version 2.0
-June 2, 2020
+Version 2.1
+June 3, 2020
 
 This plugin allows to change the default bottom window of the unit menu screen, so you can show data from the unit that is not available by default.
 You can also add more windows, with each window showing differen data of the unit.
@@ -30,6 +30,8 @@ Now, here is a list of all the possible values for the top and bottom sections:
         - NullInteraction: Empty space. Used when you don't want to fill this sector with data.
         - InventoryInteraction: List of weapons and items that the unit has in its inventory.
         - StatsInteraction: Current stats of the unit. It doesn't include the HP stat.
+        - AltStatsInteraction: Alternative version of StatsInteraction. The difference is that it has 3 columns instead of 2.
+            Useful if you have too many stats and they don't fit in the window.
         - TopWeaponTypeInteraction: List of weapon types available to the unit. Shows icon and name.
         - TopSkillInteraction: List of skills of the unit. Shows icon and name.
         - TopRaceInteraction: Races list. Shows name and icon.
@@ -53,6 +55,9 @@ Now, here is a list of all the possible values for the top and bottom sections:
             You can do something like TOP_OPTIONS[2], in this case you are using the third value found in the array of TOP_OPTIONS.
                 Note that the index starts with zero, so the first element is TOP_OPTIONS[0], the second TOP_OPTIONS[1], and so on.
             The other option is to directly specify the name of the data, like for example writing BottomRaceInteraction or BottomStateInteraction.
+        There is also two other fields: WINDOWS_COUNT and SECTION_DISTANCE. The first one was already explained before,
+            and the other sets the distance between the top and bottom sections. By default the value is 0, but it can be changed if your menu window has a differnt size than the default value.
+            Use a positive number to increase the distance and a negative number to decrease the distance between the top and bottom sections.
 
 INCOMPATIBILIY ISSUES
 This plugin is compatible with all other plugins, except for one part: 
@@ -76,3 +81,9 @@ VERSION HISTORY
         and the other windows will be added according to the settings selected by the user.
     - Added option to set the inventory, unit stats and list of skills as data for the top section.
     - Added option to set list of available weapon types and list of skills as data for the bottom section. 
+
+2.1 - June 3, 2020
+    - Fixed graphical bugs related to the inventory and weapon type sections.
+    - Fixed bug that would crash the game when inspecting an enemy unit's inventory.
+    - Added an alternative version of the stats section, that divides the stats into 3 columns instead of 2.
+    - Added an option to set the distance between the top and bottom sections.

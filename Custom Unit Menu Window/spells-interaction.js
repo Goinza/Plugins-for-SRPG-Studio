@@ -8,7 +8,17 @@ var CustomSpellsInteraction = defineObject(TopCustomInteraction, {
 
     getScrollbarObject: function() {
         return CustomSpellsScrollbar;
-    }
+    },
+
+    getWindowObject: function() {
+        return ItemInfoWindow;
+    },
+
+    _changeTopic: function() {
+		var item = this._scrollbar.getObject();
+		
+		this._window.setInfoItem(item);
+	}
 
 })
 

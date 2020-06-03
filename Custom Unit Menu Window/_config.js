@@ -3,7 +3,7 @@
 //Available data for the top sections
 var TOP_OPTIONS = [NullInteraction, TopRaceInteraction, TopStateInteraction, GrowthInteraction, SupportInteraction,
                     TopTraitsInteraction, CustomCombatArtsInteraction, CustomSpellsInteraction,
-                    InventoryInteraction, StatsInteraction, TopWeaponTypeInteraction, TopSkillInteraction];
+                    InventoryInteraction, StatsInteraction, TopWeaponTypeInteraction, TopSkillInteraction, AltStatsInteraction];
 
 //Available data for the bottom sections
 var BOTTOM_OPTIONS = [NullInteraction, BottomRaceInteraction, BottomStateInteraction, ClassTypeInteraction, 
@@ -12,10 +12,13 @@ var BOTTOM_OPTIONS = [NullInteraction, BottomRaceInteraction, BottomStateInterac
 var Options = {
     //Amount of windows added to the unit menu screen
     WINDOWS_COUNT: 2,
+    //Distance between the top and bottom sections. Use a positive number to create more distance between the sections
+    //    or a negative number to reduce the distance. 0 is the default value.
+    SECTION_DISTANCE: 0,
     //Data shown in the top left section
     TOPLEFT: [InventoryInteraction, TopRaceInteraction],
     //Data shown in the top right section
-    TOPRIGHT: [StatsInteraction, GrowthInteraction],
+    TOPRIGHT: [AltStatsInteraction, GrowthInteraction],
     //Data shown in the bottom left section
     BOTTOMLEFT: [BottomWeaponTypeInteraction, ClassTypeInteraction],
     //Data shown in the bottom right section

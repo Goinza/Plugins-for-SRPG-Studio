@@ -4,7 +4,7 @@ var GrowthInteraction = defineObject(TopCustomInteraction, {
 
     initialize: function() {
 		this._scrollbar = createScrollbarObject(this.getScrollbarObject(), this);
-		this._scrollbar.setScrollFormation(3, 4);
+		this._scrollbar.setScrollFormation(3, DataConfig.getMaxUnitItemCount()-1);
     },
     
     getTitle: function() {

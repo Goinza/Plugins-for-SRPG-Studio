@@ -8,13 +8,24 @@ var InventoryInteraction = defineObject(TopCustomInteraction, {
 
     getScrollbarObject: function() {
         return InventoryScrollbar;
-    }  
+    },
+
+    getWindowObject: function() {
+        return ItemInfoWindow;
+    },
+    
+    _changeTopic: function() {
+		var item = this._scrollbar.getObject();
+		
+		this._window.setInfoItem(item);
+	}
 })
 
 var InventoryScrollbar = defineObject(ItemDropListScrollbar, {
 
     setDataScrollbar: function(unit) {
         this.setUnitItemFormation(unit);
+        this.resetDropMark();
     }
     
 })

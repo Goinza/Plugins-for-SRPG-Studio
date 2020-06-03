@@ -2,17 +2,16 @@
 
 var TopSkillInteraction = defineObject(TopCustomInteraction, {
 
-    setUnitData: function(unit) {
-        this._window = createWindowObject(SkillInfoWindow, this);
-        this._scrollbar.setDataScrollbar(unit);
-    },
-
     getTitle: function() {
         return SKILLS_TITLE;
     },
 
     getScrollbarObject: function() {
         return TopSkillScrollbar;
+    },
+
+    getWindowObject: function() {
+        return SkillInfoWindow;
     },
     
     getHelpText: function() {
@@ -30,11 +29,6 @@ var TopSkillInteraction = defineObject(TopCustomInteraction, {
 })
 
 var BottomSkillInteraction = defineObject(BottomCustomInteraction, {
-    
-    setUnitData: function(unit) {
-        this._window = createWindowObject(SkillInfoWindow, this);
-        this._scrollbar.setDataScrollbar(unit);
-    },
 
     getTitle: function() {
         return SKILLS_TITLE;
@@ -43,6 +37,10 @@ var BottomSkillInteraction = defineObject(BottomCustomInteraction, {
     getScrollbarObject: function() {
         return BottomSkillScrollbar;
     },
+
+    getWindowObject: function() {
+        return SkillInfoWindow;
+    },    
     
     getHelpText: function() {
 		var skill = this._scrollbar.getObject().skill;
