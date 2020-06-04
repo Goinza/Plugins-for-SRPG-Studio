@@ -4,6 +4,7 @@ var CustomInteraction = defineObject(BaseInteraction, {
 
     setUnitData: function(unit) {
         this._scrollbar.setDataScrollbar(unit);
+        this._changeTopic();
     },
 
     //Title that will show up in the window
