@@ -15,6 +15,10 @@ var StatsInteraction = defineObject(TopCustomInteraction, {
         return StatsScrollbar;
     },
 
+    isHelpAvaliable: function() {
+        return ENABLE_STAT_DESCRIPTION;
+    },
+
     getHelpText: function() {
         var text = "";
         var data = StatODControl.getOriginalDataFromStatusEntry(this._scrollbar.getObject());

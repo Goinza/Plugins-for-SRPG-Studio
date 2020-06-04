@@ -35,3 +35,6 @@ var STATES_TITLE = "States";
 var CLASSTYPE_TITLE = "Class Type";
 var GROWTHS_TITLE = "Growths";
 var SUPPORTS_TITLE = "Supports";
+
+var ENABLE_STAT_DESCRIPTION = false; //If true, enables selecting stats and growths to check their descriptions.
+var STAT_TAB = 0; //If ENABLE_STAT_DESCRIPTION is enabled, this will be used to define the tab that will be used to find the description of each stat.

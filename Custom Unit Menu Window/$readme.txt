@@ -1,7 +1,7 @@
 Custom Unit Menu Window
 By Goinza
-Version 2.1
-June 3, 2020
+Version 2.2
+June 4, 2020
 
 This plugin allows to change the default bottom window of the unit menu screen, so you can show data from the unit that is not available by default.
 You can also add more windows, with each window showing differen data of the unit.
@@ -59,6 +59,12 @@ Now, here is a list of all the possible values for the top and bottom sections:
             and the other sets the distance between the top and bottom sections. By default the value is 0, but it can be changed if your menu window has a differnt size than the default value.
             Use a positive number to increase the distance and a negative number to decrease the distance between the top and bottom sections.
 
+ABOUT THE SECTIONS OF STATS AND GROWTHS
+If you use the StatsInteraction, AltStatsInteraction and/or GrowthInteraction, you will notice that you can't select each stat to check their description.
+That is the default behaviour, but it can be changed. To enable this, set true to the variable ENABLE_STAT_DESCRIPTION in the _config.js file
+To do this, you need to create and Original Data entry for each stat. Each entry must have exactly the same name as the stat, and you can write the description in the Description field.
+All entries must be in the same tab, which will be specified by the STAT_TAB variable. Note that the value zero means the first tab, one is for the second tab, and so on.
+
 INCOMPATIBILIY ISSUES
 This plugin is compatible with all other plugins, except for one part: 
 the UnitMenuBottomWindow object is completely replaced for another, so any plugin relying on that object may have problems.
@@ -87,3 +93,6 @@ VERSION HISTORY
     - Fixed bug that would crash the game when inspecting an enemy unit's inventory.
     - Added an alternative version of the stats section, that divides the stats into 3 columns instead of 2.
     - Added an option to set the distance between the top and bottom sections.
+
+2.2 - June 4, 2020
+    - Added a option to select and check the data from the stats and growth sections.

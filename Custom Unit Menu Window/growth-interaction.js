@@ -15,6 +15,10 @@ var GrowthInteraction = defineObject(TopCustomInteraction, {
         return GrowthScrollbar;
     },
 
+    isHelpAvaliable: function() {
+        return ENABLE_STAT_DESCRIPTION;
+    },
+
     getHelpText: function() {
         var text = "";
         var data = StatODControl.getOriginalDataFromStat(this._scrollbar.getObject());
@@ -93,7 +97,7 @@ var GrowthObject = defineObject(BaseObject, {
 var StatODControl = {
 
     getOriginalDataFromStat: function(stat) {
-        var list = root.getBaseData().getOriginalDataList(0);
+        var list = root.getBaseData().getOriginalDataList(STAT_TAB);
         var i = 0;
         var found = false;
         var data;
@@ -107,7 +111,7 @@ var StatODControl = {
     },
 
     getOriginalDataFromStatusEntry: function(statusEntry) {
-        var list = root.getBaseData().getOriginalDataList(0);
+        var list = root.getBaseData().getOriginalDataList(STAT_TAB);
         var i = 0;
         var found = false;
         var data;
