@@ -27,6 +27,7 @@ var CustomInteraction = defineObject(BaseInteraction, {
     hasWindow: function() {
         return this._window!=null;
     }
+    
 })
 
 var TopCustomInteraction = defineObject(CustomInteraction, {
@@ -36,8 +37,7 @@ var TopCustomInteraction = defineObject(CustomInteraction, {
         this._scrollbar.setScrollFormation(1, DataConfig.getMaxUnitItemCount()-1);
         if (this.getWindowObject()!=null) {
             this._window = createWindowObject(this.getWindowObject(), this);
-        }
-        
+        }        
     }
 
 })
@@ -69,6 +69,20 @@ var TopCustomScrollbar = defineObject(CustomScrollbar, {
 	
 	getObjectHeight: function() {
 		return ItemRenderer.getItemHeight();
+    },
+    
+    objectSetEnd: function() {
+        var objectCount = this._objectArray.length;
+        
+        this._commandCursor.setCursorUpDown(objectCount);
+        
+		this._rowCount = Math.ceil(objectCount / this._col);
+		if (this._rowCount > this._showRowCount) {
+			this._rowCount = this._showRowCount;
+		}
+		
+		// Check if the number of previous index doesn't exceed the new count.
+		this._commandCursor.validate(); 
 	}
 
 })
@@ -81,5 +95,19 @@ var BottomCustomScrollbar = defineObject(CustomScrollbar, {
 	
 	getObjectHeight: function() {
 		return ItemRenderer.getItemHeight();
+	},
+
+    objectSetEnd: function() {
+        var objectCount = this._objectArray.length;
+
+        this._commandCursor.setCursorLeftRight(objectCount);
+        
+		this._rowCount = Math.ceil(objectCount / this._col);
+		if (this._rowCount > this._showRowCount) {
+			this._rowCount = this._showRowCount;
+		}
+		
+		// Check if the number of previous index doesn't exceed the new count.
+		this._commandCursor.validate(); 
 	}
 })

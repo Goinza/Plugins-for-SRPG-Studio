@@ -15,12 +15,14 @@ var StatsInteraction = defineObject(TopCustomInteraction, {
         return StatsScrollbar;
     },
 
-    isHelpAvailable: function() {
-        return false;
-    },
-
     getHelpText: function() {
-        return "";
+        var text = "";
+        var data = StatODControl.getOriginalDataFromStatusEntry(this._scrollbar.getObject());
+        if (data!=null) {
+            text = data.getDescription();
+        }
+
+        return text;
     }
     
 })
@@ -42,7 +44,21 @@ var StatsScrollbar = defineObject(UnitStatusScrollbar, {
 
     setDataScrollbar: function(unit) {
         this.setStatusFromUnit(unit);
-    }
+    },
+
+    objectSetEnd: function() {
+        var objectCount = this._objectArray.length;
+        
+        this._commandCursor.setCursorUpDown(objectCount);
+        
+		this._rowCount = Math.ceil(objectCount / this._col);
+		if (this._rowCount > this._showRowCount) {
+			this._rowCount = this._showRowCount;
+		}
+		
+		// Check if the number of previous index doesn't exceed the new count.
+		this._commandCursor.validate(); 
+	}
 })
 
 var AltStatsScrollbar = defineObject(StatsScrollbar, {

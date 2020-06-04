@@ -15,12 +15,14 @@ var GrowthInteraction = defineObject(TopCustomInteraction, {
         return GrowthScrollbar;
     },
 
-    isHelpAvailable: function() {
-        return false;
-    },
-
     getHelpText: function() {
-        return "";
+        var text = "";
+        var data = StatODControl.getOriginalDataFromStat(this._scrollbar.getObject());
+        if (data!=null) {
+            text = data.getDescription();
+        }
+
+        return text;
     }
 
 })
@@ -63,7 +65,7 @@ var GrowthScrollbar = defineObject(TopCustomScrollbar, {
 
     _isParameterDisplayable: function(index) {
 		return ParamGroup.isParameterDisplayable(UnitStatusType.NORMAL, index);
-	}
+    }    
 
 })
 
@@ -87,3 +89,35 @@ var GrowthObject = defineObject(BaseObject, {
     }
 
 })
+
+var StatODControl = {
+
+    getOriginalDataFromStat: function(stat) {
+        var list = root.getBaseData().getOriginalDataList(0);
+        var i = 0;
+        var found = false;
+        var data;
+        while (i<list.getCount() && !found) {
+            data = list.getData(i);
+            found = data.getName() == stat.getName();
+            i++;
+        }
+
+        return found ? data : null;
+    },
+
+    getOriginalDataFromStatusEntry: function(statusEntry) {
+        var list = root.getBaseData().getOriginalDataList(0);
+        var i = 0;
+        var found = false;
+        var data;
+        while (i<list.getCount() && !found) {
+            data = list.getData(i);
+            found = data.getName() == statusEntry.type;
+            i++;
+        }
+
+        return found ? data : null;
+    }
+
+}
