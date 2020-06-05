@@ -23,7 +23,9 @@ var TopSkillInteraction = defineObject(TopCustomInteraction, {
     _changeTopic: function() {
 		var skillEntry = this._scrollbar.getObject();
 		
-		this._window.setSkillInfoData(skillEntry.skill, skillEntry.objecttype);
+		if (skillEntry!=null) {
+            this._window.setSkillInfoData(skillEntry.skill, skillEntry.objecttype);
+        }
 	}
 
 })
@@ -51,7 +53,9 @@ var BottomSkillInteraction = defineObject(BottomCustomInteraction, {
     _changeTopic: function() {
 		var skillEntry = this._scrollbar.getObject();
 		
-		this._window.setSkillInfoData(skillEntry.skill, skillEntry.objecttype);
+		if (skillEntry!=null) {
+            this._window.setSkillInfoData(skillEntry.skill, skillEntry.objecttype);
+        }
 	}
 
 })
