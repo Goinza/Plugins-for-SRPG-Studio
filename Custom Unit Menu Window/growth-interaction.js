@@ -73,6 +73,31 @@ var GrowthScrollbar = defineObject(TopCustomScrollbar, {
 
 })
 
+var PlayerGrowthInteraction = defineObject(GrowthInteraction, {
+
+    _visible: true,
+
+    initialize: function() {		
+    },
+
+    setUnitData: function(unit) {
+        this._visible = unit.getUnitType()==UnitType.PLAYER;
+        this._scrollbar = createScrollbarObject(this.getScrollbarObject(), this);
+		this._scrollbar.setScrollFormation(3, DataConfig.getMaxUnitItemCount()-1);
+        this._scrollbar.setDataScrollbar(unit);
+        this._changeTopic();
+    },
+    
+    getTitle: function() {
+        return this._visible ? GROWTHS_TITLE : "";
+    },
+
+    getScrollbarObject: function() {
+        return this._visible ? GrowthScrollbar : NullScrollbar;
+    }
+
+})
+
 //Object used to store the properties of each growth stat
 var GrowthObject = defineObject(BaseObject, {
 

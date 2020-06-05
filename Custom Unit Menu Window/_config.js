@@ -3,7 +3,7 @@
 //Available data for the top sections
 var TOP_OPTIONS = [NullInteraction, TopRaceInteraction, TopStateInteraction, GrowthInteraction, SupportInteraction,
                     TopTraitsInteraction, CustomCombatArtsInteraction, CustomSpellsInteraction,
-                    InventoryInteraction, StatsInteraction, TopWeaponTypeInteraction, TopSkillInteraction, AltStatsInteraction];
+                    InventoryInteraction, StatsInteraction, TopWeaponTypeInteraction, TopSkillInteraction, AltStatsInteraction, PlayerGrowthInteraction];
 
 //Available data for the bottom sections
 var BOTTOM_OPTIONS = [NullInteraction, BottomRaceInteraction, BottomStateInteraction, ClassTypeInteraction, 
@@ -18,7 +18,7 @@ var Options = {
     //Data shown in the top left section
     TOPLEFT: [InventoryInteraction, TopRaceInteraction],
     //Data shown in the top right section
-    TOPRIGHT: [AltStatsInteraction, GrowthInteraction],
+    TOPRIGHT: [AltStatsInteraction, PlayerGrowthInteraction],
     //Data shown in the bottom left section
     BOTTOMLEFT: [BottomWeaponTypeInteraction, ClassTypeInteraction],
     //Data shown in the bottom right section

@@ -37,6 +37,7 @@ Now, here is a list of all the possible values for the top and bottom sections:
         - TopRaceInteraction: Races list. Shows name and icon.
         - TopStateInteraction: States list. While by default the game shows the current states of an unit, this will let you see its name and description.
         - GrowthInteraction: Unit's growth values.
+        - PlayerGrowthInteraction: An alternative version of GrowthInteraction. It is the same, but this one is only displayed for units of the player's army.
         - SupportInteraction: Supports list.
         - TopTraitsInteraction: List of traits. This only works if you also have the plugin "Traits System" installed.
         - CustomCombatArtsInteraction: List of combat arts. This only works if you also have the plugin "Combat Arts" installed.
