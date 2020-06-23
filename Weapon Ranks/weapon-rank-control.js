@@ -217,7 +217,6 @@ WeaponRankControl = {
                 if (rankSkills[i][0]==weaponType && rankSkills[i][1]==currentRank) {
                     skill = root.getBaseData().getSkillList().getDataFromId(rankSkills[i][2]);
                     generator.skillChange(unit, skill, IncreaseType.INCREASE, false);
-                    SkillGranter.checkItemSkill(unit, skill);
                 }
             }
         }
@@ -229,7 +228,7 @@ WeaponRankControl = {
         var i = 0;
         var j = 0;
         while (i<=3 && !found) {
-            wpnTypeList = root.getBaseData().getWeaponTypeList(0);
+            wpnTypeList = root.getBaseData().getWeaponTypeList(i);
             while (j<wpnTypeList.getCount() && !found) {
                 wpnType = wpnTypeList.getData(j);
                 found = wpnType.getName()==weaponType;
@@ -249,7 +248,6 @@ WeaponRankControl = {
                     if (rankSkills[i][0]==currentRank) {
                         skill = root.getBaseData().getSkillList().getDataFromId(rankSkills[i][1]);
                         generator.skillChange(unit, skill, IncreaseType.INCREASE, false);
-                        SkillGranter.checkItemSkill(unit, skill);
                     }
                 }
             }

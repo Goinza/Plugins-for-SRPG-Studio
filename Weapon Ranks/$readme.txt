@@ -1,7 +1,7 @@
 Weapon Ranks System
 By Goinza
-Version 1.1
-April 3, 2020.
+Version 1.2
+June 23, 2020.
 
 This plugin allows you to make individual ranks for each weapon type, without having to edit anything on the code itself.
 To make this work, is necessary to make several custom parameters on units, classes, weapons and staves.
@@ -90,3 +90,6 @@ VERSION HISTORY
 	
 1.1 - April 3, 2020
 	- Fixed issues regarding the "Rank Up" notifaction.
+
+1.2 - June 23, 2020
+    - Fixed an issue where a unit would not gain the skill assigned to the rank of a non-physicial weapon type.
