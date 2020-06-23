@@ -226,9 +226,10 @@ WeaponRankControl = {
         var wpnType; //The weapon type object
         var found = false;
         var i = 0;
-        var j = 0;
-        while (i<=3 && !found) {
+        var j;
+        while (i<=3 && !found) {            
             wpnTypeList = root.getBaseData().getWeaponTypeList(i);
+            j = 0;
             while (j<wpnTypeList.getCount() && !found) {
                 wpnType = wpnTypeList.getData(j);
                 found = wpnType.getName()==weaponType;
