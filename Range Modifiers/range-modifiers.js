@@ -231,14 +231,16 @@ BaseCombinationCollector._setUnitRangeCombination = function(misc, filter, range
     var unit = misc.unit;
     var item = misc.item;
 
-    if (item.isWeapon()) {        
-        var extendedRange = RangeControl.getExtendedWeaponRange(unit, item);
-        rangeMetrics.startRange += extendedRange.start;
-        rangeMetrics.endRange += extendedRange.end;
-    }
-    else {
-        rangeMetrics.endRange = RangeControl.getMagicRange(unit, item);
-    }
+	if (item!=null) {
+		if (item.isWeapon()) {        
+			var extendedRange = RangeControl.getExtendedWeaponRange(unit, item);
+			rangeMetrics.startRange += extendedRange.start;
+			rangeMetrics.endRange += extendedRange.end;
+		}
+		else {
+			rangeMetrics.endRange = RangeControl.getMagicRange(unit, item);
+		}
+	}    
 
     extrng03.call(this, misc, filter, rangeMetrics);
 }
