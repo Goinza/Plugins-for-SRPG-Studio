@@ -239,7 +239,6 @@ List of features and the functions that handle each of them:
             var unitType = FactionControl.getUnitType(unit);
             var targetType = FactionControl.getUnitType(targetUnit);
 
-            return true;
             return unitType != targetType;
         }
 
