@@ -9,7 +9,7 @@ In this example, you can even make the melee attacks deal phyisical damage, whil
 
 HOW TO USE
 To use this plugin, you need to add the custom parameter "hybrid" to the weapon. For example:
-    {{hybrid: [ {type:"Sword", range: 1, physical: true}, {type:"Wind", range: 2, physical: false} ]}}
+    {hybrid: [ {type:"Sword", range: 1, physical: true}, {type:"Wind", range: 2, physical: false} ]}
 This is a complex parameter, so let's analyze it part by part:
     -type: this parameter needs to be the name of the weapon type that will replace the default weapon type.
     -range: the range of the attack.
