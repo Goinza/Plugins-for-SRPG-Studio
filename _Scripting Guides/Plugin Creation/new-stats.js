@@ -1,3 +1,6 @@
+//Plugin by Goinza
+//Used as reference for the guide "Creating a new stat"
+
 ParamType.NEWSTAT = 100;
 
 var NewStat = defineObject(BaseUnitParameter, {
