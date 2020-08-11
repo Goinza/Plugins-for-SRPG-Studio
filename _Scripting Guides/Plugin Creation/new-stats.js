@@ -1,6 +1,25 @@
 //Plugin by Goinza
 //Used as reference for the guide "Creating a new stat"
 
+(function() {
+    //Adds the stats to the game
+    var alias1 = ParamGroup._configureUnitParameters;
+    ParamGroup._configureUnitParameters = function(groupArray) {
+        alias1.call(this, groupArray);
+        groupArray.appendObject(NewStat);
+        groupArray.appendObject(Affinity);
+    }
+
+    //The new stat adds more damage to any attack
+    var alias2 = AbilityCalculator.getPower;
+    AbilityCalculator.getPower = function(unit, weapon) {
+        var power = alias2.call(this, unit, weapon);
+        var newStatValue = NewStatBonus.getNewStat(unit);
+
+        return power + newStatValue;
+    }
+})()
+
 ParamType.NEWSTAT = 100;
 
 var NewStat = defineObject(BaseUnitParameter, {
@@ -141,22 +160,3 @@ var NewStatBonus = {
         return ParamBonus.getBonus(unit, ParamType.NEWSTAT);
     }
 }
-
-(function() {
-    //Adds the stats to the game
-    var alias1 = ParamGroup._configureUnitParameters;
-    ParamGroup._configureUnitParameters = function(groupArray) {
-        alias1.call(this, groupArray);
-        groupArray.appendObject(NewStat);
-        groupArray.appendObject(Affinity);
-    }
-
-    //The new stat adds more damage to any attack
-    var alias2 = AbilityCalculator.getPower;
-    AbilityCalculator.getPower = function(unit, weapon) {
-        var power = alias2.call(this, unit, weapon);
-        var newStatValue = NewStatBonus.getNewStat(unit);
-
-        return power + newStatValue;
-    }
-})()
