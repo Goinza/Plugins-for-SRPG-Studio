@@ -97,7 +97,7 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
 	isTracingHelp: function() {
         return this._topLeftInteraction.isTracingHelp() || this._topRightInteraction.isTracingHelp()
             || this._bottomLeftInteraction.isTracingHelp() || this._bottomRightInteraction.isTracingHelp();
-	},
+    },   
 	
 	getHelpText: function() {
         var text = "";
@@ -121,6 +121,9 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
     setIndex: function(newIndex) {
         this._index = newIndex;
     },
+
+    lockTracing: function(isLocked) {
+	},
 
     _moveTopLeft: function() {
         var recentlyInput = this._topLeftInteraction.getInteractionScrollbar().getRecentlyInputType();
