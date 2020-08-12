@@ -1,7 +1,7 @@
 Combat Arts
 By Goinza
-Version 2.2
-May 9, 2020
+Version 2.3
+August 12, 2020
 
 INTRODUCTION
 This plugin allows you to use Combat Arts, which are attacks with special effect at the expense of more weapon uses per attack.
@@ -98,3 +98,6 @@ VERSION HISTORY
 
 2.2 - May 9, 2020
     - Added an option to enable or disable the combat arts window.
+
+2.3 - August 12, 2020
+    - Fixed a bug where a weapon with infinite uses could be broken when used it on a combat art.

@@ -298,12 +298,11 @@ UnitCommand.CombatArt = defineObject(UnitListCommand, {
 
     _reduceWeaponDurability: function() {
         var cost = CombatArtControl.getCost(this._artMenu.getSelectedCombatArt());
-        if (cost!=null) {
+        var weapon = ItemControl.getEquippedWeapon(this.getCommandTarget());
+        if (cost!=null && weapon!=null && weapon.getLimitMax()>0) {
             var dynamicEvent = createObject(DynamicEvent);
-            var generator = dynamicEvent.acquireEventGenerator();
-            
-            generator.itemDurabilityChange(this.getCommandTarget(), ItemControl.getEquippedWeapon(this.getCommandTarget()), cost, IncreaseType.DECREASE, true);
-    
+            var generator = dynamicEvent.acquireEventGenerator();            
+            generator.itemDurabilityChange(this.getCommandTarget(), weapon, cost, IncreaseType.DECREASE, true);    
             dynamicEvent.executeDynamicEvent();
         }
        
