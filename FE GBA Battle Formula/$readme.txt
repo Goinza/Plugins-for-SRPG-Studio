@@ -1,7 +1,7 @@
 FE GBA Battle Formula
 By Goinza
-Version 1.0
-February 22, 2020
+Version 1.1
+September 6, 2020
 
 This plugin changes the battle formulas used by the engine to match the ones used in the Fire Emblem games for the Game Boy Advance.
 To use it, you just need to drag this folder into the Plugin folder of your project.
@@ -14,6 +14,9 @@ if you want to have some difference from those games.
         If you set it up as true, the Magic stat will be added to the game, so magic attacks and staves will use that stat.
     -TWO_RN_ENABLED: This adds the option to use 2RN for the hit calculations. By default, the value is true.
         If you set it up as false, the hit calculations will use 1RN.
+
+There is also the experience calculations, which are handled by the file exp-formula.js.
+If you don't want to use those formulas, remove that file from your project.
 
 INCOMPATIBILITY ISSUES
 This plugin has some functions that are incompatible with other plugins.
@@ -32,5 +35,15 @@ Note that some of them are compatible if the options explained above are enabled
             Instead, it uses BaseUnitParameter.isParameterDisplayable from singleton-paramgroup.js line 192.        
     The following functions are incompatible if the 2RN hit calculation is enabled:
         - AttackEvaluator.HitCritical.calculateHit from attack_order.js line 618.
+    The following functions are incompatible if you keep the exp-formula.js file:
+        - ExperienceCalculator._getNoDamageExperience from singleton-calculator.js line 814.
+        - ExperienceCalculator._getNormalValue from singleton-calculator.js line 847.
+        - ExperienceCalculator._getVictoryExperience from singleton-calculator.js line 820.
 
 
+VERSION HISTORY
+1.0 - February 22, 2020
+    - Initial version.
+
+1.1 - September 6, 2020
+    - Added the GBA formula for the experience calculations.
