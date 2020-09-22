@@ -293,6 +293,7 @@
     //Add spells for units when they learn a spell in the middle of a chapter
     var alias17 = ExperienceControl.obtainData;
     ExperienceControl.obtainData = function(unit) {
+        alias17.call(this, unit);
         MagicAttackControl.checkSpells(unit);
     }
 
