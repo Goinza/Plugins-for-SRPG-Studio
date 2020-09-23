@@ -58,7 +58,7 @@ var SupportScrollbar = defineObject(TopCustomScrollbar, {
 
         for (var i=0; i<count; i++) {
             supportData = unit.getSupportData(i);
-            if (supportData.isGlobalSwitchOn() && supportData.isVariableOn()) {
+            if (supportData.isGlobalSwitchOn() && supportData.isVariableOn() && supportData.getUnit() != null) {
                 this.objectSet(supportData);
             }            
         }
