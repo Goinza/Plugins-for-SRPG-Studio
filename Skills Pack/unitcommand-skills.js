@@ -396,7 +396,7 @@
             var boundaryX, boundaryY; //Boundary of the map
             var targetX, targetY; //Position where the targetUnit would get if pushed
             var targetTerrain; //The tile where the targetUnit would get if pushed
-            var terrainOccupied;
+            var tileOccupied;
             var movable = false;
 
             //Because both units are adjacent, one of the deltas must be zero, while the other must be one
