@@ -15,7 +15,7 @@ var StatsInteraction = defineObject(TopCustomInteraction, {
         return StatsScrollbar;
     },
 
-    isHelpAvaliable: function() {
+    isHelpAvailable: function() {
         return ENABLE_STAT_DESCRIPTION;
     },
 

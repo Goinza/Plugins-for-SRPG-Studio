@@ -15,7 +15,7 @@ var GrowthInteraction = defineObject(TopCustomInteraction, {
         return GrowthScrollbar;
     },
 
-    isHelpAvaliable: function() {
+    isHelpAvailable: function() {
         return ENABLE_STAT_DESCRIPTION;
     },
 
