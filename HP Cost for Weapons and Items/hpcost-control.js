@@ -3,16 +3,12 @@
 var HPCostControl = {
 
     hasCost: function(item) {
-        var lifeCost = item.custom.lifeCost;
-        var hasCost;
-        if (item !=null && lifeCost!=null) {
-            if (typeof lifeCost != 'number') {
+        var lifeCost = 0;
+        if (item !=null && item.custom.lifeCost!=null) {
+            if (typeof item.custom.lifeCost != 'number') {
                 throwError029(item);
             }
-            hasCost = true;
-        }
-        else {
-            hasCost = false;
+            lifeCost = item.custom.lifeCost;
         }
 
         return lifeCost;
