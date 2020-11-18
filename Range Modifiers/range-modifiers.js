@@ -253,7 +253,7 @@ BaseItemInfo.drawRange = function(x, y, rangeValue, rangeType) {
     var font = textui.getFont();
 
     if (this._item.custom.magicRange!=null) {
-        if (typeof item.custom.magicRange != 'number') {
+        if (typeof this._item.custom.magicRange != 'number') {
             throwError022(item);
         }
         ItemInfoRenderer.drawKeyword(x, y, root.queryCommand('range_capacity'));
