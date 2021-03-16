@@ -151,7 +151,11 @@ var Affinity = defineObject(BaseUnitParameter, {
         //You can change the x and y coordinates
         //if the word doesn't fit the menu
         TextRenderer.drawKeywordText(x - 30, y, text, -1, color, font);
-    }
+    },
+	
+	getMaxValue: function(unit) {
+		return 6; //This value should be the amount of options you have for this stat
+	}
 
 })
 

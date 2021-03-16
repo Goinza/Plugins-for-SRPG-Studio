@@ -78,7 +78,8 @@
         }
     };
 
-    var alias3 = ItemPackageControl.getCustomItemInfoObject = function(item, keyword) {
+    var alias3 = ItemPackageControl.getCustomItemInfoObject;
+    ItemPackageControl.getCustomItemInfoObject = function(item, keyword) {
         if (keyword=="Trait") {
             return TraitItemInfo;
         }
@@ -113,7 +114,7 @@
             return TraitItemAI;
         }
         else {
-            alias6.call(this, item, keyword);
+            return alias6.call(this, item, keyword);
         }
     }
 })()
