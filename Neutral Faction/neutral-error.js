@@ -1,4 +1,4 @@
-//Plugin by Goinza and Lady Rena
+//Plugin by Goinza
 
 function throwError048(unit) {
     var message = "Error 48." + '\n' + "There is a problem with the unit " + unit.getName() + "." + '\n' + "Check the custom parameter 'neutralFaction'.";
