@@ -99,21 +99,16 @@
 
     // Now calls startDamageAnimation even in the event of a miss, to account for self-harm.
     // The two below functions reduce the HP gauge during easy battle.
+    var alias29 = EasyMapUnit._startDamage;
     EasyMapUnit._startDamage = function () {
-        this._doHitAction();
-
+        alias29.call(this);
         this._easyBattle.startDamageAnimation();
-        if (this._order.isCurrentHit()) {
-            this._showDamageAnime();
-        }
-        else {
-            this._showAvoidAnime();
-            this.changeCycleMode(MapUnitMode.AVOID_FORWARD);
-        }
-
-        this._attackEffect = null;
     }
+    var alias30 = EasyBattle.startDamageAnimation;
     EasyBattle.startDamageAnimation = function () {
+        // NOTE: alias30.call isn't actually doing anything; later calls of startDamageAnimation seem to override earlier calls. 
+        // The purpose of this alias is only for compatibility with any other plugins adding new functionality to startDamageAnimation.
+        alias30.call(this);
         var order = this._order;
         var damageActive;
         var damagePassive = order.getPassiveDamage() * -1;
