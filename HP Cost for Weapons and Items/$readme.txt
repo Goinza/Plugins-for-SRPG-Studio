@@ -1,7 +1,7 @@
 HP Cost for Weapons and Items
 By Goinza
-Version 1.0
-February 23, 2020
+Version 1.1
+August 15, 2021
 
 MAKE WEAPONS COST HP TO USE 
 INTRODUCTION
@@ -83,3 +83,10 @@ var MasteryItemUse = defineObject(BaseItemUse, {
 	
 INCOMPATIBILITY ISSUES
 This plugin is compatible with any other plugin.
+
+VERSION HISTORY
+1.0 - February 23, 2020
+    - Initial version
+    
+1.1 - August 15, 2021
+    - Easy battle now shows the self damage animation correctly. Thanks to Repeat for this change.
