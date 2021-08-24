@@ -420,4 +420,14 @@
 		return FilterControl.isBestUnitTypeAllowed(unitType, targetUnitType, fusionData.getFilterFlag());
 	}   
 
+	var alias1 = MapPosChooseEventCommand._createPositionIndexData;
+	MapPosChooseEventCommand._createPositionIndexData = function() {
+		var piData = alias1.call(this);
+		if (piData.filter & UnitFilterFlag.ENEMY) {
+			piData.filter |= UnitFilterFlag.NEUTRAL;
+		}
+
+		return piData;
+	}
+
 })()

@@ -1,7 +1,7 @@
 Neutral Faction
 By Goinza
-Version 2.0
-May 22, 2021
+Version 2.1
+August 23, 2021
 Credit to Claris and MarkyJoe for their contributions to the code of the plugin,
     and to BlueLeafy for the edits to some of the graphical assets that come with this plugin.
 
@@ -104,3 +104,6 @@ VERSION HISTORY
     - Added new custom parameter "neutralHidden": allows for creation of units that are not counted as part of the army.
         This can be used to create breakable obstacles like walls.
     - Changed the "neutralMusic" custom parameter to allow the use of default songs.
+
+2.1 - August 23, 2021
+    - Fixed bug related to "Extract Map Pos" event. Thanks to MarkyJoe for providing the solution.
