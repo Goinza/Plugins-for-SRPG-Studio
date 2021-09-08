@@ -1,7 +1,7 @@
 Custom Unit Menu Window
 By Goinza
-Version 2.3
-August 11, 2020
+Version 2.4
+September 8, 2020
 
 This plugin allows to change the default bottom window of the unit menu screen, so you can show data from the unit that is not available by default.
 You can also add more windows, with each window showing differen data of the unit.
@@ -100,3 +100,7 @@ VERSION HISTORY
 
 2.3 - August 11, 2020
     - Fixed a bug that would crash the game when using a item of the Resurrection type.
+
+2.4 - September 8, 2021
+    - Added compatibility to the version 3.0 of the Combat Arts plugin.
+        Note that this update make this plugin incompatible with older versions of the Combat Art plugin.

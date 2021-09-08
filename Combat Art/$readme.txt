@@ -1,14 +1,18 @@
 Combat Arts
 By Goinza
-Version 2.3
-August 12, 2020
+Version 3.0
+September 5, 2021
 
 INTRODUCTION
-This plugin allows you to use Combat Arts, which are attacks with special effect at the expense of more weapon uses per attack.
-For example, you can make an attack that deals more damage but cost 2 weapon uses instead of 1.
-This system also allows for adding effects from skills to the attack, and restrict the combat art to a specific weapon or weapon type.
+This plugin allows you to use Combat Arts, which are special actions or attacks that have additional cost, either with life, weapon uses or the new (and optional) stamina stat.
 
 IMPORTANT: This plugin only works for player-controlled units. AI units can't use combat arts.
+
+ATTACK AND ACTION COMBAT ARTS
+As mentioned earlier, they are two types of combat arts: one made for attacks and other for non-offensive actions.
+The attack combat art will allow the unit to use a weapon and do a special attack, with extra effects, custom range and/or better stats.
+The action combat art will recreate the use of an item without the need of the unit having said item.
+Aside from that, they both have an additional cost: weapon uses (for attacks), life and stamina.
 
 HOW TO CREATE A COMBAT ART
 To make a combat art, you need to create a new Original Data. If you don't know how to use Original Data, check the instructions below.
@@ -20,8 +24,11 @@ Here is a list of all the values used and what do each do:
     -Value 4: Bonus to defense.
     -Value 5: Bonus to avoid.
     -Value 6: Bonus to critical avoid.
-    -Keyword: This value must always be "CombatArt".
-    -Multiple Data: In here, you can select skills, weapons and weapon types:
+        Note: these values are only necessary for the attack combat arts.
+    -Keyword: If the combat art is an attack, use "AttackCombatArt". If it is an action, use "ActionCombatArt":
+    -Item: Only for action combat arts. The selected item will be the one that will generate the effect of the combat art.
+        For example, if you select a healing item that targets adjacent allies, then the action combat art will do that exact effect, but without needing the unit to have the item.
+    -Multiple Data: In here, you can select skills, weapons and weapon types. Only use this option for offensive combat arts.
         -Skills: Each skill marked will be added to the unit during the attack. This includes custom skills created by other plugins.
         -Weapons: If there is at least one weapon marked, then the unit can only use this combat art with one of those selected weapons.
             If no weapon is marked, the combat art is allowed for any weapon, unless there are additional restrictions for the weapon types.
@@ -37,15 +44,43 @@ HOW TO CREATE ORIGINAL DATA
 
 CUSTOM PARAMETERS
 In addition to the values explained above, you will also need to write some custom parameters:
+    -'costType': The type of cost. 0 is weapon uses, 1 is HP and 2 is Stamina.
     -'cost': This parameter defines the amount of weapon uses that will be consumed when doing an attack with the combat art.
-    -'startRange' and 'endRange': These two parameters are optional, but if one of them is used, the other must be used too.
+    -'startRange' and 'endRange': These two parameters are optional.
         With these parameters, you can define the attack range of the combat art. That way it won't depend on the equipped weapon.
         If you don't use these parameters, the weapon's default range will be used instead.
-Some examples of the use of the custom parameters: {cost: 3, startRange: 1, endRange: 3}, {cost:5, startRange:1, endRange: 1}.
+Some examples of the use of the custom parameters: {costType: 0, cost: 3, startRange: 1, endRange: 3}, {costType: 1, cost:5, startRange:1, endRange: 1}.
+
+STAMINA STAT
+There is an optional stat that can be used for the cost of combat arts, called Stamina. 
+Each unit has current stamina and max stamina, similar to how a unit has current life and max life.
+The custom parameters determine the value of the max stamina.
+You can use event commands to alter the stat, and will also be reduced with the use of combat arts.
+You will also need to use an event command in order to restore to max stamina at the start of each chapter.
+By default, it is disabled, if you want to add it you have to change the config.js, as explained below.
+There are several custom parameters that you can use for this stat. All of have integer values.
+Most of them are used for units and classes, but some of them can be used on items too.
+    - stamina: unit stat. Determines the max stamina possible for the unit. It acts similar to the max HP stat.
+    - bonusStamina: can be used in several objects. It gives additional max Stamina, it can override the max value of the unit's class
+    - growthStamina: can be used in several objects. It increases the growth change of the max stamina stat.
+    - dopingStamina: used for boosting stat items. It permanently increases the max stamina of the unit.
+    - maxStamina: class stat. The max value possible that can be reached for the max stamina stat.
+
+STAMINA EVENT COMMANDS
+There are two event commands for the stamina stat: one called "ChangeStamina" and the other "RestoreAllUnitsStamina".
+The first will change the stamina of one unit, while the second will restore to max stamina all units of your army. That last part can be useful to trigger at the start of a chapter.
+In the Execute Script window, you need to change the "Object Name" value to one of the two names mentioned above.
+In addition to that, if you are creating a "ChangeStamina" event command, then you also need to change the following values from the Original Data tab:
+    - Unit: the unit that will change its stamina.
+    - Keyword: the mode used for changing the stamina. "Set" changes to an absolute value, while "Add" increments the value relative to the unit's current stamina.
+            There is also the "Subtract" that does the same as "Add" but reduces stamina instead of incrementing.
+    - Value 1: this value defines the amount of stamina that will be changed.
+
 
 HOW TO ASSIGN TO UNITS
 To assign a combat art to an unit use the custom parameter 'combatArt', which uses an array of the ID's of the combat arts that unit knows.
 This parameter defines the starting scenario for the unit. If the unit doesn't have the parameter, it wil start the game without combat arts.
+It can also be used on classes. So you can have the parameter in both the unit and the class and it will merge both lists into one.
 For example: {combatArt: [1, 4, 5]}, {combatArt: [2]}. 
 If you want to assign (or remove) a combat art to an unit during an event, you need to do the following:
     -Create a "Execute Script" event command.
@@ -72,11 +107,8 @@ To do this, you need to open the file config.js, you can use any text editor lik
 In the file you will find a list of variables, each with a default value. You can change any of them.
 Note that among those variables you will find the variable called "TAB_COMBATART", 
 which is needed to specify which tab of the Original Data window you are using for the combat art entries.
+This is the file that you'll need to edit to enable the Stamina stat.
 
-INCOMPATIBILITY ISSUES
-This plugin is not compatible with other plugins that use the following functions:
-    - AttackFlow._doAttackAction from attack-flow.js line 175.
-    - SkillChecker.arrangeSkill from singleton-calculator.js line 457
 
 VERSION HISTORY
 1.0 - April 3, 2020
@@ -101,3 +133,14 @@ VERSION HISTORY
 
 2.3 - August 12, 2020
     - Fixed a bug where a weapon with infinite uses could be broken when used it on a combat art.
+
+3.0 - September 5, 2021
+    - Fixed bugs related to skills used after a combat art, like the Canto skill. They now work properly.
+    - Fixed a bug where after using a combat art, the unit would not be able to make double attacks.
+    - New feature: action combat arts. A different type of combat art, it can be used actions that are not attacking, similar to using an item.
+    - Improved cost system: now there are three different types of costs: life, stamina and weapon uses.
+        Each combat art can select its own cost, meaning that there can be combat arts with different cost types.
+    - New stat: stamina. This optional stat is disabled by default, but once enabled it can be used to pay the cost of the combat arts.
+    - Improved UI: when selecting a combat art, it will now specify the cost type and also the required weapon or weapons types needed for using it.
+    - Now it is possible to assign combat arts to classes, with the same parameter used for the units.
+    - NOTE: if you are using the Custom Unit Menu Window plugin, make sure to update it to version 2.4 or better before using this plugin.

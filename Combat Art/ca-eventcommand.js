@@ -43,10 +43,10 @@ var CombatArtEventCommand = defineObject(BaseEventCommand, {
 	mainEventCommand: function() {
         var keyword = root.getEventCommandObject().getOriginalContent().getCustomKeyword();
         if (keyword == "Add") {
-            CombatArtControl.addCombatArt(this._combatArt, this._unit);
+            CombatArtEvent.addCombatArt(this._combatArt, this._unit);
         }
         else if (keyword == "Remove") {
-            CombatArtControl.removeCombatArt(this._combatArt, this._unit);
+            CombatArtEvent.removeCombatArt(this._combatArt, this._unit);
         }        
 	},
 	

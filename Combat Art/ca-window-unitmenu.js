@@ -1,12 +1,19 @@
 //Plugin by Goinza
 
-var caWindowMode = {
-    NORMAL: 0,
-    ENABLED: 1
-}
+(function() {
 
-var CombatArtMenuBottomWindow = defineObject(BaseMenuBottomWindow, {
-    
+    var alias1 = UnitMenuScreen._configureBottomWindows;
+    UnitMenuScreen._configureBottomWindows = function(groupArray) {
+        alias1.call(this, groupArray);
+        if (CombatArtSettings.ENABLE_CA_WINDOW) {
+            groupArray.appendWindowObject(CombatArtUnitMenuWindow, this);
+        }        
+    }
+
+})()
+
+var CombatArtUnitMenuWindow = defineObject(BaseMenuBottomWindow, {
+
     _combatArtInteraction: null,
 
     setUnitMenuData: function() {
@@ -30,7 +37,7 @@ var CombatArtMenuBottomWindow = defineObject(BaseMenuBottomWindow, {
         var textui = root.queryTextUI('infowindow_title');
 		var color = textui.getColor();
 		var font = textui.getFont();
-        TextRenderer.drawText(x, y, TITLE_COMBATART, 10, color, font);
+        TextRenderer.drawText(x, y, CombatArtSettings.TITLE_COMBATART, 10, color, font);
 
         this._combatArtInteraction.getInteractionScrollbar().drawScrollbar(x, y + 30);
         
@@ -73,12 +80,14 @@ var CombatArtInteraction = defineObject(BaseInteraction, {
         this._scrollbar = createScrollbarObject(CombatArtScrollbar, this);
         this._scrollbar.setScrollFormation(1, DefineControl.getVisibleUnitItemCount());
 		
-        this._window = createWindowObject(CombatArtSupport, this);
+        this._window = createWindowObject(CombatArtSupportWindow, this);
         this._textui = root.queryTextUI('default_window');
     },
 
-    setData: function(unit) {
-        var combatArts = CombatArtControl.getCombatArtsArray(unit);
+    setData: function(unit) {        
+        var attackCA = CombatArtControl.getAttackCombatArtsArray(unit);
+        var actionCA = CombatArtControl.getActionCombatArtsArray(unit);
+        var combatArts = attackCA.concat(actionCA);
 		this._scrollbar.setObjectArray(combatArts);		
 		this._window.setCombatArt(this._scrollbar.getObject());
     },

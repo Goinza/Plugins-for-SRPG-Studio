@@ -16,13 +16,13 @@ var Options = {
     //    or a negative number to reduce the distance. 0 is the default value.
     SECTION_DISTANCE: 0,
     //Data shown in the top left section
-    TOPLEFT: [InventoryInteraction, TopRaceInteraction],
+    TOPLEFT: [InventoryInteraction, SupportInteraction],
     //Data shown in the top right section
-    TOPRIGHT: [AltStatsInteraction, PlayerGrowthInteraction],
+    TOPRIGHT: [StatsInteraction, PlayerGrowthInteraction],
     //Data shown in the bottom left section
     BOTTOMLEFT: [BottomWeaponTypeInteraction, ClassTypeInteraction],
     //Data shown in the bottom right section
-    BOTTOMRIGHT: [BottomSkillInteraction, BottomStateInteraction]
+    BOTTOMRIGHT: [NullInteraction, BottomStateInteraction]
 }
 
 //Titles for each data section

@@ -3,7 +3,7 @@
 var CustomCombatArtsInteraction = defineObject(TopCustomInteraction, {
 
     getTitle: function() {
-        return TITLE_COMBATART;
+        return CombatArtSettings.TITLE_COMBATART;
     },
 
     getScrollbarObject: function() {
@@ -11,7 +11,7 @@ var CustomCombatArtsInteraction = defineObject(TopCustomInteraction, {
     },
 
     setUnitData: function(unit) {
-        this._window = createWindowObject(CombatArtSupport, this);
+        this._window = createWindowObject(CombatArtSupportWindow, this);
         this._scrollbar.setDataScrollbar(unit);
 		this._window.setCombatArt(this._scrollbar.getObject());
     },
@@ -26,7 +26,9 @@ var CustomCombatArtsInteraction = defineObject(TopCustomInteraction, {
 var CustomCombatArtsScrollbar = defineObject(TopCustomScrollbar, {
 
     setDataScrollbar: function(unit) {
-        var combatArts = CombatArtControl.getCombatArtsArray(unit);
+        var attackCA = CombatArtControl.getAttackCombatArtsArray(unit);
+        var actionCA = CombatArtControl.getActionCombatArtsArray(unit);
+        var combatArts = attackCA.concat(actionCA);
 
         this.resetScrollData();
 		
