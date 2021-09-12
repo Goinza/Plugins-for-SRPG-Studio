@@ -22,7 +22,7 @@ var Options = {
     //Data shown in the bottom left section
     BOTTOMLEFT: [BottomWeaponTypeInteraction, ClassTypeInteraction],
     //Data shown in the bottom right section
-    BOTTOMRIGHT: [NullInteraction, BottomStateInteraction]
+    BOTTOMRIGHT: [BottomSkillInteraction, BottomStateInteraction]
 }
 
 //Titles for each data section
