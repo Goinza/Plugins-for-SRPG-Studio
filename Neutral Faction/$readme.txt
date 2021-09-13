@@ -1,7 +1,7 @@
 Neutral Faction
 By Goinza
-Version 2.1
-August 23, 2021
+Version 2.2
+September 12, 2021
 Credit to Claris and MarkyJoe for their contributions to the code of the plugin,
     and to BlueLeafy for the edits to some of the graphical assets that come with this plugin.
 
@@ -107,3 +107,6 @@ VERSION HISTORY
 
 2.1 - August 23, 2021
     - Fixed bug related to "Extract Map Pos" event. Thanks to MarkyJoe for providing the solution.
+
+2.2 - September 12, 2021
+    - Fixed a bug that caused a crash when a neutral unit didn't have its own custom map sprite.

@@ -23,7 +23,12 @@
         if (unitType == UnitType.NEUTRAL) {
             cpData = CustomCharChipGroup.createCustomCharChipDataFromUnit(unit, x, y, unitRenderParam);
             renderer = unit.getCustomRenderer();
-            renderer.drawCustomCharChip(cpData);
+            if (renderer != null) {
+                renderer.drawCustomCharChip(cpData);
+            }
+            else {
+                alias3.call(this, unit, x, y, unitRenderParam);
+            }            
         }
         else {
             alias3.call(this, unit, x, y, unitRenderParam);
