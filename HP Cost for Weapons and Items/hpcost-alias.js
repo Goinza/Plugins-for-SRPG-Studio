@@ -179,7 +179,7 @@
                 var receivedDamaged = virtualActive.damageTotal;
                 var staticHp = virtualActive.unitSelf.getHp();
                 var currentHP = staticHp - ownDamage - receivedDamaged;
-                if (currentHP < lifeCost) {
+                if (currentHP <= lifeCost) {
                     canContinue = false;
                 }
             }
