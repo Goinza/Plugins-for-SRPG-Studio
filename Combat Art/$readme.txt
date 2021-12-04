@@ -148,3 +148,4 @@ VERSION HISTORY
 3.1 - December 3, 2021
     - Fixed visual bug where part of a window would be outside of the screen during the combat arts selection.
     - Fixed an error that would crash the game when a combat art attack had more than one possible target.
+    - Event commands for assigning and removing combat arts now work correctly. Thanks to Repeat for finding and fixing the bug.
