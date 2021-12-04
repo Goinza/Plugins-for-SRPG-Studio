@@ -1,5 +1,15 @@
 //Plugin by Goinza
 
+(function() {
+
+    var alias1 = ScriptExecuteEventCommand._configureOriginalEventCommand;
+    ScriptExecuteEventCommand._configureOriginalEventCommand = function(groupArray) {
+        alias1.call(this, groupArray);
+        groupArray.appendObject(CombatArtEventCommand);
+    }
+
+})();
+
 var caEventMode = {
     ID: 0,
     VARIABLE: 1
@@ -71,7 +81,7 @@ var CombatArtEventCommand = defineObject(BaseEventCommand, {
             throwError047();
         }
 
-        this._combatArt = root.getBaseData().getOriginalDataList(TAB_COMBATART).getDataFromId(id);
+        this._combatArt = root.getBaseData().getOriginalDataList(CombatArtSettings.TAB_COMBATART).getDataFromId(id);
     }
 
 })
@@ -84,10 +94,10 @@ var CombatArtNoticeView = defineObject(BaseNoticeView, {
     setViewText: function(unit, combatArt, keyword) {
         this._text = "";
         if (keyword == "Add") {
-            this._text = ADD_COMBAT + combatArt.getName();
+            this._text = CombatArtSettings.ADD_COMBAT + combatArt.getName();
         }
         else if (keyword == "Remove") {
-            this._text = REMOVE_COMBAT + combatArt.getName();
+            this._text = CombatArtSettings.REMOVE_COMBAT + combatArt.getName();
         }
         this._icon = combatArt.getIconResourceHandle();
     },
