@@ -3,7 +3,7 @@
 var CombatArtRange = {
 
     getCombatArtAttackIndexArray: function(unit, weapon, combatArt) {
-        return this._getAttackIndexArray(unit, weapon, true, combatArt);
+        return this._getAttackIndexArray(unit, weapon, false, combatArt);
     }, 
 	
 	getCustomRangeObject: function(combatArt) {

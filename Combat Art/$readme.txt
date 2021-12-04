@@ -1,7 +1,7 @@
 Combat Arts
 By Goinza
-Version 3.0
-September 5, 2021
+Version 3.1
+December 3, 2021
 
 INTRODUCTION
 This plugin allows you to use Combat Arts, which are special actions or attacks that have additional cost, either with life, weapon uses or the new (and optional) stamina stat.
@@ -144,3 +144,7 @@ VERSION HISTORY
     - Improved UI: when selecting a combat art, it will now specify the cost type and also the required weapon or weapons types needed for using it.
     - Now it is possible to assign combat arts to classes, with the same parameter used for the units.
     - NOTE: if you are using the Custom Unit Menu Window plugin, make sure to update it to version 2.4 or better before using this plugin.
+
+3.1 - December 3, 2021
+    - Fixed visual bug where part of a window would be outside of the screen during the combat arts selection.
+    - Fixed an error that would crash the game when a combat art attack had more than one possible target.

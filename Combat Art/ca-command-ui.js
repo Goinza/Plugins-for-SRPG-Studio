@@ -40,7 +40,16 @@ var CombatArtSelectMenu = defineObject(BaseWindowManager, {
         this._infoWindow.drawWindow(x, y);
 
         y = this.getPositionWindowY();
-        x -= this._supportWindow.getWindowWidth() + DefineControl.getWindowXPadding();
+
+        var leftScreenOverflow = x - this._supportWindow.getWindowWidth() + DefineControl.getWindowXPadding() < 0;
+
+        if (leftScreenOverflow) {
+            x += this._caWindow.getWindowWidth() + DefineControl.getWindowXPadding();
+        }
+        else {
+            x -= this._supportWindow.getWindowWidth() + DefineControl.getWindowXPadding();            
+        }
+
         this._supportWindow.drawWindow(x, y);
     },
 
