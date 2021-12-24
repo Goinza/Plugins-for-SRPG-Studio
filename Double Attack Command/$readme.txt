@@ -1,5 +1,6 @@
 Double Attack Command
 by Goinza
+Commissioned by Kefioso/Maiser6
 Version 1.0
 December 23, 2021
 
