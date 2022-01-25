@@ -19,6 +19,7 @@ var EnemyRange = {
     //Updates the enemy range (_rangeIndexArray)
     updateRange: function() {
         this._rangeIndexArray = [];
+        this._markedIndexArray = Array(CurrentMap.getSize());
         var simulator = root.getCurrentSession().createMapSimulator();
         var enemyList = EnemyList.getAliveList();
         var unit, marked, attackRange, isWeapon
@@ -48,7 +49,8 @@ var EnemyRange = {
     //Add the indexArray elements to the _rangeIndexArrayw
     _addToArray: function(indexArray) {
         for (var i=0; i<indexArray.length; i++) {
-            if (!this._isInArray(indexArray[i])) {
+            if (!this._markedIndexArray[indexArray[i]]) {
+                this._markedIndexArray[indexArray[i]] = true;
                 this._rangeIndexArray.push(indexArray[i]);
             }
         }

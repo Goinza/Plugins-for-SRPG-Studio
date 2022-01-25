@@ -91,7 +91,7 @@
         },
 
         isRepeatMoveAllowed: function() {
-            return false;
+            return DataConfig.isUnitCommandMovable(RepeatMoveType.CUSTOM);
         },
 
         _prepareCommandMemberData: function() {

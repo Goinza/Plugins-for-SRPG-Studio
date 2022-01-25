@@ -103,9 +103,11 @@ CAState.AttackTarget = defineObject(CABaseState, {
 
         if (result == PosSelectorResult.SELECT) {
             var targetUnit = this._posSelector.getSelectorTarget(true);
-            this._parent.caData.targetUnit = targetUnit;
-            this._posSelector.endPosSelector();            
-            this._parent.changeState(CAState.AttackEffect);
+            if (targetUnit != null) {
+                this._parent.caData.targetUnit = targetUnit;
+                this._posSelector.endPosSelector();            
+                this._parent.changeState(CAState.AttackEffect);
+            }            
         }
         else if (result === PosSelectorResult.CANCEL) {
             this._posSelector.endPosSelector();

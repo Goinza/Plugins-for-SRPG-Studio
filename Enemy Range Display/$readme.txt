@@ -1,7 +1,7 @@
 ENEMY RANGE DISPLAY
 By Goinza
-Version 1.0
-April 4, 2020
+Version 1.1
+December 8, 2021
 
 This plugin adds two features regarding the display of enemy range:
     -First, it adds an individual enemy range, which keep tracks of certain units' range. Each individual range is activated or deactivaded by pressing the select
@@ -23,3 +23,10 @@ This plugin is not compatbile with other plugins that use the following function
     - MapEdit._selectAction from map-mapeditor.js line 138
     - MarkingPanel._getColor from utility-panel.js line 468
     - MarkingPanel._getAlpha from utility-panel.js line 472
+
+VERSION HISTORY
+1.0 - April 4, 2020
+    - Initial version
+
+1.1 - December 8, 2021
+    - Improved plugin performance. The game should lag less whenever the individual enemy range is updated. Thanks to MarkyJoe for providing this solution.
