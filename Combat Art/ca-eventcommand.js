@@ -36,7 +36,6 @@ var CombatArtEventCommand = defineObject(BaseEventCommand, {
 	
 	moveEventCommandCycle: function() {
 		if (this._noticeView.moveNoticeView() !== MoveResult.CONTINUE) {
-			this.mainEventCommand();
 			return MoveResult.END;
         }
 		
@@ -48,16 +47,6 @@ var CombatArtEventCommand = defineObject(BaseEventCommand, {
 		var y = LayoutControl.getCenterY(-1, this._noticeView.getNoticeViewHeight());
 		
 		this._noticeView.drawNoticeView(x, y);
-	},
-	
-	mainEventCommand: function() {
-        var keyword = root.getEventCommandObject().getOriginalContent().getCustomKeyword();
-        if (keyword == "Add") {
-            CombatArtEvent.addCombatArt(this._combatArt, this._unit);
-        }
-        else if (keyword == "Remove") {
-            CombatArtEvent.removeCombatArt(this._combatArt, this._unit);
-        }        
 	},
 	
 	getEventCommandName: function() {
@@ -81,7 +70,16 @@ var CombatArtEventCommand = defineObject(BaseEventCommand, {
             throwError047();
         }
 
-        this._combatArt = root.getBaseData().getOriginalDataList(CombatArtSettings.TAB_COMBATART).getDataFromId(id);
+        var combatArt = root.getBaseData().getOriginalDataList(CombatArtSettings.TAB_COMBATART).getDataFromId(id);
+        this._combatArt = combatArt;
+
+        var keyword = root.getEventCommandObject().getOriginalContent().getCustomKeyword();
+        if (keyword == "Add") {
+            CombatArtEvent.addCombatArt(combatArt, this._unit);
+        }
+        else if (keyword == "Remove") {
+            CombatArtEvent.removeCombatArt(combatArt, this._unit);
+        }
     }
 
 })
