@@ -1,7 +1,7 @@
 Combat Arts
 By Goinza
-Version 3.1
-December 3, 2021
+Version 3.2
+March 14, 2022
 
 INTRODUCTION
 This plugin allows you to use Combat Arts, which are special actions or attacks that have additional cost, either with life, weapon uses or the new (and optional) stamina stat.
@@ -125,7 +125,7 @@ VERSION HISTORY
 2.1 - April 17, 2020
     - Changed the event command to allow the use of variables instead. Now you have two options:
         Use the ID directly or use the value stored in a variable.
-    - Changed the name of the event commadn from "CombatArtEventCommand" to "CombatArt".
+    - Changed the name of the event command from "CombatArtEventCommand" to "CombatArt".
     - Fixed a graphical bug where the bonus from a combat art attack would not display properly during the animations of a battle.
 
 2.2 - May 9, 2020
@@ -149,3 +149,7 @@ VERSION HISTORY
     - Fixed visual bug where part of a window would be outside of the screen during the combat arts selection.
     - Fixed an error that would crash the game when a combat art attack had more than one possible target.
     - Event commands for assigning and removing combat arts now work correctly. Thanks to Repeat for finding and fixing the bug.
+    
+3.2 - March 14, 2022
+    - Fixed a bug in the event command "CombatArt" where the unit wouldn't learn the combat art if the event was skipped.
+        Thanks to Repeat for finding and fixing this bug.
