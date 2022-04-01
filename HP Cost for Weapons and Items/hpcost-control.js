@@ -19,6 +19,9 @@ var HPCostControl = {
     getTimesPayCost: function (unit, item) {
         var lifeCost = item.custom.lifeCost;
         var maxUseCount = Math.floor(unit.getHp() / lifeCost);
+        if (unit.getHp() === lifeCost) {
+            maxUseCount = 0;
+        }
 
         return maxUseCount;
     },
@@ -34,7 +37,7 @@ var HPCostControl = {
         if (this.hasCost(item)) {
             var currentHP = unit.getHp();
             var lifeCost = item.custom.lifeCost;
-            unit.setHp(currentHp - lifeCost);
+            unit.setHp(currentHP - lifeCost);
         }
     }
 

@@ -227,19 +227,18 @@
     var alias9 = UnitRangePanel.getUnitAttackRange;
     UnitRangePanel.getUnitAttackRange = function(unit) {
         var obj = alias9.call(this, unit);
-        if (unit.getUnitType() != UnitType.PLAYER) {
-            var spells = MagicAttackControl.getAttackSpells(unit);
-            var weapon;
-            for (var i=0; i<spells.length; i++) {
-                weapon = spells[i];
-                rangeMetrics = this._getRangeMetricsFromItem(unit, weapon);
-                if (rangeMetrics != null) {
-                    if (rangeMetrics.startRange < obj.startRange) {
-                        obj.startRange = rangeMetrics.startRange;
-                    }
-                    if (rangeMetrics.endRange > obj.endRange) {
-                        obj.endRange = rangeMetrics.endRange;
-                    }
+
+        var spells = MagicAttackControl.getAttackSpells(unit);
+        var weapon;
+        for (var i=0; i<spells.length; i++) {
+            weapon = spells[i];
+            rangeMetrics = this._getRangeMetricsFromItem(unit, weapon);
+            if (rangeMetrics != null) {
+                if (rangeMetrics.startRange < obj.startRange) {
+                    obj.startRange = rangeMetrics.startRange;
+                }
+                if (rangeMetrics.endRange > obj.endRange) {
+                    obj.endRange = rangeMetrics.endRange;
                 }
             }
         }

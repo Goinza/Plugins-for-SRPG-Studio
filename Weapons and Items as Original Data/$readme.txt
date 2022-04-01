@@ -1,7 +1,7 @@
 Weapons and Items as Original Data
 By Goinza
-Version 2.1
-May 26, 2020
+Version 2.2
+March 31, 2022
 
 This plugin allows the creation of Original Data entries that act as weapons or items.
 This means that you can, for example, make a magic system where the magic is not in the inventory, but instead it is from Original Data entries.
@@ -14,11 +14,17 @@ To make this system work, you need to do the following for each spell/weapon/ite
     -Change the value in Value 1 to set the level requirement. If you leave it at zero, there is no level requirement.
     -You can also add the following requirements in the Multiple Data window: units and classes. If a unit that gains a level meets at least one of the requirements,
         on top of already meeting the level requirement, then it will be able to use that weapon or item.
+    -Original data needs to have keyword "Spell"
 
 IMPORTANT: To make this work, you need to create a Execute Script event of the type Execute Code and write the next line of code:
     MagicAttackControl.setSpellsAllUnits();
 KNOWN ISSUE: This system doesn't work on guest units. However, it does work for event guest units.
 IF YOU USE GUEST UNITS THAT ARE NOT CREATED THROUGH EVENTS THE GAME WILL CRASH
+
+GAME CRASH POTENTIAL: In Database > Config, make sure "Skip weapon select menu when only have 1 weapon" is NOT checked. This option does not consider Weapon and Items as Original Data.
+    The problems:
+	- If you have 1 normal weapon, the game will incorrectly ignore any Original Data weapons and skip the weapon select menu.
+	- If you have no normal weapons but do have Original Data weapons, the game will crash when trying to show the weapon select menu.
 
 CONFIGURE SETTINGS
 You can change some options of this plugin by opening the _config.js file with a text editor like Notepad.
@@ -36,6 +42,16 @@ EVENT COMMAND TO ADD NEW WEAPONS OR ITEMS TO AN UNIT
 You can create a Execute Script event with the type "Call Event Command". To make this work, you need to set the Object Name to "AddSpell".
 Finally, you need to specifiy in the Original Data tab the unit that will receive the new weapon/item,
 and also change the Value 1 to the ID of the Original Data that will be added to the unit.
+
+CREATE ITEM THAT GRANTS THE USER A SPELL
+You can create an item that will teach a unit a specific spell if the unit has the ability to use any magic type.
+    - Create an item of type Custom with the keyword "SpellItem".
+    - Add custom parameters to define the weapon or item to give to the user and the prerequisites to use the teaching item. 
+      teachSpell: the ID of the weapon or item to teach in Original Data.
+      reqCategory*: the weapon category the user must be able to use at least one of in order to use the item (0: weapons, 1: bows, 2: magic)
+      staffReq*: true or false, are staff users also allowed to use this item?
+      *Optional parameters. If you leave off both optional parameters, then there is no prerequisite and any unit can use the item.
+      Example: {teachSpell:2, reqCategory:1, staffReq:true} allows units who can use bows to learn the spell with ID 2. Staff users are also eligible.
 
 BALLISTA
 You can also make a unit use a specific weapon in a specific tile, like for example a ballista that is fixed in a tile and can be used by archers.

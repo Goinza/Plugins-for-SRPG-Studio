@@ -29,3 +29,9 @@ function throwError051(originalData) {
     root.msg(message);
     root.endGame();
 }
+
+function throwError052 () {
+    var message = "Error 52." + '\n' + "Please disable the following config option in Database -> Config:" + '\n' + '\"Skip weapon select menu when only have 1 weapon\"';
+    root.msg(message);
+    root.endGame();
+}

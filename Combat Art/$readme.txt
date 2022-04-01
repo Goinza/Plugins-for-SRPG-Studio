@@ -101,6 +101,17 @@ If you want to assign (or remove) a combat art to an unit during an event, you n
             -"Add": This will add the combat art to the unit.
             -"Remove": This will remove the combat art from the unit.
 
+CREATE AN ITEM THAT TEACHES THE USER A COMBAT ART
+You can create consumable items that, when used, will teach the unit a specific combat art. 
+You can also define the prerequisite weapon category for the combat art, for example a bow art that a mage shouldn't be able to learn.
+    - Create an item of type Custom with the keyword "CAItem".
+    - Add custom parameters to define the combat art to teach and the weapon category prerequisite for the art. 
+      teachArt: the ID of the art to teach in Original Data.
+      reqCategory*: the weapon category the user must be able to use at least one of in order to use the item (0: weapons, 1: bows, 2: magic)
+      staffReq*: true or false, are staff users also allowed to learn this combat art?
+      *Optional parameters. If you leave off both optional parameters, then there is no prerequisite and any unit can learn the art.
+      Example: {teachArt:8, reqCategory:2, staffReq:true} allows units who can use a magic type to learn the combat art with ID 8. Staff users are also eligible.
+
 PLUGIN CUSTOMIZATION
 There are some elements of this plugin that can be modified. For example, you can modify the name of the combat arts unit command.
 To do this, you need to open the file config.js, you can use any text editor like Notepad.
