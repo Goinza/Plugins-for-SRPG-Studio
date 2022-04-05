@@ -162,5 +162,9 @@ VERSION HISTORY
     - Event commands for assigning and removing combat arts now work correctly. Thanks to Repeat for finding and fixing the bug.
     
 3.2 - March 14, 2022
+    - Update made by Repeat
     - Fixed a bug in the event command "CombatArt" where the unit wouldn't learn the combat art if the event was skipped.
-        Thanks to Repeat for finding and fixing this bug.
+
+3.3 - April 5, 2022
+    - Update made by Repeat
+    - Added a new type of custom item that, when used, teaches a unit a combat art
