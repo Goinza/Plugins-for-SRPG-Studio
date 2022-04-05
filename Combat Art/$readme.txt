@@ -1,7 +1,7 @@
 Combat Arts
 By Goinza
-Version 3.2
-March 14, 2022
+Version 3.3
+April 5, 2022
 
 INTRODUCTION
 This plugin allows you to use Combat Arts, which are special actions or attacks that have additional cost, either with life, weapon uses or the new (and optional) stamina stat.
