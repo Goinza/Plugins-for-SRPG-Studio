@@ -87,6 +87,11 @@ var MagicAttackControl = {
 
     setSpellsAllUnits: function() {
         var groupArray = [];
+
+        if (DataConfig.isWeaponSelectSkippable()) {
+            throwError052();
+        }
+
         groupArray.push(PlayerList.getAliveList());
         groupArray.push(EnemyList.getAliveList());
         groupArray.push(AllyList.getAliveList());
@@ -158,7 +163,6 @@ var MagicAttackControl = {
             item = originalData.getOriginalContent().getItem();
             this._addOriginalData(unit, originalData);
             this._addItem(unit, item);
-            this._notifyEvent(unit, item);
         }      
     },
 
@@ -279,14 +283,5 @@ var MagicAttackControl = {
         else {
             unit.custom.spellsSupport.push(copyItem);
         }
-    },
-
-    _notifyEvent: function(unit, item) {
-        var dynamicEvent = createObject(DynamicEvent);
-        var generator = dynamicEvent.acquireEventGenerator();
-        var message = "Learnt " + item.getName();
-        generator.stillMessageUnit(message, unit);
-        dynamicEvent.executeDynamicEvent();
     }
-    
 }
