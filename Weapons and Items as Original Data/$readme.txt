@@ -90,3 +90,9 @@ VERSION HISTORY
 2.1 - May 26, 2020
     - Fixed an issue that would crash the game when loading a save file mid-chapter.
         Keep in mind that this update doesn't work on save files made before the update.
+	
+2.2 - April 5, 2022
+    - Update made by Repeat
+    - Added a new type of custom item that, when used, teaches a unit a spell.
+    - Added an error message to let the player know about a bug when the option "Skip weapon select menu when only have 1 weapon" is selected.
+    - Added missing information to the readme file.
