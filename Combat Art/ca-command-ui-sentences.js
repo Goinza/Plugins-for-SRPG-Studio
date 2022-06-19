@@ -30,13 +30,17 @@ var SupportSentence = {};
 SupportSentence.Cost = defineObject(BaseSkillSentence, {
 
     drawSkillSentence: function(x, y, combatArt) {
-        var dx = ItemInfoRenderer.getSpaceX();
-        var dy = ItemInfoRenderer.getSpaceY();
-        var text = "Cost";
-        var obj = CombatArtCost.getCostObject(combatArt);
-        ItemInfoRenderer.drawKeyword(x, y, obj.costType);
+	var obj = CombatArtCost.getCostObject(combatArt);
+	if (obj.cost > 0) {
+		var dx = ItemInfoRenderer.getSpaceX();
+		var dy = ItemInfoRenderer.getSpaceY();
+		var text = "Cost";
+		var obj = CombatArtCost.getCostObject(combatArt);
+		ItemInfoRenderer.drawKeyword(x, y, obj.costType);
 		ItemInfoRenderer.drawKeyword(x, y + dy, text);
-		NumberRenderer.drawRightNumber(x + dx, y + dy, obj.cost);
+		NumberRenderer.drawRightNumber(x + dx, y + dy, obj.cost);	
+	}
+        
     },
     
     getSkillSentenceCount: function(combatArt) {
