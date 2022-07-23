@@ -35,7 +35,7 @@ var TopCustomInteraction = defineObject(CustomInteraction, {
 
     initialize: function() {
 		this._scrollbar = createScrollbarObject(this.getScrollbarObject(), this);
-        this._scrollbar.setScrollFormation(1, DefineControl.getVisibleUnitItemCount()-1);
+        this._scrollbar.setScrollFormation(1, DefineControl.getVisibleUnitItemCount());
         if (this.getWindowObject()!=null) {
             this._window = createWindowObject(this.getWindowObject(), this);
         }        
