@@ -157,7 +157,7 @@ var SelectedCombatArtInfoWindow = defineObject(BaseWindow, {
         var font = textui.getFont();
         var text = this._combatArt.getDescription();
         var width = ItemRenderer.getItemWidth();
-        var height = Math.ceil(TextRenderer.getTextWidth(text, font) / width) * ItemInfoRenderer.getSpaceY();
+        var height = Math.ceil(TextRenderer.getTextWidth(text, font) / width) * TextRenderer.getTextHeight(text, font);
         var range = createRangeObject(x, y, width, height);
         
         TextRenderer.drawRangeText(range, TextFormat.LEFT, text, -1, color, font);
