@@ -9,6 +9,9 @@ var CombatArtWeaponSelectMenu = defineObject(WeaponSelectMenu, {
     },
 
     _isWeaponAllowed: function(unit, item) {
+        if (!item.isWeapon()) {
+            return false;
+        }
 		var indexArray = CombatArtRange.getCombatArtAttackIndexArray(unit, item, this._combatArt);
 		var allowedWeapons = CombatArtValidator.getValidWeaponsArray(unit, this._combatArt);
 
