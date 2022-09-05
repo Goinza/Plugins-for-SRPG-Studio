@@ -3,7 +3,7 @@
 var MagicAttackControl = {
 
     clear: function() {
-        var list = PlayerList.getAliveList();
+        var list = PlayerList.getAliveDefaultList();
         for (var i=0; i<list.getCount(); i++) {
             unit = list.getData(i);
             unit.custom.equipped = null;
@@ -12,9 +12,9 @@ var MagicAttackControl = {
     
     serialize: function() {
         var groupArray = [];
-        groupArray.push(PlayerList.getAliveList());
-        groupArray.push(EnemyList.getAliveList());
-        groupArray.push(AllyList.getAliveList());
+        groupArray.push(PlayerList.getAliveDefaultList());
+        groupArray.push(EnemyList.getAliveDefaultList());
+        groupArray.push(AllyList.getAliveDefaultList());
 
         var list, unit;
         for (var h=0; h<groupArray.length; h++) {
@@ -28,9 +28,9 @@ var MagicAttackControl = {
 
     deserialize: function() {
         var groupArray = [];
-        groupArray.push(PlayerList.getAliveList());
-        groupArray.push(EnemyList.getAliveList());
-        groupArray.push(AllyList.getAliveList());
+        groupArray.push(PlayerList.getAliveDefaultList());
+        groupArray.push(EnemyList.getAliveDefaultList());
+        groupArray.push(AllyList.getAliveDefaultList());
         var list, unit;
         for (var h=0; h<groupArray.length; h++) {
             list = groupArray[h];
@@ -92,9 +92,9 @@ var MagicAttackControl = {
             throwError052();
         }
 
-        groupArray.push(PlayerList.getAliveList());
-        groupArray.push(EnemyList.getAliveList());
-        groupArray.push(AllyList.getAliveList());
+        groupArray.push(PlayerList.getAliveDefaultList());
+        groupArray.push(EnemyList.getAliveDefaultList());
+        groupArray.push(AllyList.getAliveDefaultList());
 
         var list, unit;
         for (var h=0; h<groupArray.length; h++) {
@@ -107,7 +107,7 @@ var MagicAttackControl = {
     },
 
     setSpellsPlayerUnits: function() {
-        var list = PlayerList.getAliveList();
+        var list = PlayerList.getAliveDefaultList();
         for (var i=0; i<list.getCount(); i++) {
             unit = list.getData(i);
             this.setSpells(unit);

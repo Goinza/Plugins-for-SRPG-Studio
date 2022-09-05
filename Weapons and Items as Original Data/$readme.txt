@@ -1,7 +1,7 @@
 Weapons and Items as Original Data
 By Goinza
-Version 2.2
-March 31, 2022
+Version 2.3
+September 4, 2022
 
 This plugin allows the creation of Original Data entries that act as weapons or items.
 This means that you can, for example, make a magic system where the magic is not in the inventory, but instead it is from Original Data entries.
@@ -96,3 +96,6 @@ VERSION HISTORY
     - Added a new type of custom item that, when used, teaches a unit a spell.
     - Added an error message to let the player know about a bug when the option "Skip weapon select menu when only have 1 weapon" is selected.
     - Added missing information to the readme file.
+
+2.3 - September 4, 2022
+    - Fixed an issue where loading a save with a rescued/captured unit could crash the game.
