@@ -60,7 +60,7 @@ var NewStat = defineObject(BaseUnitParameter, {
 
     getDopingParameter: function(obj) {
         var value = 0; //Default value
-        if (obj.custom.newStatDoping != null) {
+        if (obj.custom != null && obj.custom.newStatDoping != null) {
             value = obj.custom.newStatDoping;
         }
 
