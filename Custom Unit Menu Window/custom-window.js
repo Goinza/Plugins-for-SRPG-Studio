@@ -56,7 +56,7 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
 	
 	drawWindowContent: function(x, y) {
         var width = ItemRenderer.getItemWidth();
-        var height = 140 + Options.SECTION_DISTANCE;
+        var height = (DefineControl.getVisibleUnitItemCount() + 1) * ItemRenderer.getItemHeight() + Options.SECTION_DISTANCE;
 
         this._drawTopLeft(x, y);
         this._drawTopRight(x + width, y);

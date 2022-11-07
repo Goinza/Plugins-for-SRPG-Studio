@@ -15,4 +15,11 @@
         }
     }    
 
+    var alias2 = DefineControl.getUnitMenuBottomWindowHeight;
+    DefineControl.getUnitMenuBottomWindowHeight = function() {
+        var height = alias2.call(this);
+        height += ItemRenderer.getItemHeight();
+        return height;
+    }
+
 })()
