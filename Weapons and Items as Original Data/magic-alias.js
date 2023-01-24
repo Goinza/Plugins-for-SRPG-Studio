@@ -83,6 +83,9 @@
 
     var alias4 = ItemControl.getEquippedWeapon;
     ItemControl.getEquippedWeapon = function(unit) {
+	if (unit == null) {
+		return null;
+	}
         return unit.custom.equipped!=null ? unit.custom.equipped : alias4.call(this, unit);
     }
 
