@@ -13,7 +13,7 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
     _topRightInteraction: null,
     _bottomLeftInteraction: null,
     _bottomRightInteraction: null,
-    _unitMenuHelp: -1,
+    _unitMenuHelp: 0,
     _index: 0,
 
     setUnitMenuData: function() {
@@ -36,6 +36,35 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
         this._bottomLeftInteraction.moveInteraction();
         this._bottomRightInteraction.moveInteraction();
 
+        if (this._topLeftInteraction.isTracingHelp() && this._unitMenuHelp != CustomHelpMode.TOPLEFT && !this._topRightInteraction.isTracingHelp()) {
+            this._unitMenuHelp = CustomHelpMode.TOPLEFT;
+            this._topRightInteraction.cancelInteraction();
+            this._bottomLeftInteraction.cancelInteraction();
+            this._bottomRightInteraction.cancelInteraction();
+            this.setHelpMode();
+        }
+        else if (this._topRightInteraction.isTracingHelp() && this._unitMenuHelp != CustomHelpMode.TOPRIGHT && !this._topLeftInteraction.isTracingHelp()) {
+            this._unitMenuHelp = CustomHelpMode.TOPRIGHT;
+            this._topLeftInteraction.cancelInteraction();
+            this._bottomLeftInteraction.cancelInteraction();
+            this._bottomRightInteraction.cancelInteraction();
+            this.setHelpMode();            
+        }
+        else if (this._bottomLeftInteraction.isTracingHelp() && this._unitMenuHelp != CustomHelpMode.BOTTOMLEFT) {
+            this._unitMenuHelp = CustomHelpMode.BOTTOMLEFT;
+            this._topLeftInteraction.cancelInteraction();
+            this._topRightInteraction.cancelInteraction();
+            this._bottomRightInteraction.cancelInteraction();
+            this.setHelpMode();
+        }
+        else if (this._bottomRightInteraction.isTracingHelp() && this._unitMenuHelp != CustomHelpMode.BOTTOMRIGHT) {
+            this._unitMenuHelp = CustomHelpMode.BOTTOMRIGHT;
+            this._topLeftInteraction.cancelInteraction();
+            this._topRightInteraction.cancelInteraction();
+            this._bottomLeftInteraction.cancelInteraction();
+            this.setHelpMode();
+        }   
+
         if (this.isHelpMode()) {
             if (this._unitMenuHelp == CustomHelpMode.TOPLEFT) {
                 this._moveTopLeft();
@@ -48,6 +77,9 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
             }
             else if (this._unitMenuHelp == CustomHelpMode.BOTTOMRIGHT) {
                 this._moveBottomRight();
+            }
+            else {
+                root.log("Hola");
             }
 		}       
 
@@ -66,27 +98,29 @@ var CustomBottomUnitWindow = defineObject(BaseMenuBottomWindow, {
 	},
 	
 	setHelpMode: function() {
-        if (this._topLeftInteraction.setHelpMode()) {
-            this._unitMenuHelp = CustomHelpMode.TOPLEFT;
-            return true;
+        var isHelp = false;
+        switch (this._unitMenuHelp) {
+            case CustomHelpMode.TOPLEFT:
+                this._topLeftInteraction.setHelpMode();
+                isHelp = true;
+                break;
+            case CustomHelpMode.TOPRIGHT:
+                this._topRightInteraction.setHelpMode();
+                isHelp = true;
+                break;
+            case CustomHelpMode.BOTTOMLEFT:
+                this._bottomLeftInteraction.setHelpMode();
+                isHelp = true;
+                break;
+            case CustomHelpMode.BOTTOMRIGHT:
+                this._bottomRightInteraction.setHelpMode();
+                isHelp = true;
+                break;        
         }
-
-        if (this._topRightInteraction.setHelpMode()) {
-            this._unitMenuHelp = CustomHelpMode.TOPRIGHT;
-            return true;
+        if (isHelp) {
+            this.getParentInstance().changeCycleMode(UnitMenuMode.HELP);
         }
-
-        if (this._bottomLeftInteraction.setHelpMode()) {
-            this._unitMenuHelp = CustomHelpMode.BOTTOMLEFT;
-            return true;
-        }
-        
-        if (this._bottomRightInteraction.setHelpMode()) {
-            this._unitMenuHelp = CustomHelpMode.BOTTOMRIGHT;
-            return true;
-        }
-
-        return false;
+        return isHelp;
 	},
 	
 	isHelpMode: function() {
