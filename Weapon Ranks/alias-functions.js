@@ -422,5 +422,13 @@
 		alias11.call(this, groupArray);
 		groupArray.appendWindowObject(WeaponRanksWindow, this);
 	}
+
+    var alias13 = DopingItemControl.isItemAllowed;
+    DopingItemControl.isItemAllowed = function(targetUnit, item) {
+        if (item.custom.rankUp != null || item.custom.rankNew != null) {
+            return true;
+        }
+        return alias13.call(this, targetUnit, item);
+    }
 	
 }) ()
