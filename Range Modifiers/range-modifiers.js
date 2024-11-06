@@ -230,15 +230,19 @@ var extrng03 = BaseCombinationCollector._setUnitRangeCombination;
 BaseCombinationCollector._setUnitRangeCombination = function(misc, filter, rangeMetrics) {
     var unit = misc.unit;
     var item = misc.item;
+    var extendedRange;
 
 	if (item!=null) {
 		if (item.isWeapon()) {        
-			var extendedRange = RangeControl.getExtendedWeaponRange(unit, item);
+			extendedRange = RangeControl.getExtendedWeaponRange(unit, item);
 			rangeMetrics.startRange += extendedRange.start;
 			rangeMetrics.endRange += extendedRange.end;
 		}
 		else {
+            extendedRange = RangeControl.getExtendedItemRange(unit, item);
 			rangeMetrics.endRange = RangeControl.getMagicRange(unit, item);
+            rangeMetrics.startRange += extendedRange.start;
+            rangeMetrics.endRange += extendedRange.end;
 		}
 	}    
 
