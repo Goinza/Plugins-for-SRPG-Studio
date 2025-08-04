@@ -129,6 +129,7 @@ var InfirmaryMarshalCommand = defineObject(MarshalBaseCommand, {
                 this._reviveItemCount--
                 this._setSelectableArray()
                 this._reviveItemWindow.updateWindow()
+                MediaControl.soundDirect(InjurySettings.INFIRMARY_CONFIRM_SOUND)
             }
             this._unitSelectWindow.setActive(true)
             this.changeCycleMode(MarshalBaseMode.UNITSELECT)

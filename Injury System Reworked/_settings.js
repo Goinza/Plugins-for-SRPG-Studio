@@ -5,5 +5,7 @@ var InjurySettings = {
     REVIVE_ITEM_ID: 5, //ID of the revive item
     INFIRMARY_SCREEN_NAME: "Infirmary",
     INFIRMARY_SCREEN_DESCRIPTION: "Heal injured units",
-    INFIRMARY_SCREEN_QUESTION: "Do you want to heal this unit?"
+    INFIRMARY_SCREEN_QUESTION: "Do you want to heal this unit?",
+    INFIRMARY_CONFIRM_SOUND: "itemuse" //Internal name of sound located in Resource Location->Media
+                                       //Sound effect played when healing an injured unit 
 }

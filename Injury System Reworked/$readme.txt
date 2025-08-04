@@ -1,5 +1,8 @@
-Injury System Rework
+Injury System Reworked
 by Goinza
+Commissioned by Sinthaster
+Version 1.1
+August 4, 2025
 
 The injury system refers to the mechanic present in SRPG Studio where the game difficulty has the option "Allow Injury" activated.
 This means that when player units are defeated in combat, they are not permanently killed. Instead, they come back in the next chapter.
@@ -32,3 +35,11 @@ SETTINGS FILE
 There is a file called _settings.js. This file contains all the options that can be modified.
 This includes the color of units' name that are injured (used in the Units screen), the ID of the healing item,
 and other data for the new window in the Manage screen (name, description, and text for the confirmation window)
+
+VERSION HISTORY
+1.0 - August 3, 2025
+    - Initial version
+
+1.1 - August 4, 2025
+    - Added sound effect when healing an injured unit
+    - The default sound effect is "itemuse". A different one can be selected in _settings.js
