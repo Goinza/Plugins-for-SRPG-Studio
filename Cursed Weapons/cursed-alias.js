@@ -18,6 +18,15 @@
         }
     }
 
+    var alias12 = UnitCommand.Attack.moveCommand;
+    UnitCommand.Attack.moveCommand = function() {
+        var result = alias12.call(this)
+        if (result == MoveResult.END && this._isWeaponSelectDisabled) {
+            this.rebuildCommand()
+        }        
+        return result
+    }
+
     var alias02 = ItemSelectMenu.isWorkAllowed 
     ItemSelectMenu.isWorkAllowed = function(index) {
         var result = alias02.call(this, index)
