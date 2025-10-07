@@ -27,7 +27,7 @@ var TopStateInteraction = defineObject(TopCustomInteraction, {
 var BottomStateInteraction = defineObject(BottomCustomInteraction, {
 
     getTitle: function() {
-        return 'States';
+        return STATES_TITLE;
     },
 
     getScrollbarObject: function() {

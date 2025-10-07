@@ -56,6 +56,16 @@ var CombatArtControl = {
             validWeapons = CombatArtValidator.getValidWeaponsArray(unit, combatArt);
             meetsReq = validWeapons.length > 0;
         }
+
+        if (typeof CurseControl !== 'undefined' && meetsReq && CurseControl.hasCursedWeaponEquipped(unit)) {
+            var i = 0
+            meetsReq = false
+            while (!meetsReq && i<validWeapons.length) {
+                meetsReq = CurseControl.isCursedAndEquipped(unit, validWeapons[i])
+                i++
+            }
+        }
+
         return meetsReq;
     },
 

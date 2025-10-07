@@ -12,6 +12,9 @@ var CombatArtWeaponSelectMenu = defineObject(WeaponSelectMenu, {
         if (!item.isWeapon()) {
             return false;
         }
+        if (typeof CurseControl !== 'undefined' && CurseControl.hasCursedWeaponEquipped(unit)) {
+            return CurseControl.isCursedAndEquipped(unit, item)
+        }
 		var indexArray = CombatArtRange.getCombatArtAttackIndexArray(unit, item, this._combatArt);
 		var allowedWeapons = CombatArtValidator.getValidWeaponsArray(unit, this._combatArt);
 

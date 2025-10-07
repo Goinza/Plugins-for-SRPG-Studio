@@ -28,7 +28,7 @@ var SkillGranter = {
                 if (unitLevel >= skillLevel) {
                     currentSkill = listSkills.getDataFromId(skillId);
                     if (!SkillChecker._isSkillLearned(unit, currentSkill)) {
-                        generator.skillChange(unit, currentSkill, IncreaseType.INCREASE, false);
+                        generator.skillChange(unit, currentSkill, IncreaseType.INCREASE, true);
                         if (typeof MagicAttackControl != 'undefined') {                            
                             this.checkSpellSkill(unit, currentSkill);
                         }

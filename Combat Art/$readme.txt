@@ -1,7 +1,7 @@
 Combat Arts
 By Goinza
-Version 3.3
-April 5, 2022
+Version 3.4
+October 2, 2025
 
 INTRODUCTION
 This plugin allows you to use Combat Arts, which are special actions or attacks that have additional cost, either with life, weapon uses or the new (and optional) stamina stat.
@@ -168,3 +168,6 @@ VERSION HISTORY
 3.3 - April 5, 2022
     - Update made by Repeat
     - Added a new type of custom item that, when used, teaches a unit a combat art
+
+3.4 - October 2, 2025
+    - Added compatibility with Cursed Weapons plugin
