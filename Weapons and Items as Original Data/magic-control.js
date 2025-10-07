@@ -166,6 +166,20 @@ var MagicAttackControl = {
         }      
     },
 
+    removeSpell: function(unit, originalData) {
+        if (typeof unit.custom.spellsAttack == 'undefined' || typeof unit.custom.spellsSupport == 'undefined') {
+            throwError026();
+        }
+        if (originalData.getOriginalContent().getCustomKeyword()!="Spell") {
+            throwError051(originalData);
+        }
+        if (this.hasSpell(unit, originalData)) {
+            item = originalData.getOriginalContent().getItem();
+            this._removeOriginalData(unit, originalData);
+            this._removeItem(unit, item);
+        }
+    },
+
     getWeaponFromUnit: function(unit, weapon) {
         var unitWeapon = null;
         var spells = this.getAttackSpells(unit);
@@ -282,6 +296,33 @@ var MagicAttackControl = {
         }
         else {
             unit.custom.spellsSupport.push(copyItem);
+        }
+    },
+
+    _removeOriginalData: function(unit, originalData) {
+        var magicData  = unit.custom.spells;
+        var found = false;
+        var i = 0;
+
+        while (i<magicData.length && !found) {
+            if (magicData[i] == originalData.getId()) {
+                found = true;
+                magicData.splice(i, 1);
+            }
+            i++;
+        }
+    },
+
+    _removeItem: function(unit, item) {
+        var spells = item.isWeapon() ? unit.custom.spellsAttack : unit.custom.spellsSupport;
+        var found = false;
+        var i = 0;
+        while (i<spells.length && !found) {
+            if (spells[i].getId() == item.getId()) {
+                found = true;
+                spells.splice(i, 1);
+            }
+            i++;
         }
     }
 }
