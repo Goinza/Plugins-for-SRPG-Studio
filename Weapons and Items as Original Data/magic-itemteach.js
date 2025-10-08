@@ -160,7 +160,7 @@ var SpellItemUse = defineObject(BaseItemUse, {
 
         this._setSpell();
 
-        this._noticeView = createObject(SpellNoticeView);
+        this._noticeView = createObject(AddSpellNoticeView);
         this._noticeView.setViewText(this._unit, this._spell);
 
         return EnterResult.OK;

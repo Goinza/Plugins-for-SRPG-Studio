@@ -5,7 +5,8 @@
     var alias1 = ScriptExecuteEventCommand._configureOriginalEventCommand;
     ScriptExecuteEventCommand._configureOriginalEventCommand = function(groupArray) {
         alias1.call(this, groupArray);
-        groupArray.appendObject(MagicEventCommand);
+        groupArray.appendObject(MagicAddSpellEventCommand);
+        groupArray.appendObject(MagicRemoveSpellEventCommand);
     }
 
 })()
@@ -15,7 +16,7 @@ var MagicEventMode = {
     END: 1
 }
 
-var MagicEventCommand = defineObject(BaseEventCommand, {
+var MagicAddSpellEventCommand = defineObject(BaseEventCommand, {
 
     _unit: null,
     _spell: null,
@@ -27,7 +28,7 @@ var MagicEventCommand = defineObject(BaseEventCommand, {
         this._unit = originalContent.getUnit();
         this._spell = root.getBaseData().getOriginalDataList(SpellsConfig.ORIGINAL_DATA_TAB).getDataFromId(originalContent.getValue(0));
         
-        this._noticeView = createWindowObject(SpellNoticeView, this);
+        this._noticeView = createWindowObject(AddSpellNoticeView, this);
         this._noticeView.setViewText(this._unit, this._spell);
 
         this.changeCycleMode(MagicEventMode.WINDOW);
@@ -76,7 +77,7 @@ var MagicEventCommand = defineObject(BaseEventCommand, {
 
 })
 
-var SpellNoticeView = defineObject(BaseNoticeView, {
+var AddSpellNoticeView = defineObject(BaseNoticeView, {
 
     _unit: null,
     _spell: null,
@@ -87,7 +88,7 @@ var SpellNoticeView = defineObject(BaseNoticeView, {
         this._unit = unit;
         this._spell = originalData;
         var spellName = originalData.getOriginalContent().getItem().getName();
-        this._text = unit.getName() + " learnt " + spellName;
+        this._text = unit.getName() + " learned " + spellName;
         this._icon = originalData.getOriginalContent().getItem().getIconResourceHandle();
     },
 
@@ -102,3 +103,83 @@ var SpellNoticeView = defineObject(BaseNoticeView, {
     }
 
 })
+
+var MagicRemoveSpellEventCommand = defineObject(BaseEventCommand, {
+
+    _unit: null,
+    _spell: null,
+    _noticeView: null,
+    _mode: null,
+    enterEventCommandCycle: function() {
+        var originalContent = root.getEventCommandObject().getOriginalContent();
+        this._unit = originalContent.getUnit();
+        this._spell = root.getBaseData().getOriginalDataList(SpellsConfig.ORIGINAL_DATA_TAB).getDataFromId(originalContent.getValue(0));
+        this._noticeView = createWindowObject(RemoveSpellNoticeView, this);
+        this._noticeView.setViewText(this._unit, this._spell);
+        this.changeCycleMode(MagicEventMode.WINDOW);
+        return EnterResult.OK;
+    },
+
+    moveEventCommandCycle: function() {
+        var mode = this.getCycleMode();
+        var result = MoveResult.CONTINUE;
+        if (mode==MagicEventMode.WINDOW) {
+            if (this._noticeView.moveNoticeView()!=MoveResult.CONTINUE) {
+                this.mainEventCommand();   
+                this.changeCycleMode(1);
+                result = MoveResult.END;
+            }
+        }
+        else if (mode==MagicEventMode.END) {
+            result = MoveResult.END;
+        }
+        return result;
+    },
+
+    drawEventCommandCycle: function() {
+        if (this.getCycleMode()==MagicEventMode.WINDOW) {
+            var x = LayoutControl.getCenterX(-1, this._noticeView.getNoticeViewWidth());
+            var y = LayoutControl.getCenterY(-1, this._noticeView.getNoticeViewHeight());
+            this._noticeView.drawNoticeView(x, y);
+        }
+    },
+
+    mainEventCommand: function() {
+        MagicAttackControl.removeSpell(this._unit, this._spell);
+    }, 
+    getEventCommandName: function() {
+        return "RemoveSpell";
+    },
+
+    isEventCommandSkipAllowed: function() {
+        return false;
+    }  
+});
+
+var RemoveSpellNoticeView = defineObject(BaseNoticeView, {
+    _unit: null,
+    _spell: null,
+    _text: null,
+    _icon: null,
+    setViewText: function(unit, originalData) {
+        this._unit = unit;
+        this._spell = originalData;
+        var spellName = originalData.getOriginalContent().getItem().getName();
+        this._text = unit.getName() + " forgot " + spellName;
+        this._icon = originalData.getOriginalContent().getItem().getIconResourceHandle();
+    },
+
+    drawNoticeViewContent: function(x, y) {
+        var textui = this.getTitleTextUI();
+        var color = textui.getColor();
+        var font = textui.getFont();
+        var width = TextRenderer.getTextWidth(this._text, font) + 5;
+        TextRenderer.drawKeywordText(x, y, this._text, -1, color, font);
+        GraphicsRenderer.drawImage(x + width, y, this._icon, GraphicsType.ICON);
+        if (this._icon == null) {
+            // Fallback icon if none is set
+            var handle = root.getBaseData().getWeaponTypeList(3).getDataFromId(0).getIconResourceHandle();
+            GraphicsRenderer.drawImage(x, y, handle, GraphicsType.ICON);
+        }
+    }
+});

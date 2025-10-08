@@ -1,7 +1,8 @@
 Weapons and Items as Original Data
 By Goinza
-Version 2.3
-September 4, 2022
+With contributions from Repeat and Anarch16Sync
+Version 2.4
+October 8, 2025
 
 This plugin allows the creation of Original Data entries that act as weapons or items.
 This means that you can, for example, make a magic system where the magic is not in the inventory, but instead it is from Original Data entries.
@@ -38,10 +39,12 @@ To make an unit start with some weapons or items as Original Data entries, you n
 For example: {spells: [2]} or {spells: [0, 1, 5]}.
 Each number is an ID of an Original Data entry. Keep in mind that all entries must be in the same tab, which will be specified in the _config.js file.
 
-EVENT COMMAND TO ADD NEW WEAPONS OR ITEMS TO AN UNIT
+EVENT COMMAND TO ADD/REMOVE NEW WEAPONS OR ITEMS TO AN UNIT
 You can create a Execute Script event with the type "Call Event Command". To make this work, you need to set the Object Name to "AddSpell".
 Finally, you need to specifiy in the Original Data tab the unit that will receive the new weapon/item,
 and also change the Value 1 to the ID of the Original Data that will be added to the unit.
+It is also possible to remove spells from a unit. This is done by using the "RemoveSpell" event command,
+along with the same values required by the "AddSpell" event (Unit, Value 1).
 
 CREATE ITEM THAT GRANTS THE USER A SPELL
 You can create an item that will teach a unit a specific spell if the unit has the ability to use any magic type.
@@ -99,3 +102,7 @@ VERSION HISTORY
 
 2.3 - September 4, 2022
     - Fixed an issue where loading a save with a rescued/captured unit could crash the game.
+
+2.4 - October 8, 2025
+    - Update made by Anarch16Sync
+    - Added custom event command "RemoveSpell"
