@@ -47,8 +47,24 @@ var CombatArtCost = {
     },
 
     _payWeaponCost: function(unit, cost) {
-        var weapon = ItemControl.getEquippedWeapon(unit);
-        weapon.setLimit(weapon.getLimit() - cost);        
+        var weapon = ItemControl.getEquippedWeapon(unit)
+        var newLimit = weapon.getLimit() - cost
+        if (newLimit > 0) {
+            weapon.setLimit(newLimit)
+        }
+        else {            
+            var name = weapon.getName()
+            ItemControl.lostItem(unit, weapon)
+            if (DataConfig.isWeaponLostDisplayable()) {
+                //The timing is not right. The message happens after the battle background faded
+                var dynamicEvent = createObject(DynamicEvent)
+                var generator = dynamicEvent.acquireEventGenerator()
+                generator.soundPlay(root.querySoundHandle('itemlost'), 1)
+                generator.messageTitle(name + StringTable.ItemLost, 0, 0, true)  
+                dynamicEvent.executeDynamicEvent()
+            }
+            
+        }
     },
 
     _payLifeCost: function(unit, cost) {

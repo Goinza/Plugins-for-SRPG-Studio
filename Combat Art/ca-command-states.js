@@ -142,7 +142,6 @@ CAState.AttackEffect = defineObject(CABaseState, {
 
     setup: function(parent) {
         this._parent = parent;
-        this._payCost();
         attackParam = this._createAttackParam();
         this._preAttack = createObject(PreAttack);
         if (this._preAttack.enterPreAttackCycle(attackParam) === EnterResult.NOTENTER) {
@@ -152,6 +151,7 @@ CAState.AttackEffect = defineObject(CABaseState, {
 
     moveState: function() {
         if (this._preAttack.movePreAttackCycle() !== MoveResult.CONTINUE) {
+            this._payCost()
             this._parent.changeState(CAState.AttackFinished);
         }
 
