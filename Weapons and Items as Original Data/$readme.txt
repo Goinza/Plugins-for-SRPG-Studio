@@ -65,7 +65,7 @@ To do this, you make the same process as when you make any other skill weapon, e
     -You also need to add the skill to the terrain that is assigned to the ballista tile. This is done in the Optional Skills option of the terrain.
     -You also need to make, during an Opening event, a Execute Script event command of the type Execute Code with the following line of code:
         BallistaControl.addBallista();
-    -Finally, you need to add a custom parameter to the map, so you can specifiy which tiles will be the one to use this type of attack.
+    -Finally, you need to add a custom parameter to the map, so you can specify which tiles will be the one to use this type of attack.
         For example: {ballista: [ {x:5, y:3, skill:32}, {x:0, y:7, skill:32} ]}
         This means that in the tiles (5, 3) and (0, 7) there are ballista tiles. Those units that can be use the weapon assigned to the skill with ID 32
         will be able to deal the attack.
