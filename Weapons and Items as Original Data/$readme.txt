@@ -1,8 +1,8 @@
 Weapons and Items as Original Data
 By Goinza
-With contributions from Repeat and Anarch16Sync
-Version 2.4
-October 8, 2025
+With contributions from Repeat, Anarch16Sync and MMM
+Version 2.5
+July 16, 2026
 
 This plugin allows the creation of Original Data entries that act as weapons or items.
 This means that you can, for example, make a magic system where the magic is not in the inventory, but instead it is from Original Data entries.
@@ -41,7 +41,7 @@ Each number is an ID of an Original Data entry. Keep in mind that all entries mu
 
 EVENT COMMAND TO ADD/REMOVE NEW WEAPONS OR ITEMS TO AN UNIT
 You can create a Execute Script event with the type "Call Event Command". To make this work, you need to set the Object Name to "AddSpell".
-Finally, you need to specifiy in the Original Data tab the unit that will receive the new weapon/item,
+Finally, you need to specify in the Original Data tab the unit that will receive the new weapon/item,
 and also change the Value 1 to the ID of the Original Data that will be added to the unit.
 It is also possible to remove spells from a unit. This is done by using the "RemoveSpell" event command,
 along with the same values required by the "AddSpell" event (Unit, Value 1).
@@ -61,11 +61,11 @@ You can also make a unit use a specific weapon in a specific tile, like for exam
 For this, instead of using Original Data, you will use skills.
 To do this, you make the same process as when you make any other skill weapon, except for this two differences:
     -The weapon must have the custom parameter {ballista:true} instead of using the "magic" custom parameter.
-    -The skill kewyord must be "MapAttack". The custom parameter of the skill will need to be "weapon" with the ID of the weapon to use.
+    -The skill keyword must be "MapAttack". The custom parameter of the skill will need to be "weapon" with the ID of the weapon to use.
     -You also need to add the skill to the terrain that is assigned to the ballista tile. This is done in the Optional Skills option of the terrain.
     -You also need to make, during an Opening event, a Execute Script event command of the type Execute Code with the following line of code:
         BallistaControl.addBallista();
-    -Finally, you need to add a custom parameter to the map, so you can specifiy which tiles will be the one to use this type of attack.
+    -Finally, you need to add a custom parameter to the map, so you can specify which tiles will be the one to use this type of attack.
         For example: {ballista: [ {x:5, y:3, skill:32}, {x:0, y:7, skill:32} ]}
         This means that in the tiles (5, 3) and (0, 7) there are ballista tiles. Those units that can be use the weapon assigned to the skill with ID 32
         will be able to deal the attack.
@@ -106,3 +106,9 @@ VERSION HISTORY
 2.4 - October 8, 2025
     - Update made by Anarch16Sync
     - Added custom event command "RemoveSpell"
+
+2.5 - July 16, 2026
+    - Update made by MMM
+    - Persist ballista uses when saving and loading
+    - Fix to automatically unequip ballista when animation is skipped
+    - Fixed a couple typos in the readme
