@@ -35,19 +35,14 @@
         alias3.call(this, unit, item);
     }
 
-	//Removes the equipped weapon, in order to avoid 
-    var alias4 = AttackFlow.moveEndFlow;
-    AttackFlow.moveEndFlow = function() {
-        var result = alias4.call(this);
-
-        if (result==MoveResult.END) {
-			var active = this._order.getActiveUnit();
-			if (active.custom.ballistaEquip!=null && active.custom.ballistaEquip.custom.ballista!=null) {
-				active.custom.ballistaEquip = null;
-			}
-        }
-        
-        return result;
+	//MMM edit: Remove the equipped weapon automatically after battle, avoids crashes when loading saves
+	var alias4 = PreAttack._doEndAction;
+	PreAttack._doEndAction = function() {
+		active = this.getActiveUnit();
+		if (active.custom.ballistaEquip!=null && active.custom.ballistaEquip.custom.ballista!=null) {
+			active.custom.ballistaEquip = null;
+		}
+		alias4.call(this);
 	}
 	
 	//Allows for AI units to use weapons from skills
@@ -95,6 +90,44 @@
 		}
 
         return obj;
+	}
+
+	//MMM edit: persist ballista uses when saving and loading
+	var alias7 = LoadSaveScreen._executeLoad;
+	LoadSaveScreen._executeLoad = function () {
+		alias7.call(this);
+
+		var extData = root.getExternalData();
+		var manager = root.getLoadSaveManager();
+		var saveIndex = extData.getActiveSaveFileIndex();
+		var saveFileInfo = manager.getSaveFileInfo(saveIndex);
+		var saveObject = saveFileInfo.custom;
+		if (typeof saveObject.ballistaUses !== 'undefined' && saveObject.ballistaUses !== null) {
+			BallistaControl.addBallista();
+			for (var i = 0; i < saveObject.ballistaUses.length; i++) {
+				var map = root.getCurrentSession().getCurrentMapInfo();
+				var ballista = map.custom.ballista;
+				ballista[i].weapon.setLimit(saveObject.ballistaUses[i]);
+			}
+		}
+	}
+
+	var alias8 = LoadSaveScreen._getCustomObject;
+	LoadSaveScreen._getCustomObject = function() {
+		var obj = alias8.call(this);
+
+		var map = root.getCurrentSession().getCurrentMapInfo();
+		var ballista = map.custom.ballista;
+		var ballistaUses = [];
+
+		for (var i = 0; i < ballista.length; i++) {
+			var weapon = ballista[i].weapon;
+			ballistaUses.push(weapon.getLimit());
+		}
+
+		obj.ballistaUses = ballistaUses;
+
+		return obj;
 	}
 	
 	//Override of the functions _setTemporaryWeapon and _resetTemporaryWeapon to remove any problems with spells
